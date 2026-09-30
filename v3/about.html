@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="참조은다문화 소개, 설립이념, 연혁, 조직.">
-<title>회사소개 | 참조은다문화</title>
+<meta name="description" content="참조은다문화(주) 기업소개. 설립이념, 회사 연혁, 조직도와 협력 네트워크를 안내합니다.">
+<title>기업소개 | 참조은다문화</title>
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov-dynamic-subset.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="common.css">
 </head>
 <body>
@@ -15,12 +14,17 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="index.html"><img src="logo.png" alt="참조은다문화 로고"><span>참조은다문화</span></a>
-    <nav aria-label="주요 메뉴">
-      <a href="business.html" class="is-on">사업안내</a>
+    <button class="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="siteNav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="siteNav" aria-label="주요 메뉴">
+      <a href="about.html" class="is-on">기업소개</a>
+      <a href="business.html">사업안내</a>
       <a href="settlement.html">동포체류지원센터</a>
       <a href="ministry.html">사회통합(KIIP)</a>
       <a href="education.html">교육과정</a>
       <a href="news.html">기관소식</a>
+      <a class="nav-m" href="contact.html">문의</a>
     </nav>
     <a class="nav-cta" href="contact.html">문의</a>
   </div>
@@ -29,44 +33,196 @@
 
 <section class="hero-banner" style="background-image:url('banners/about.jpg')">
   <div class="wrap">
-    <p class="crumb"><a href="index.html">홈</a> · 회사소개</p>
-    <p class="kicker">회사소개</p>
-    <h1>외국인의 안정적인 정착과<br>교육을 지원합니다</h1>
-    <p class="lead">동포체류지원센터를 핵심으로, 법무부 사회통합·조기적응과 교육·복지·평생교육을 운영합니다.</p>
+    <p class="crumb"><a href="index.html">홈</a> · 기업소개</p>
+    <p class="kicker">About the Organization</p>
+    <h1>사람과 교육을 연결하고,<br>함께 성장하는 사회를 만듭니다</h1>
+    <p class="lead">2010년부터 이어 온 사회적기업 참조은다문화(주)의 소개, 연혁, 조직입니다.</p>
   </div>
 </section>
-<section class="page-about">
+
+<nav class="corp-jump" aria-label="기업소개 목차">
+  <div class="wrap">
+    <a href="#greet">인사말</a>
+    <a href="#overview">회사 개요</a>
+    <a href="#philosophy">설립이념</a>
+    <a href="#history">회사 연혁</a>
+    <a href="#org">조직도</a>
+    <a href="#network">협력 네트워크</a>
+  </div>
+</nav>
+
+<section class="corp-greet" id="greet">
+  <div class="wrap greet-in">
+    <figure class="greet-photo">
+      <img src="media/about-team.jpg" alt="참조은다문화 교육·상담 현장">
+    </figure>
+    <div>
+      <p class="kicker">인사말</p>
+      <h2>다양한 배경의 사람들이<br>지역사회의 일원으로 성장하도록</h2>
+      <p class="lead">참조은다문화(주)는 다양한 배경을 가진 사람들이 자신의 능력과 가능성을 발견하고, 지역사회 구성원으로 안정적으로 성장할 수 있도록 교육과 사회서비스를 제공하는 사회적기업입니다.</p>
+      <p>2010년 다문화 분야 활동을 시작한 이후 한국어 및 한국사회 이해교육, 이민자 정착지원, 평생교육, 진로·직업교육, 아동·청소년 교육, 지역사회서비스로 사업 영역을 넓혀 왔습니다. 부설 한국인재개발원을 중심으로 아동·청소년부터 성인, 중장년층, 이민자까지 교육 기회를 제공하고, 정부기관·지방자치단체·대학·지역사회와 연계한 사업을 수행합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="corp-overview" id="overview">
+  <div class="wrap">
+    <p class="kicker">회사 개요</p>
+    <h2>한눈에 보는 기관</h2>
+    <div class="corp-facts">
+      <div class="corp-fact"><b>2010</b><span>다문화 네트워크 부산지부로 시작</span></div>
+      <div class="corp-fact"><b>2013</b><span>참조은다문화(주) 독립법인 설립</span></div>
+      <div class="corp-fact"><b>2014</b><span>고용노동부 인증 사회적기업</span></div>
+      <div class="corp-fact"><b>2026</b><span>법무부 동포체류지원센터 지정</span></div>
+    </div>
+    <table class="data corp-table">
+      <tbody>
+        <tr><th>법인명</th><td>참조은다문화 주식회사</td></tr>
+        <tr><th>부설기관</th><td>한국인재개발원</td></tr>
+        <tr><th>소재지</th><td>부산광역시 동래구 금강로 70(온천동, 참조은빌딩) 5층, 7층</td></tr>
+        <tr><th>평생교육</th><td>한국인재개발원 언론기관부설 평생교육시설 운영</td></tr>
+        <tr><th>주요 대상</th><td>이민자, 외국인, 동포, 다문화가정 및 자녀, 아동·청소년, 성인, 중장년층</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="corp-idea" id="philosophy">
   <div class="wrap">
     <p class="kicker">설립이념</p>
-    <p class="quote">우리 모두 각자가 가진 능력과 개성을 발휘하여, 원하는 분야의 꿈과 미래를 만들어 나가면 좋겠습니다.</p>
-    <p class="lead about-lead">2010년 다문화 분야 활동을 시작한 이후 2013년 법인을 설립하고, 2014년 고용노동부 인증 사회적기업으로 지정되었습니다. 동포체류지원센터를 핵심으로 법무부 사회통합·조기적응과 교육·복지·평생교육을 운영합니다.</p>
-    <div class="about-grid">
-      <div id="history">
-        <p class="kicker">연혁</p>
-        <h2>2010년부터 이어 온 길</h2>
-        <div class="tl"><b>2010</b><span>다문화 네트워크 부산지부</span></div>
-        <div class="tl"><b>2011</b><span>사회통합프로그램 운영기관 지정</span></div>
-        <div class="tl"><b>2013</b><span>참조은다문화(주) 독립법인 설립</span></div>
-        <div class="tl"><b>2014</b><span>고용노동부 인증 사회적기업</span></div>
-        <div class="tl"><b>2016</b><span>언론기관부설 평생교육시설 등록</span></div>
-        <div class="tl"><b>2018</b><span>조기적응지원센터 지정</span></div>
-        <div class="tl"><b>2023–25</b><span>김해대 · 방송대 · 동의과학대 협약</span></div>
-        <div class="tl"><b>2026</b><span>법무부 동포체류지원센터 지정</span></div>
+    <blockquote class="corp-quote">우리 모두 각자가 가진 능력과 개성을 발휘하여<br>원하는 분야의 꿈과 미래를 만들어 나가면 좋겠습니다.</blockquote>
+    <p class="lead idea-lead">사람마다 가지고 있는 경험과 능력, 문화적 배경의 차이를 존중합니다. 교육을 통해 개인의 가능성을 발견하고, 그 가능성이 학습과 취업, 사회참여로 이어지도록 지원합니다.</p>
+    <div class="aims">
+      <article class="aim"><em>01</em><strong>평생교육</strong><p>생애주기에 따른 교육 기회와 지속적인 자기계발 지원</p></article>
+      <article class="aim"><em>02</em><strong>직업역량 강화</strong><p>NCS 기반 직업훈련과 교육사업으로 일자리 창출 지원</p></article>
+      <article class="aim"><em>03</em><strong>전문인력 양성</strong><p>지도자·강사 양성과정을 통한 교육 전문인력 육성</p></article>
+      <article class="aim"><em>04</em><strong>사회통합</strong><p>이민자를 위한 한국어·한국사회 이해 및 초기 적응 지원</p></article>
+      <article class="aim"><em>05</em><strong>교육격차 완화</strong><p>이민자 및 자녀, 아동·청소년 대상 맞춤형 교육서비스</p></article>
+      <article class="aim"><em>06</em><strong>지역사회 연계</strong><p>공공·교육·민간기관과 연계한 교육·사회서비스 운영</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="corp-history" id="history">
+  <div class="wrap history-in">
+    <div class="history-head">
+      <p class="kicker">회사 연혁</p>
+      <h2>2010년부터<br>이어 온 길</h2>
+      <p>부산에서 시작한 다문화 활동이 법인 설립, 사회적기업 인증, 법무부 지정 사업으로 이어졌습니다.</p>
+    </div>
+    <div class="tls">
+      <div class="tl"><b>2010</b><span>사단법인 함께하는 다문화 네트워크 부산지부로 시작</span></div>
+      <div class="tl"><b>2011</b><span>법무부 사회통합프로그램 운영기관 지정</span></div>
+      <div class="tl"><b>2013</b><span>참조은다문화(주) 독립법인 설립</span></div>
+      <div class="tl"><b>2014</b><span>고용노동부 지정 인증 사회적기업</span></div>
+      <div class="tl"><b>2015</b><span>참조은뉴스 창간 / 참조은 작은도서관 개관</span></div>
+      <div class="tl"><b>2016</b><span>언론기관부설 평생교육원 설립 및 평생교육시설 등록</span></div>
+      <div class="tl"><b>2017</b><span>교육기부 진로체험기관 인증 / 행복학습센터 개소</span></div>
+      <div class="tl"><b>2018</b><span>조기적응 지원센터 지정 / IT디지털교육 분야 사회혁신조직 육성사업 선정</span></div>
+      <div class="tl"><b>2020</b><span>사회복지현장실습기관 선정</span></div>
+      <div class="tl"><b>2021</b><span>‘함께하는 글로벌 교육문화원’ 법인명 인가</span></div>
+      <div class="tl"><b>2023</b><span>김해대학교 가족기업 협약 체결</span></div>
+      <div class="tl"><b>2024</b><span>한국방송통신대학교 사회복지학과 업무협약 체결</span></div>
+      <div class="tl"><b>2025</b><span>동의과학대학교와 산·학 협동 협약 체결</span></div>
+      <div class="tl"><b>2026</b><span>법무부 동포체류지원센터 신규 지정 / 부산금정청년회의소 업무협약 / 사단법인 딱친구와 MOU 체결</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="corp-org" id="org">
+  <div class="wrap">
+    <p class="kicker">조직도</p>
+    <h2>이사회에서 사업부까지</h2>
+    <p class="lead">이사회와 대표이사를 중심으로, 경영지원·교육상담 실무와 세 개 사업부가 운영됩니다.</p>
+
+    <div class="org-tree" role="img" aria-label="참조은다문화 조직도">
+      <div class="org-row">
+        <div class="org-box is-top">이사회<small>운영 방향 및 의사결정</small></div>
       </div>
-      <div id="org">
-        <p class="kicker">조직 · 개요</p>
-        <h2>이사회에서 사업부까지</h2>
-        <ul class="org-list">
-          <li><strong>법인명</strong><span>참조은다문화 주식회사</span></li>
-          <li><strong>부설</strong><span>한국인재개발원</span></li>
-          <li><strong>소재지</strong><span>부산 동래구 금강로 70 5·7층</span></li>
-          <li><strong>이사회</strong><span>운영 방향 및 의사결정</span></li>
-          <li><strong>대표이사</strong><span>기관 대표</span></li>
-          <li><strong>자문위원회</strong><span>운영 및 사업 추진 자문</span></li>
-          <li><strong>경영지원</strong><span>행정·회계, 교육상담, 강사 연계</span></li>
-          <li><strong>사업부</strong><span>교육 · 사회복지 · 평생교육</span></li>
+      <i class="org-stem" aria-hidden="true"></i>
+      <div class="org-row">
+        <div class="org-box is-ceo">대표이사<small>배경숙</small></div>
+        <div class="org-box is-adv">자문위원회<small>운영 및 사업 추진 자문</small></div>
+      </div>
+      <i class="org-stem" aria-hidden="true"></i>
+      <div class="org-row">
+        <div class="org-box">사업총괄 / 팀장<small>이자명</small></div>
+      </div>
+      <i class="org-stem" aria-hidden="true"></i>
+      <div class="org-row">
+        <div class="org-box">경영지원팀<small>행정 · 회계 등 기관 운영</small></div>
+        <div class="org-box">교육상담팀<small>교육 · 상담 · 외부 강사 연계</small></div>
+      </div>
+      <i class="org-stem" aria-hidden="true"></i>
+      <div class="org-row">
+        <div class="org-box is-dept">교육사업부<small>KIIP · 조기적응 · 한국어</small></div>
+        <div class="org-box is-dept">사회복지사업부<small>동포체류 · 정착 · 지역서비스</small></div>
+        <div class="org-box is-dept">평생교육사업부<small>문해 · 평생교육 · 직업훈련</small></div>
+      </div>
+    </div>
+
+    <div class="depts">
+      <article>
+        <em>01</em>
+        <h3>교육사업부</h3>
+        <ul>
+          <li>사회통합프로그램(KIIP) 운영</li>
+          <li>조기적응프로그램 운영</li>
+          <li>한국어교육 · 한국문화체험</li>
         </ul>
+      </article>
+      <article>
+        <em>02</em>
+        <h3>사회복지사업부</h3>
+        <ul>
+          <li>동포체류지원센터 운영</li>
+          <li>정착상담 · 취업지원</li>
+          <li>지역사회서비스 「뇌에 기가 팍팍」</li>
+        </ul>
+      </article>
+      <article>
+        <em>03</em>
+        <h3>평생교육사업부</h3>
+        <ul>
+          <li>성인문해교육 운영</li>
+          <li>평생교육 프로그램 운영</li>
+          <li>직업훈련 및 역량강화</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="corp-net" id="network">
+  <div class="wrap">
+    <p class="kicker">협력 네트워크</p>
+    <h2>교육 · 대학 · 지역과 함께</h2>
+    <p class="lead">공공기관, 대학, 진로기관, 지역·민간기관과 연계해 교육과 사회서비스를 운영합니다.</p>
+    <div class="nets">
+      <article>
+        <em>교육기관</em>
+        <p>동래 · 북부 · 서부교육지원청 등</p>
+      </article>
+      <article>
+        <em>대학</em>
+        <p>부산가톨릭대학교, 고려사이버대학교, 동의과학대학교, 김해대학교, 한국방송통신대학교 등</p>
+      </article>
+      <article>
+        <em>진로기관</em>
+        <p>동래 · 해운대 · 기장 진로교육지원센터 등</p>
+      </article>
+      <article>
+        <em>지역 · 민간</em>
+        <p>부산진지역자활센터, 동래여성자원봉사자회, 부산금정청년회의소, 그린닥터스 등</p>
+      </article>
+    </div>
+    <div class="corp-visit">
+      <div>
+        <p class="kicker">오시는 길</p>
+        <h2>부산 동래, 참조은빌딩</h2>
+        <p>부산광역시 동래구 금강로 70(온천동, 참조은빌딩) 5층, 7층</p>
       </div>
+      <a class="btn" href="contact.html">협력 · 문의 <b>→</b></a>
     </div>
   </div>
 </section>
@@ -82,7 +238,7 @@
       <div>
         <h4>바로가기</h4>
         <p>
-          <a href="about.html">회사소개</a><br>
+          <a href="about.html">기업소개</a><br>
           <a href="business.html">사업안내</a><br>
           <a href="settlement.html">동포체류지원센터</a><br>
           <a href="ministry.html">사회통합프로그램(KIIP)</a><br>
@@ -101,5 +257,6 @@
     <p class="draft">고객 확인용 시안입니다. 사진은 임시이며 PC 기준으로 봐 주세요.</p>
   </div>
 </footer>
+<script src="nav.js"></script>
 </body>
 </html>
