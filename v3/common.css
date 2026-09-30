@@ -1,0 +1,204 @@
+:root {
+  --ink:#1b1714;
+  --mute:#6b6259;
+  --line:#e3dbd2;
+  --paper:#f6f1ea;
+  --white:#fffdf8;
+  --orange:#fc7830;
+  --max:1100px;
+  --sans:"Pretendard GOV",Pretendard,"Noto Sans KR",sans-serif;
+  --serif:"Noto Serif KR","Source Han Serif KR",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--white);font-family:var(--sans);font-size:16px;line-height:1.75;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;z-index:99;background:#fff;padding:10px 12px}
+.wrap{width:min(calc(100% - 72px),var(--max));margin:auto}
+.kicker{margin:0 0 12px;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.03em;line-height:1.35}
+h2{font-size:clamp(26px,3vw,38px);margin-bottom:16px;max-width:22em}
+h3{font-size:22px;margin:0 0 10px}
+p{color:var(--mute)}
+.lead{max-width:38em;font-size:17px;line-height:1.85}
+.crumb{margin:0 0 18px;font-size:13px;color:#8a8279}
+.crumb a:hover{color:var(--orange)}
+
+header{position:fixed;z-index:50;top:0;left:0;right:0;background:rgba(255,253,248,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(27,23,20,.06)}
+.nav{height:76px;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600}
+.brand img{width:36px;height:36px;object-fit:contain}
+nav{margin-left:auto;display:flex;gap:22px;font-size:13px;font-weight:500}
+nav a{position:relative;color:#3a342e}
+nav a:after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--orange);transition:.3s}
+nav a:hover:after,nav a.is-on:after{right:0}
+nav a.is-on{color:var(--orange)}
+.nav-cta{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;background:var(--orange);color:#fff;font-size:13px;font-weight:600}
+.nav-cta.is-on{background:#e46822}
+
+.hero-banner{position:relative;min-height:380px;padding:168px 0 72px;background-color:#1b1714;background-position:center;background-size:cover;background-repeat:no-repeat;color:#fff}
+.hero-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,12,.62) 0%,rgba(20,16,12,.18) 70%)}
+.hero-banner .wrap{position:relative;z-index:1}
+.hero-banner .kicker{color:#fc7830}
+.hero-banner h1{margin:0 0 14px;max-width:14em;font-size:clamp(32px,4vw,50px);color:#fff}
+.hero-banner .lead{color:rgba(255,253,248,.88)}
+.hero-banner .crumb{color:rgba(255,253,248,.58)}
+
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
+.actions > * + *{margin-left:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:48px;padding:0 22px;border:1px solid var(--orange);background:var(--orange);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.btn:hover{background:#e46822;border-color:#e46822;color:#fff}
+.btn.line{background:transparent;color:var(--ink);border-color:#c8bfb4}
+.btn.line:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.note{margin:16px 0 0;font-size:13px;color:#9a938c}
+
+table.data{width:100%;border-collapse:collapse;margin-top:8px}
+table.data th,table.data td{padding:14px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:15px}
+table.data th{width:28%;color:var(--orange);font-weight:600}
+table.data td{color:var(--ink)}
+
+/* 1. 사업안내 — 목차형 세로 목록 */
+.page-toc{padding:72px 0 88px}
+.page-toc h1{margin:0 0 16px;font-size:clamp(36px,4.4vw,54px);max-width:12em}
+.page-toc .lead{margin-bottom:56px}
+.toc-label{margin:40px 0 0;padding-bottom:12px;font-size:12px;letter-spacing:.16em;color:var(--orange);border-bottom:1px solid var(--ink)}
+.toc-label:first-of-type{margin-top:0}
+.toc a{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:20px;align-items:center;padding:26px 4px;border-bottom:1px solid var(--line)}
+.toc em{font-family:var(--serif);font-size:20px;font-style:normal;color:var(--orange)}
+.toc strong{display:block;font-family:var(--serif);font-size:24px;font-weight:500}
+.toc span{display:block;margin-top:4px;font-size:14px;font-weight:400;color:var(--mute)}
+.toc i{font-style:normal;font-size:14px;font-weight:600;color:var(--orange)}
+.toc a:hover strong{color:var(--orange)}
+
+/* 2. 동포체류 — 지정 사실 + 절차 */
+.page-facts{padding:64px 0 0}
+.page-facts h1{margin:0 0 12px;font-size:clamp(34px,4vw,48px)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:48px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.fact{padding:36px 32px 36px 0;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0;padding-right:0;padding-left:32px}
+.fact:nth-child(2){padding-left:32px}
+.fact b{display:block;font-family:var(--serif);font-size:34px;font-weight:500;color:var(--orange)}
+.fact span{display:block;margin-top:8px;font-size:14px;color:var(--mute)}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;padding:80px 0 96px}
+.pv{position:relative;padding:0 0 32px 44px}
+.pv:before{content:"";position:absolute;left:10px;top:10px;bottom:-4px;width:1px;background:var(--line)}
+.pv:last-child{padding-bottom:0}
+.pv:last-child:before{display:none}
+.pv i{position:absolute;left:0;top:4px;width:21px;height:21px;border:1px solid var(--orange);border-radius:50%;background:var(--white)}
+.pv i:after{content:"";position:absolute;left:6px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.pv strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:6px}
+.visit{padding:32px;background:var(--paper)}
+.visit h2{font-size:26px}
+
+/* 3. 사회통합 — 왼쪽 목차 + 본문 */
+.doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:80px;padding:72px 0 96px}
+.doc-nav{position:sticky;top:108px;align-self:start}
+.doc-nav p{margin:0 0 16px;font-size:12px;letter-spacing:.16em;color:var(--orange)}
+.doc-nav a{display:block;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
+.doc-nav a:hover,.doc-nav a.is-on{color:var(--ink)}
+.chapter{padding-bottom:64px;margin-bottom:64px;border-bottom:1px solid var(--line)}
+.chapter:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0}
+.chapter .no{margin:0 0 10px;font-family:var(--serif);font-size:14px;letter-spacing:.14em;color:var(--orange)}
+.chapter h2{margin-bottom:14px}
+.chapter ul{margin:20px 0 0;padding:0;list-style:none}
+.chapter li{padding:10px 0;border-bottom:1px solid var(--line);color:var(--mute)}
+
+/* 4. 주요 사업 — 좌제목 / 우본문 카탈로그 */
+.page-cat{padding:64px 0 40px}
+.page-cat h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
+.cat{display:grid;grid-template-columns:260px minmax(0,1fr);gap:56px;padding:56px 0;border-top:1px solid var(--line)}
+.cat:first-of-type{border-top:1px solid var(--ink);margin-top:56px}
+.cat h2{margin:0;font-size:30px}
+.cat .kicker{margin-bottom:8px}
+.course{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.course strong{font-size:16px;color:var(--ink)}
+.course span{font-size:15px;color:var(--mute)}
+
+/* 5. 교육과정 — 구간별 배경 */
+.page-steps{padding:72px 0;background:#fffdf8}
+.page-steps h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
+.steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.step{padding:28px 24px;min-height:220px;background:#fff}
+.step:nth-child(2){background:#f6f1ea}
+.step:nth-child(3){background:#fff1e4}
+.step:nth-child(4){background:#e8dfd4}
+.step em{display:block;font-family:var(--serif);font-size:28px;font-style:normal;color:var(--orange);margin-bottom:16px}
+.step strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:10px}
+.step span{display:block;font-size:14px;line-height:1.7;color:var(--mute)}
+.course-band{padding:80px 0;background:#efe8df}
+.course-block h2{margin-bottom:8px}
+.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
+.course-card{display:flex;flex-direction:column;padding:28px 24px;min-height:200px;background:#fffdf8}
+.course-card:nth-child(2){background:#fff}
+.course-card:nth-child(3){background:#fff1e4}
+.course-card em,.course-card strong,.course-card span,.course-card i{display:block}
+.course-card em{font-size:11px;font-style:normal;letter-spacing:.16em;color:var(--orange)}
+.course-card strong{margin:12px 0 8px;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
+.course-card span{font-size:14px;line-height:1.65;color:var(--mute)}
+.course-card i{margin-top:auto;padding-top:20px;font-style:normal;font-size:14px;font-weight:600;color:var(--orange)}
+.course-card:hover strong{color:var(--orange)}
+.cta-band{padding:64px 0;background:#fff3e6}
+.panel{display:flex;justify-content:space-between;align-items:center;gap:32px;padding:0}
+.panel h2{margin:0 0 8px;font-size:26px}
+.panel p{margin:0}
+
+/* 6. 기관소식 — 영역별 배경 */
+.page-news{padding:56px 0 80px;background:#e4dbd0}
+.page-news h1{margin:0 0 8px;font-size:42px}
+.gazette{display:grid;grid-template-columns:1.15fr .95fr .9fr;gap:16px}
+.gcol{padding:36px 32px;min-height:420px}
+.gcol-a{background:#fff}
+.gcol-b{background:#fff1e4}
+.gcol-c{background:#ebe3d8}
+.gcol h2{font-size:20px;margin-bottom:8px}
+.gcol .kicker{margin-bottom:18px}
+.news-item{display:block;padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.news-item time{display:block;margin-top:4px;color:#9a938c;font-size:12px;font-variant-numeric:tabular-nums}
+.news-item:hover span{color:var(--orange)}
+
+/* 7. 문의 — 짧은 머리 + 양식/주소 */
+.page-ask{padding:56px 0 88px}
+.page-ask h1{margin:0 0 10px;font-size:clamp(32px,3.6vw,44px)}
+.ask-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:72px;margin-top:48px;align-items:start}
+form.ask{display:grid;gap:14px}
+form.ask label{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--ink)}
+form.ask input,form.ask select,form.ask textarea{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+form.ask textarea{min-height:132px;resize:vertical}
+.sidebox{padding:28px 28px 8px;background:var(--paper)}
+.sidebox h2{font-size:22px;margin-bottom:8px}
+.sidebox + .sidebox{margin-top:16px}
+
+/* 8. 회사소개 — 이념 문장 + 연혁 */
+.page-about{padding:64px 0 96px}
+.quote{font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);font-weight:500;line-height:1.5;max-width:16em;margin:0 0 20px;color:var(--ink)}
+.about-lead{max-width:40em;margin-bottom:72px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.tl{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;padding:16px 0;border-top:1px solid var(--line)}
+.tl:first-of-type{border-top:1px solid var(--ink)}
+.tl b{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--orange)}
+.tl span{color:var(--ink);font-size:15px}
+.org-list{margin:0;padding:0;list-style:none}
+.org-list li{display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.org-list strong{color:var(--ink);font-size:15px}
+.org-list span{color:var(--mute);font-size:14px}
+
+footer{border-top:1px solid var(--line);padding:48px 0 28px;font-size:14px;background:#fff}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
+footer h4{margin:0 0 12px;font-size:13px}
+footer p{margin:0}
+footer a:hover{color:var(--orange)}
+.copyright{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:#9a938c}
+.draft{margin-top:8px;font-size:12px;color:#9a938c}
+
+@media(max-width:980px){
+  .wrap{width:min(calc(100% - 32px),var(--max))}
+  nav{display:none}
+  .toc a,.facts,.split,.doc,.cat,.course,.courses,.steps4,.gazette,.ask-grid,.about-grid,.footer-grid,.org-list li,.panel{grid-template-columns:1fr;display:block}
+  .fact,.fact:last-child,.fact:nth-child(2){padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .gcol,.step,.course-card{padding:24px;border:0}
+  .doc-nav{position:static;margin-bottom:32px}
+  .hero-banner{min-height:300px;padding:140px 0 48px}
+}
