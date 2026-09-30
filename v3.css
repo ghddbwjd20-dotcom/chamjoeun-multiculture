@@ -44,7 +44,7 @@ nav a:hover{color:var(--orange)}
 .hero-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:80px}
 .hero .kicker{margin:0 0 26px;color:var(--orange);font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .hero .kicker:after{content:"";display:block;width:36px;height:2px;margin-top:16px;background:var(--orange)}
-.hero h1{margin:0 0 28px;font-size:clamp(34px,4.5vw,64px);font-weight:600;letter-spacing:-.04em;line-height:1.32;color:var(--ink);text-shadow:0 0 28px rgba(255,253,248,.5)}
+.hero h1{margin:0 0 28px;font-size:clamp(34px,4.5vw,64px);font-weight:600;letter-spacing:-.04em;line-height:1.32;color:var(--ink)}
 .hero h1 span{display:block;white-space:nowrap}
 .hero h1 em,.hero .lead em{color:var(--orange);font-style:normal;font-weight:700}
 .hero .lead{max-width:28em;font-size:16px;font-weight:500;letter-spacing:.01em;line-height:1.95;color:#3c3732}
