@@ -102,7 +102,7 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 
 .intro{background:#fff;padding:96px 0}
 .intro-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.95fr);gap:clamp(32px,4.5vw,72px);align-items:center}
-.intro-photo{min-height:min(68vh,640px);border-radius:32px;overflow:hidden;box-shadow:0 20px 48px rgba(27,23,20,.08)}
+.intro-photo{min-height:min(68vh,640px);border-radius:0;overflow:hidden;box-shadow:0 20px 48px rgba(27,23,20,.08)}
 .intro-photo img{width:100%;height:100%;min-height:min(68vh,640px);object-fit:cover;object-position:center 30%;transition:transform 1.2s ease}
 .intro-copy{max-width:36em}
 .intro h2{max-width:14em}
@@ -125,7 +125,7 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 .works-dots{display:flex;gap:8px;margin:22px 0 0;padding:0;list-style:none}
 .works-dots li{width:8px;height:8px;border-radius:50%;background:#d7cfc6;transition:width .35s,background .35s}
 .works-dots li.is-on{width:28px;border-radius:999px;background:var(--orange)}
-.works-visual{position:relative;height:min(88svh,920px);border-radius:32px;overflow:hidden;box-shadow:0 24px 56px rgba(27,23,20,.12)}
+.works-visual{position:relative;height:min(88svh,920px);border-radius:0;overflow:hidden;box-shadow:0 24px 56px rgba(27,23,20,.12)}
 .works-visual figure{position:absolute;inset:0;margin:0;opacity:0;transform:scale(1.04);transition:opacity .55s ease,transform 1.1s ease}
 .works-visual figure.is-on{opacity:1;transform:scale(1)}
 .works-visual img{width:100%;height:100%;object-fit:cover}
@@ -339,7 +339,7 @@ footer a:hover{color:var(--orange)}
   .jump-main i{right:4px}
   .intro{padding:56px 0}
   .intro-in{grid-template-columns:1fr;gap:24px}
-  .intro-photo,.intro-photo img{min-height:220px;border-radius:20px}
+  .intro-photo,.intro-photo img{min-height:220px;border-radius:0}
   .intro h2{font-size:clamp(24px,7vw,32px)}
   .keys{display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;margin-top:28px}
   .keys span{font-size:14px}
@@ -353,7 +353,7 @@ footer a:hover{color:var(--orange)}
   .works-visual{display:none}
   .works-right{position:static;display:flex;flex-direction:column;gap:36px;min-height:0}
   .works-right article{position:static;opacity:1;visibility:visible;transform:none}
-  .works-mimg{display:block;height:220px;margin:0 0 16px;border-radius:20px;overflow:hidden}
+  .works-mimg{display:block;height:220px;margin:0 0 16px;border-radius:0;overflow:hidden}
   .works-mimg img{width:100%;height:100%;object-fit:cover}
   .next{padding:56px 0}
   .next-head{display:block;margin-bottom:24px}
