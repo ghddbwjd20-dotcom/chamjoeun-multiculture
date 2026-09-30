@@ -24,6 +24,8 @@ h2{font-size:clamp(26px,3vw,38px);margin-bottom:16px;max-width:22em}
 h3{font-size:22px;margin:0 0 10px}
 p{color:var(--mute)}
 .lead{max-width:38em;font-size:17px;line-height:1.85}
+.crumb{margin:0 0 18px;font-size:13px;color:#8a8279}
+.crumb a:hover{color:var(--orange)}
 
 header{position:fixed;z-index:50;top:0;left:0;right:0;background:rgba(255,253,248,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(27,23,20,.06)}
 .nav{height:76px;display:flex;align-items:center;gap:28px}
@@ -37,70 +39,127 @@ nav a.is-on{color:var(--orange)}
 .nav-cta{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;background:var(--orange);color:#fff;font-size:13px;font-weight:600}
 .nav-cta.is-on{background:#e46822}
 
-.hero-banner{position:relative;min-height:420px;padding:168px 0 80px;background-color:#1b1714;background-position:center;background-size:cover;background-repeat:no-repeat;color:#fff}
-.hero-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,12,.78) 0%,rgba(20,16,12,.35) 70%)}
-.hero-banner .wrap{position:relative;z-index:1}
-.hero-banner .kicker{color:#fc7830}
-.hero-banner h1{margin:0 0 16px;max-width:18em;font-size:clamp(32px,4vw,50px);color:#fff}
-.hero-banner .lead{color:rgba(255,253,248,.86)}
-.hero-banner .crumb{color:rgba(255,253,248,.58)}
-.crumb{margin:0 0 18px;font-size:13px}
-.crumb a:hover{color:var(--orange)}
-
-.subbar{background:var(--white);border-bottom:1px solid var(--line)}
-.subnav{display:flex;flex-wrap:wrap;gap:8px 28px;padding:18px 0}
-.subnav a{font-size:14px;font-weight:500;color:#6b6259}
-.subnav a:hover,.subnav a.is-on{color:var(--orange)}
-
-.block{padding:96px 0;background:var(--white)}
-.block.paper{background:var(--paper)}
-.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center}
-.pair img{display:block;width:100%;height:420px;object-fit:cover;background:#ece4da}
-.pair .copy h2{margin-top:0}
-
-.links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:40px;border-top:1px solid var(--ink)}
-.link{display:block;padding:32px 28px;border-right:1px solid var(--line);min-height:168px}
-.links .link:nth-child(3n),.link:last-child{border-right:0}
-.links .link:nth-child(n+4){border-top:1px solid var(--line)}
-.link em{display:block;font-size:11px;font-style:normal;letter-spacing:.16em;color:var(--orange)}
-.link strong{display:block;margin:14px 0 10px;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
-.link span{display:block;font-size:14px;line-height:1.65;color:var(--mute)}
-.link i{display:inline-block;margin-top:20px;font-style:normal;font-size:14px;font-weight:600;color:var(--orange)}
-.link:hover{background:#fff8f2}
-
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:48px;border-top:1px solid var(--ink)}
-.stat{padding:28px 24px;border-right:1px solid var(--line)}
-.stat:last-child{border-right:0}
-.stat b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;color:var(--orange)}
-.stat span{display:block;margin-top:8px;font-size:13px;color:var(--mute)}
-
-table.data{width:100%;border-collapse:collapse;margin-top:28px}
-table.data th,table.data td{padding:15px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:15px}
-table.data th{width:28%;color:var(--orange);font-weight:600}
-table.data td{color:var(--ink)}
-
-.list-plain{margin:18px 0 0;padding:0;list-style:none}
-.list-plain li{position:relative;padding:11px 0 11px 16px;border-bottom:1px solid var(--line);color:var(--mute)}
-.list-plain li:before{content:"";position:absolute;left:0;top:19px;width:5px;height:5px;border-radius:50%;background:var(--orange)}
-
-.news-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;padding:16px 0;border-bottom:1px solid var(--line);color:var(--ink)}
-.news-item time{color:#9a938c;font-size:13px;font-variant-numeric:tabular-nums}
-.news-item:hover span{color:var(--orange)}
-
-form.ask{display:grid;gap:16px;max-width:520px;margin-top:28px}
-form.ask label{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--ink)}
-form.ask input,form.ask select,form.ask textarea{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
-form.ask textarea{min-height:140px;resize:vertical}
-
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid var(--orange);background:var(--orange);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
 .btn:hover{background:#e46822;border-color:#e46822;color:#fff}
 .btn.line{background:transparent;color:var(--ink);border-color:#c8bfb4}
 .btn.line:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.note{margin:16px 0 0;font-size:13px;color:#9a938c}
 
-.cta{padding:80px 0;background:var(--paper);border-top:1px solid var(--line)}
-.cta h2{margin-bottom:10px}
-.note{margin:18px 0 0;font-size:13px;color:#9a938c}
+table.data{width:100%;border-collapse:collapse;margin-top:8px}
+table.data th,table.data td{padding:14px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:15px}
+table.data th{width:28%;color:var(--orange);font-weight:600}
+table.data td{color:var(--ink)}
+
+/* 1. 사업안내 — 목차형 세로 목록 */
+.page-toc{padding:140px 0 88px}
+.page-toc h1{margin:0 0 16px;font-size:clamp(36px,4.4vw,54px);max-width:12em}
+.page-toc .lead{margin-bottom:56px}
+.toc-label{margin:40px 0 0;padding-bottom:12px;font-size:12px;letter-spacing:.16em;color:var(--orange);border-bottom:1px solid var(--ink)}
+.toc-label:first-of-type{margin-top:0}
+.toc a{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:20px;align-items:center;padding:26px 4px;border-bottom:1px solid var(--line)}
+.toc em{font-family:var(--serif);font-size:20px;font-style:normal;color:var(--orange)}
+.toc strong{display:block;font-family:var(--serif);font-size:24px;font-weight:500}
+.toc span{display:block;margin-top:4px;font-size:14px;font-weight:400;color:var(--mute)}
+.toc i{font-style:normal;font-size:14px;font-weight:600;color:var(--orange)}
+.toc a:hover strong{color:var(--orange)}
+
+/* 2. 동포체류 — 지정 사실 + 절차 */
+.page-facts{padding:140px 0 0}
+.page-facts h1{margin:0 0 12px;font-size:clamp(34px,4vw,48px)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:48px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.fact{padding:36px 32px 36px 0;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0;padding-right:0;padding-left:32px}
+.fact:nth-child(2){padding-left:32px}
+.fact b{display:block;font-family:var(--serif);font-size:34px;font-weight:500;color:var(--orange)}
+.fact span{display:block;margin-top:8px;font-size:14px;color:var(--mute)}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;padding:80px 0 96px}
+.pv{position:relative;padding:0 0 32px 44px}
+.pv:before{content:"";position:absolute;left:10px;top:10px;bottom:-4px;width:1px;background:var(--line)}
+.pv:last-child{padding-bottom:0}
+.pv:last-child:before{display:none}
+.pv i{position:absolute;left:0;top:4px;width:21px;height:21px;border:1px solid var(--orange);border-radius:50%;background:var(--white)}
+.pv i:after{content:"";position:absolute;left:6px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.pv strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:6px}
+.visit{padding:32px;background:var(--paper)}
+.visit h2{font-size:26px}
+
+/* 3. 사회통합 — 왼쪽 목차 + 본문 */
+.doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:80px;padding:120px 0 96px}
+.doc-nav{position:sticky;top:108px;align-self:start}
+.doc-nav p{margin:0 0 16px;font-size:12px;letter-spacing:.16em;color:var(--orange)}
+.doc-nav a{display:block;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
+.doc-nav a:hover,.doc-nav a.is-on{color:var(--ink)}
+.chapter{padding-bottom:64px;margin-bottom:64px;border-bottom:1px solid var(--line)}
+.chapter:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0}
+.chapter .no{margin:0 0 10px;font-family:var(--serif);font-size:14px;letter-spacing:.14em;color:var(--orange)}
+.chapter h2{margin-bottom:14px}
+.chapter ul{margin:20px 0 0;padding:0;list-style:none}
+.chapter li{padding:10px 0;border-bottom:1px solid var(--line);color:var(--mute)}
+
+/* 4. 주요 사업 — 좌제목 / 우본문 카탈로그 */
+.page-cat{padding:140px 0 40px}
+.page-cat h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
+.cat{display:grid;grid-template-columns:260px minmax(0,1fr);gap:56px;padding:56px 0;border-top:1px solid var(--line)}
+.cat:first-of-type{border-top:1px solid var(--ink);margin-top:56px}
+.cat h2{margin:0;font-size:30px}
+.cat .kicker{margin-bottom:8px}
+.course{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+.course strong{font-size:16px;color:var(--ink)}
+.course span{font-size:15px;color:var(--mute)}
+
+/* 5. 교육과정 — 4단 이용 절차 */
+.page-steps{padding:140px 0 96px}
+.page-steps h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
+.steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:56px;border-top:1px solid var(--ink)}
+.step{padding:32px 28px 8px 0;border-right:1px solid var(--line)}
+.step:last-child{border-right:0;padding-right:0}
+.step:not(:first-child){padding-left:28px}
+.step em{display:block;font-family:var(--serif);font-size:28px;font-style:normal;color:var(--orange);margin-bottom:16px}
+.step strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:10px}
+.step span{display:block;font-size:14px;line-height:1.7;color:var(--mute)}
+.panel{display:flex;justify-content:space-between;align-items:center;gap:32px;margin-top:64px;padding:36px 40px;background:var(--paper)}
+.panel h2{margin:0 0 8px;font-size:26px}
+.panel p{margin:0}
+
+/* 6. 기관소식 — 신문 3단 */
+.page-news{padding:140px 0 40px}
+.page-news h1{margin:0 0 8px;font-size:42px}
+.gazette{display:grid;grid-template-columns:1.15fr .95fr .9fr;gap:0;padding:48px 0 96px;border-top:1px solid var(--ink)}
+.gcol{padding:0 32px}
+.gcol:first-child{padding-left:0}
+.gcol + .gcol{border-left:1px solid var(--line)}
+.gcol h2{font-size:20px;margin-bottom:8px}
+.gcol .kicker{margin-bottom:18px}
+.news-item{display:block;padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.news-item time{display:block;margin-top:4px;color:#9a938c;font-size:12px;font-variant-numeric:tabular-nums}
+.news-item:hover span{color:var(--orange)}
+
+/* 7. 문의 — 짧은 머리 + 양식/주소 */
+.page-ask{padding:128px 0 88px}
+.page-ask h1{margin:0 0 10px;font-size:clamp(32px,3.6vw,44px)}
+.ask-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:72px;margin-top:48px;align-items:start}
+form.ask{display:grid;gap:14px}
+form.ask label{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--ink)}
+form.ask input,form.ask select,form.ask textarea{width:100%;padding:12px 14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+form.ask textarea{min-height:132px;resize:vertical}
+.sidebox{padding:28px 28px 8px;background:var(--paper)}
+.sidebox h2{font-size:22px;margin-bottom:8px}
+.sidebox + .sidebox{margin-top:16px}
+
+/* 8. 회사소개 — 이념 문장 + 연혁 */
+.page-about{padding:140px 0 96px}
+.quote{font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);font-weight:500;line-height:1.5;max-width:16em;margin:0 0 20px;color:var(--ink)}
+.about-lead{max-width:40em;margin-bottom:72px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.tl{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;padding:16px 0;border-top:1px solid var(--line)}
+.tl:first-of-type{border-top:1px solid var(--ink)}
+.tl b{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--orange)}
+.tl span{color:var(--ink);font-size:15px}
+.org-list{margin:0;padding:0;list-style:none}
+.org-list li{display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.org-list strong{color:var(--ink);font-size:15px}
+.org-list span{color:var(--mute);font-size:14px}
 
 footer{border-top:1px solid var(--line);padding:48px 0 28px;font-size:14px;background:#fff}
 .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
@@ -113,8 +172,8 @@ footer a:hover{color:var(--orange)}
 @media(max-width:980px){
   .wrap{width:min(calc(100% - 32px),var(--max))}
   nav{display:none}
-  .pair,.links,.stats,.footer-grid{grid-template-columns:1fr}
-  .pair img{height:240px}
-  .link,.stat{border-right:0;border-bottom:1px solid var(--line);padding:24px 8px}
-  .hero-banner{min-height:360px;padding:140px 0 56px}
+  .toc a,.facts,.split,.doc,.cat,.course,.steps4,.gazette,.ask-grid,.about-grid,.footer-grid,.org-list li,.panel{grid-template-columns:1fr;display:block}
+  .fact,.fact:last-child,.fact:nth-child(2){padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .gcol,.gcol + .gcol,.step,.step:not(:first-child){padding:24px 0;border-left:0;border-right:0;border-bottom:1px solid var(--line)}
+  .doc-nav{position:static;margin-bottom:32px}
 }
