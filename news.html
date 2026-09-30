@@ -36,36 +36,128 @@
     <p class="crumb"><a href="index.html">홈</a> · 기관소식</p>
     <p class="kicker">News</p>
     <h1>기관소식</h1>
-    <p class="lead">공지, 사업소식, 자료실입니다. 아래 목록은 시안용 예시입니다.</p>
+    <p class="lead">공지사항, 사업소식, 자료실을 게시판에서 확인합니다. 아래 목록은 시안용 예시입니다.</p>
   </div>
 </section>
 <section class="page-news">
   <div class="wrap">
-    <div class="gazette">
-      <div class="gcol gcol-a" id="notice">
-        <p class="kicker">Notice</p>
-        <h2>공지사항</h2>
-        <a class="news-item" href="#"><span>교육 및 지원사업 안내</span><time>2026-03-10</time></a>
-        <a class="news-item" href="#"><span>2026년 상반기 교육일정 안내</span><time>2026-02-18</time></a>
-        <a class="news-item" href="#"><span>사회통합프로그램 신규 과정 모집</span><time>2026-01-22</time></a>
-        <a class="news-item" href="#"><span>설 연휴 센터 운영 안내</span><time>2026-01-08</time></a>
+    <div class="board-head">
+      <div class="board-tabs" role="tablist" aria-label="게시판 분류">
+        <button type="button" class="is-on" data-board="all">전체</button>
+        <button type="button" data-board="notice" id="notice">공지사항</button>
+        <button type="button" data-board="biz" id="biz">사업소식</button>
+        <button type="button" data-board="files" id="files">자료실</button>
       </div>
-      <div class="gcol gcol-b" id="biz">
-        <p class="kicker">Programs</p>
-        <h2>사업소식</h2>
-        <a class="news-item" href="#"><span>동포체류지원센터 지정 안내</span><time>2026-03-04</time></a>
-        <a class="news-item" href="#"><span>사회통합프로그램 3월 개강</span><time>2026-02-25</time></a>
-        <a class="news-item" href="#"><span>지역사회서비스 연계 진행</span><time>2026-02-06</time></a>
-        <a class="news-item" href="#"><span>성인문해교실 운영</span><time>2026-01-15</time></a>
-      </div>
-      <div class="gcol gcol-c" id="files">
-        <p class="kicker">Files</p>
-        <h2>자료실</h2>
-        <a class="news-item" href="#"><span>사회통합프로그램 안내</span><time>2026-02-12</time></a>
-        <a class="news-item" href="#"><span>동포체류지원센터 이용 가이드</span><time>2026-01-20</time></a>
-        <a class="news-item" href="#"><span>민간자격증 과정 소개</span><time>2025-12-08</time></a>
-      </div>
+      <form class="board-search" role="search" onsubmit="return false;">
+        <label class="sr-only" for="boardQ">검색어</label>
+        <input id="boardQ" type="search" placeholder="제목 검색" autocomplete="off">
+        <button type="submit">검색</button>
+      </form>
     </div>
+    <table class="board">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">분류</th>
+          <th scope="col">제목</th>
+          <th scope="col">등록일</th>
+          <th scope="col">조회</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="pin" data-board="notice">
+          <td class="num">공지</td>
+          <td class="cat">공지사항</td>
+          <td class="tit"><a href="#"><span class="badge">공지</span>교육 및 지원사업 안내</a></td>
+          <td class="date">2026-03-10</td>
+          <td class="hit">128</td>
+        </tr>
+        <tr class="pin" data-board="notice">
+          <td class="num">공지</td>
+          <td class="cat">공지사항</td>
+          <td class="tit"><a href="#"><span class="badge">공지</span>2026년 상반기 교육일정 안내</a></td>
+          <td class="date">2026-02-18</td>
+          <td class="hit">96</td>
+        </tr>
+        <tr data-board="biz">
+          <td class="num">12</td>
+          <td class="cat">사업소식</td>
+          <td class="tit"><a href="#">동포체류지원센터 지정 안내</a></td>
+          <td class="date">2026-03-04</td>
+          <td class="hit">84</td>
+        </tr>
+        <tr data-board="files">
+          <td class="num">11</td>
+          <td class="cat">자료실</td>
+          <td class="tit"><a href="#">모집요강 신청 자료</a></td>
+          <td class="date">2026-03-02</td>
+          <td class="hit">41</td>
+        </tr>
+        <tr data-board="biz">
+          <td class="num">10</td>
+          <td class="cat">사업소식</td>
+          <td class="tit"><a href="#">사회통합프로그램 3월 개강</a></td>
+          <td class="date">2026-02-25</td>
+          <td class="hit">73</td>
+        </tr>
+        <tr data-board="notice">
+          <td class="num">09</td>
+          <td class="cat">공지사항</td>
+          <td class="tit"><a href="#">사회통합프로그램 신규 과정 모집</a></td>
+          <td class="date">2026-01-22</td>
+          <td class="hit">67</td>
+        </tr>
+        <tr data-board="files">
+          <td class="num">08</td>
+          <td class="cat">자료실</td>
+          <td class="tit"><a href="#">사회통합프로그램 안내</a></td>
+          <td class="date">2026-02-12</td>
+          <td class="hit">55</td>
+        </tr>
+        <tr data-board="biz">
+          <td class="num">07</td>
+          <td class="cat">사업소식</td>
+          <td class="tit"><a href="#">지역사회서비스 연계 진행</a></td>
+          <td class="date">2026-02-06</td>
+          <td class="hit">38</td>
+        </tr>
+        <tr data-board="files">
+          <td class="num">06</td>
+          <td class="cat">자료실</td>
+          <td class="tit"><a href="#">동포체류지원센터 이용 가이드</a></td>
+          <td class="date">2026-01-20</td>
+          <td class="hit">62</td>
+        </tr>
+        <tr data-board="biz">
+          <td class="num">05</td>
+          <td class="cat">사업소식</td>
+          <td class="tit"><a href="#">성인문해교실 운영</a></td>
+          <td class="date">2026-01-15</td>
+          <td class="hit">29</td>
+        </tr>
+        <tr data-board="notice">
+          <td class="num">04</td>
+          <td class="cat">공지사항</td>
+          <td class="tit"><a href="#">설 연휴 센터 운영 안내</a></td>
+          <td class="date">2026-01-08</td>
+          <td class="hit">44</td>
+        </tr>
+        <tr data-board="files">
+          <td class="num">03</td>
+          <td class="cat">자료실</td>
+          <td class="tit"><a href="#">민간자격증 과정 소개</a></td>
+          <td class="date">2025-12-08</td>
+          <td class="hit">51</td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="board-page" aria-label="페이지">
+      <span class="is-on">1</span>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">다음</a>
+    </nav>
+    <p class="board-note">시안용 게시판입니다. 실제 글 등록·조회는 오픈 후 연결됩니다.</p>
   </div>
 </section>
 
@@ -100,5 +192,26 @@
   </div>
 </footer>
 <script src="nav.js"></script>
+<script src="fx.js"></script>
+<script>
+(function(){
+  const tabs=[...document.querySelectorAll(".board-tabs button")];
+  const rows=[...document.querySelectorAll(".board tbody tr")];
+  const q=document.getElementById("boardQ");
+  const apply=(key)=>{
+    tabs.forEach(btn=>btn.classList.toggle("is-on",btn.dataset.board===key));
+    const word=(q.value||"").trim();
+    rows.forEach(row=>{
+      const cat=key==="all"||row.dataset.board===key;
+      const text=row.querySelector(".tit").textContent;
+      row.style.display=cat&&(!word||text.includes(word))?"":"none";
+    });
+  };
+  tabs.forEach(btn=>btn.addEventListener("click",()=>apply(btn.dataset.board)));
+  document.querySelector(".board-search").addEventListener("submit",e=>{e.preventDefault();apply(tabs.find(b=>b.classList.contains("is-on")).dataset.board);});
+  const hash=location.hash.replace("#","");
+  if(["notice","biz","files"].includes(hash)) apply(hash);
+})();
+</script>
 </body>
 </html>
