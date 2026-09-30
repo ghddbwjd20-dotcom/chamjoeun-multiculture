@@ -116,39 +116,42 @@ table.data td{color:var(--ink)}
 .course strong{font-size:16px;color:var(--ink)}
 .course span{font-size:15px;color:var(--mute)}
 
-/* 5. 교육과정 — 4단 이용 절차 */
-.page-steps{padding:64px 0 96px}
+/* 5. 교육과정 — 구간별 배경 */
+.page-steps{padding:72px 0;background:#fffdf8}
 .page-steps h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
-.steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:56px;border-top:1px solid var(--ink)}
-.step{padding:32px 28px 8px 0;border-right:1px solid var(--line)}
-.step:last-child{border-right:0;padding-right:0}
-.step:not(:first-child){padding-left:28px}
+.steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.step{padding:28px 24px;min-height:220px;background:#fff}
+.step:nth-child(2){background:#f6f1ea}
+.step:nth-child(3){background:#fff1e4}
+.step:nth-child(4){background:#e8dfd4}
 .step em{display:block;font-family:var(--serif);font-size:28px;font-style:normal;color:var(--orange);margin-bottom:16px}
 .step strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:10px}
 .step span{display:block;font-size:14px;line-height:1.7;color:var(--mute)}
-.course-block{margin-top:72px;padding-top:56px;border-top:1px solid var(--line)}
+.course-band{padding:80px 0;background:#efe8df}
 .course-block h2{margin-bottom:8px}
-.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:32px;border-top:1px solid var(--ink)}
-.course-card{display:flex;flex-direction:column;padding:28px 24px 28px 0;border-right:1px solid var(--line);min-height:200px}
-.course-card:last-child{border-right:0;padding-right:0}
-.course-card:not(:first-child){padding-left:24px}
+.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
+.course-card{display:flex;flex-direction:column;padding:28px 24px;min-height:200px;background:#fffdf8}
+.course-card:nth-child(2){background:#fff}
+.course-card:nth-child(3){background:#fff1e4}
 .course-card em,.course-card strong,.course-card span,.course-card i{display:block}
 .course-card em{font-size:11px;font-style:normal;letter-spacing:.16em;color:var(--orange)}
 .course-card strong{margin:12px 0 8px;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
 .course-card span{font-size:14px;line-height:1.65;color:var(--mute)}
 .course-card i{margin-top:auto;padding-top:20px;font-style:normal;font-size:14px;font-weight:600;color:var(--orange)}
 .course-card:hover strong{color:var(--orange)}
-.panel{display:flex;justify-content:space-between;align-items:center;gap:32px;margin-top:64px;padding:36px 40px;background:var(--paper)}
+.cta-band{padding:64px 0;background:#fff3e6}
+.panel{display:flex;justify-content:space-between;align-items:center;gap:32px;padding:0}
 .panel h2{margin:0 0 8px;font-size:26px}
 .panel p{margin:0}
 
-/* 6. 기관소식 — 신문 3단 */
-.page-news{padding:64px 0 40px}
+/* 6. 기관소식 — 영역별 배경 */
+.page-news{padding:56px 0 80px;background:#e4dbd0}
 .page-news h1{margin:0 0 8px;font-size:42px}
-.gazette{display:grid;grid-template-columns:1.15fr .95fr .9fr;gap:0;padding:48px 0 96px;border-top:1px solid var(--ink)}
-.gcol{padding:0 32px}
-.gcol:first-child{padding-left:0}
-.gcol + .gcol{border-left:1px solid var(--line)}
+.gazette{display:grid;grid-template-columns:1.15fr .95fr .9fr;gap:16px}
+.gcol{padding:36px 32px;min-height:420px}
+.gcol-a{background:#fff}
+.gcol-b{background:#fff1e4}
+.gcol-c{background:#ebe3d8}
 .gcol h2{font-size:20px;margin-bottom:8px}
 .gcol .kicker{margin-bottom:18px}
 .news-item{display:block;padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink)}
@@ -194,7 +197,7 @@ footer a:hover{color:var(--orange)}
   nav{display:none}
   .toc a,.facts,.split,.doc,.cat,.course,.courses,.steps4,.gazette,.ask-grid,.about-grid,.footer-grid,.org-list li,.panel{grid-template-columns:1fr;display:block}
   .fact,.fact:last-child,.fact:nth-child(2){padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}
-  .gcol,.gcol + .gcol,.step,.step:not(:first-child),.course-card,.course-card:not(:first-child),.course-card:last-child{padding:24px 0;border-left:0;border-right:0;border-bottom:1px solid var(--line)}
+  .gcol,.step,.course-card{padding:24px;border:0}
   .doc-nav{position:static;margin-bottom:32px}
   .hero-banner{min-height:300px;padding:140px 0 48px}
 }
