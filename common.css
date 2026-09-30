@@ -126,6 +126,18 @@ table.data td{color:var(--ink)}
 .step em{display:block;font-family:var(--serif);font-size:28px;font-style:normal;color:var(--orange);margin-bottom:16px}
 .step strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:10px}
 .step span{display:block;font-size:14px;line-height:1.7;color:var(--mute)}
+.course-block{margin-top:72px;padding-top:56px;border-top:1px solid var(--line)}
+.course-block h2{margin-bottom:8px}
+.courses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:32px;border-top:1px solid var(--ink)}
+.course-card{display:flex;flex-direction:column;padding:28px 24px 28px 0;border-right:1px solid var(--line);min-height:200px}
+.course-card:last-child{border-right:0;padding-right:0}
+.course-card:not(:first-child){padding-left:24px}
+.course-card em,.course-card strong,.course-card span,.course-card i{display:block}
+.course-card em{font-size:11px;font-style:normal;letter-spacing:.16em;color:var(--orange)}
+.course-card strong{margin:12px 0 8px;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
+.course-card span{font-size:14px;line-height:1.65;color:var(--mute)}
+.course-card i{margin-top:auto;padding-top:20px;font-style:normal;font-size:14px;font-weight:600;color:var(--orange)}
+.course-card:hover strong{color:var(--orange)}
 .panel{display:flex;justify-content:space-between;align-items:center;gap:32px;margin-top:64px;padding:36px 40px;background:var(--paper)}
 .panel h2{margin:0 0 8px;font-size:26px}
 .panel p{margin:0}
@@ -180,9 +192,9 @@ footer a:hover{color:var(--orange)}
 @media(max-width:980px){
   .wrap{width:min(calc(100% - 32px),var(--max))}
   nav{display:none}
-  .toc a,.facts,.split,.doc,.cat,.course,.steps4,.gazette,.ask-grid,.about-grid,.footer-grid,.org-list li,.panel{grid-template-columns:1fr;display:block}
+  .toc a,.facts,.split,.doc,.cat,.course,.courses,.steps4,.gazette,.ask-grid,.about-grid,.footer-grid,.org-list li,.panel{grid-template-columns:1fr;display:block}
   .fact,.fact:last-child,.fact:nth-child(2){padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}
-  .gcol,.gcol + .gcol,.step,.step:not(:first-child){padding:24px 0;border-left:0;border-right:0;border-bottom:1px solid var(--line)}
+  .gcol,.gcol + .gcol,.step,.step:not(:first-child),.course-card,.course-card:not(:first-child),.course-card:last-child{padding:24px 0;border-left:0;border-right:0;border-bottom:1px solid var(--line)}
   .doc-nav{position:static;margin-bottom:32px}
   .hero-banner{min-height:300px;padding:140px 0 48px}
 }
