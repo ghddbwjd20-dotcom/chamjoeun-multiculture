@@ -47,8 +47,9 @@ nav a.is-on{color:var(--orange)}
 .hero-banner .lead{color:rgba(255,253,248,.88)}
 .hero-banner .crumb{color:rgba(255,253,248,.58)}
 
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid var(--orange);background:var(--orange);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
+.actions > * + *{margin-left:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:48px;padding:0 22px;border:1px solid var(--orange);background:var(--orange);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
 .btn:hover{background:#e46822;border-color:#e46822;color:#fff}
 .btn.line{background:transparent;color:var(--ink);border-color:#c8bfb4}
 .btn.line:hover{background:var(--ink);border-color:var(--ink);color:#fff}
