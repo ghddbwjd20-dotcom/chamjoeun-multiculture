@@ -102,11 +102,9 @@ nav a:hover{color:var(--orange)}
 .m4 .ico,.m4 .marrow{color:#6b5ce7}
 .mcard:hover strong{color:var(--orange)}
 
-.intro{display:grid;grid-template-columns:1.05fr .95fr;min-height:82vh;background:#fff}
-.intro-photo{position:relative;min-height:560px}
-.intro-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center}
-.intro-copy{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:80px var(--pad) 80px 64px;margin-left:-72px;background:linear-gradient(180deg,#fffdf8 0%,#fff 100%);border-radius:80px 0 0 80px;box-shadow:-24px 0 48px rgba(27,23,20,.04)}
-.intro h2{max-width:12em}
+.intro{background:#fff;padding:96px 0 0}
+.intro-copy{max-width:52em;padding-bottom:40px}
+.intro h2{max-width:14em}
 .intro h2 em{color:var(--orange);font-style:normal}
 .keys{display:flex;flex-wrap:wrap;gap:22px 28px;margin:32px 0 0}
 .keys span{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:0;padding:0;border:0;border-radius:0;font-size:12px;letter-spacing:.02em;color:var(--ink);background:transparent}
@@ -115,15 +113,26 @@ nav a:hover{color:var(--orange)}
 .intro .btn{border-radius:999px;min-height:46px;padding:0 20px 0 22px;gap:8px}
 .intro .btn b{font-weight:500}
 .intro .btn.line{border-color:#d7cfc6}
+.intro-band{width:100%;height:min(52vh,520px);overflow:hidden}
+.intro-band img{width:100%;height:100%;object-fit:cover;object-position:left center}
 
-.chapter{display:grid;grid-template-columns:1fr 1fr;min-height:72vh}
-.chapter.reverse{direction:rtl}
-.chapter.reverse > *{direction:ltr}
-.chapter-photo{position:relative;min-height:480px}
-.chapter-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.chapter-copy{display:flex;flex-direction:column;justify-content:center;padding:72px var(--pad);background:var(--cream)}
-.chapter:nth-child(even) .chapter-copy{background:var(--paper)}
-.chapter-copy .pill{margin-bottom:16px;align-self:flex-start}
+.works{padding:0 0 88px;background:var(--cream)}
+.works-head{padding:88px 0 36px}
+.work-hero{background:#fff}
+.work-hero-photo{width:100%;height:min(58vh,580px);overflow:hidden}
+.work-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:72% 38%}
+.work-hero-copy{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;padding:48px 0 64px}
+.work-hero-copy .pill{margin-bottom:14px}
+.work-hero-copy h2{margin-bottom:0}
+.work-hero-copy .lead{margin-bottom:24px}
+.work-pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,28px)}
+.work-card{background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 16px 40px rgba(27,23,20,.06)}
+.work-card-photo{height:280px;overflow:hidden}
+.work-card-photo img{width:100%;height:100%;object-fit:cover}
+.work-card-in{padding:28px 28px 32px}
+.work-card-in .pill{margin-bottom:12px}
+.work-card-in h3{font-family:var(--serif);font-size:clamp(22px,2vw,28px);font-weight:500;margin:0 0 12px}
+.work-card-in p{margin:0 0 18px;color:var(--mute)}
 
 .vision{padding:100px 0;background:#fffaf4;overflow:hidden}
 .vision-in{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.28fr);gap:clamp(28px,4vw,64px);align-items:center}
@@ -237,7 +246,7 @@ footer a:hover{color:var(--orange)}
   .hero{min-height:100svh;height:100svh;padding:0}
   .hero h1 span{white-space:normal}
   .hero video,.hero .poster{position:absolute}
-  .intro,.chapter,.footer-grid,.cta-in{grid-template-columns:1fr;display:block}
+  .footer-grid,.cta-in,.work-hero-copy,.work-pair{grid-template-columns:1fr;display:grid}
   .vision-in,.vision-stage{grid-template-columns:1fr;min-height:0}
   .vcard.is-mid,.vcard.is-side{min-height:220px}
   .news-grid{grid-template-columns:1fr;gap:28px}
@@ -249,9 +258,8 @@ footer a:hover{color:var(--orange)}
   .quick-head h2{white-space:normal}
   .qimg{aspect-ratio:16/10}
   .qcard-in{padding:20px 20px 22px}
-  .chapter-photo,.intro-photo{min-height:320px}
-  .intro-copy{margin-left:0;border-radius:0;padding:56px var(--pad);box-shadow:none}
+  .intro-band,.work-hero-photo{height:280px}
+  .work-card-photo{height:200px}
   .more-grid{grid-template-columns:1fr;gap:28px}
   .mcard{padding:18px 16px}
-  .chapter.reverse{direction:ltr}
 }
