@@ -39,94 +39,57 @@
       <span><em>사회통합</em>을 지원합니다.</span>
     </h1>
     <p class="lead">참조은다문화는 <em>동포체류지원센터</em>와 법무부 <em>사회통합</em>·<em>조기적응</em> 사업을 운영하는 전문기관입니다.</p>
-    <a class="hero-go" href="#quick"><i>→</i> 주요 서비스 보기</a>
+    <form class="hero-search" id="heroSearch" role="search" action="#quick">
+      <label class="sr-only" for="heroQ">서비스 검색</label>
+      <input id="heroQ" name="q" type="search" placeholder="필요한 지원을 검색해 보세요" autocomplete="off">
+      <button type="submit" aria-label="검색">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.2" stroke="currentColor" stroke-width="1.7"/><path d="M16 16l4.2 4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </form>
+    <p class="hero-keys">
+      <span>주요 검색어</span>
+      <a href="settlement.html">동포체류지원센터</a>
+      <a href="ministry.html#kiip">사회통합프로그램(KIIP)</a>
+      <a href="ministry.html#early">조기적응프로그램</a>
+    </p>
   </div>
 </section>
 
-<section class="quick" id="quick">
-  <div class="edge quick-head">
-    <p class="kicker">Find a service</p>
-    <h2>필요한 지원을 바로 찾아 주세요</h2>
-  </div>
-  <div class="edge quick-grid">
-    <a class="qcard q1" href="settlement.html">
-      <div class="qimg"><img src="media/quick-settlement.jpg" alt=""></div>
-      <div class="qcard-in">
-        <em>Settlement</em>
+<section class="jump" id="quick">
+  <div class="jump-main">
+    <div class="edge">
+      <a href="settlement.html">
+        <em>01</em>
         <strong>동포체류지원센터</strong>
         <span>정착 상담 · 취업 · 이용안내</span>
-        <i class="qgo" aria-hidden="true">→</i>
-      </div>
-    </a>
-    <a class="qcard q2" href="ministry.html#kiip">
-      <div class="qimg"><img src="media/quick-kiip.jpg" alt=""></div>
-      <div class="qcard-in">
-        <em>Integration</em>
-        <strong>사회통합 프로그램</strong>
+        <i aria-hidden="true">→</i>
+      </a>
+      <a href="ministry.html#kiip">
+        <em>02</em>
+        <strong>사회통합프로그램</strong>
         <span>법무부 KIIP · 한국어와 한국사회</span>
-        <i class="qgo" aria-hidden="true">→</i>
-      </div>
-    </a>
-    <a class="qcard q3" href="ministry.html#early">
-      <div class="qimg"><img src="media/quick-early.jpg" alt=""></div>
-      <div class="qcard-in">
-        <em>Adaptation</em>
-        <strong>조기적응 프로그램</strong>
+        <i aria-hidden="true">→</i>
+      </a>
+      <a href="ministry.html#early">
+        <em>03</em>
+        <strong>조기적응프로그램</strong>
         <span>입국 초기 생활 안내</span>
-        <i class="qgo" aria-hidden="true">→</i>
-      </div>
-    </a>
-    <a class="qcard q4" href="education.html">
-      <div class="qimg"><img src="media/quick-lms.jpg" alt=""></div>
-      <div class="qcard-in">
-        <em>Classroom</em>
+        <i aria-hidden="true">→</i>
+      </a>
+      <a href="education.html">
+        <em>04</em>
         <strong>교육과정 / LMS</strong>
         <span>수강신청 · 나의 강의실</span>
-        <i class="qgo" aria-hidden="true">→</i>
-      </div>
-    </a>
+        <i aria-hidden="true">→</i>
+      </a>
+    </div>
   </div>
-</section>
-
-<section class="more">
-  <div class="edge">
-    <div class="more-grid">
-      <a class="mcard m1" href="ministry.html#korean">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="18" cy="18" r="16" stroke="currentColor" stroke-width="1.4"/><path d="M10 19c2.2 3 5 4.6 8 4.6S23.8 22 26 19" stroke="currentColor" stroke-width="1.4"/><path d="M13 15h.01M23 15h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        <div class="mcard-in">
-          <em>Korean</em>
-          <strong>한국어 교육</strong>
-          <span>생활 한국어와 한국문화</span>
-        </div>
-        <i class="marrow" aria-hidden="true">→</i>
-      </a>
-      <a class="mcard m2" href="programs.html#license">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect x="7" y="6" width="22" height="24" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M12 14h12M12 19h12M12 24h8" stroke="currentColor" stroke-width="1.4"/></svg>
-        <div class="mcard-in">
-          <em>License</em>
-          <strong>민간 자격증</strong>
-          <span>병원동행 · 기초학력 · 방과후</span>
-        </div>
-        <i class="marrow" aria-hidden="true">→</i>
-      </a>
-      <a class="mcard m3" href="programs.html#community">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" aria-hidden="true"><circle cx="12" cy="14" r="4" stroke="currentColor" stroke-width="1.4"/><circle cx="24" cy="14" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M6 28c.6-4 3.2-6 6-6s5.4 2 6 6M18 28c.6-4 3.2-6 6-6s5.4 2 6 6" stroke="currentColor" stroke-width="1.4"/></svg>
-        <div class="mcard-in">
-          <em>Community</em>
-          <strong>지역사회 서비스</strong>
-          <span>교육·복지 대상별 프로그램</span>
-        </div>
-        <i class="marrow" aria-hidden="true">→</i>
-      </a>
-      <a class="mcard m4" href="programs.html#lifelong">
-        <svg class="ico" viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M6 12l12-6 12 6-12 6-12-6z" stroke="currentColor" stroke-width="1.4"/><path d="M10 16v8c4 3 12 3 16 0v-8" stroke="currentColor" stroke-width="1.4"/></svg>
-        <div class="mcard-in">
-          <em>Lifelong</em>
-          <strong>평생교육</strong>
-          <span>성인문해 · 직업훈련</span>
-        </div>
-        <i class="marrow" aria-hidden="true">→</i>
-      </a>
+  <div class="jump-sub" id="programs">
+    <div class="edge">
+      <a href="ministry.html#korean">한국어 교육 <i aria-hidden="true">→</i></a>
+      <a href="programs.html#license">민간자격증 <i aria-hidden="true">→</i></a>
+      <a href="programs.html#community">지역사회서비스 <i aria-hidden="true">→</i></a>
+      <a href="programs.html#lifelong">평생교육 <i aria-hidden="true">→</i></a>
     </div>
   </div>
 </section>
@@ -162,48 +125,48 @@
   <div class="intro-band"><img src="media/about-team.jpg" alt=""></div>
 </section>
 
-<section class="works">
-  <div class="edge works-head">
-    <p class="kicker">Core programs</p>
-    <h2>법무부 지정 사업을 한곳에서 이어 갑니다</h2>
-  </div>
-  <article class="work-hero" id="settlement">
-    <div class="work-hero-photo"><img src="media/quick-settlement.jpg" alt=""></div>
-    <div class="edge work-hero-copy">
-      <div>
-        <em class="pill">Settlement</em>
-        <p class="kicker">01 · 핵심사업</p>
-        <h2>동포체류지원센터</h2>
+<section class="works" id="core">
+  <div class="works-track">
+    <div class="works-pin edge">
+      <div class="works-left">
+        <p class="kicker">Core programs</p>
+        <h2>법무부 지정 사업을<br>한곳에서 이어 갑니다</h2>
+        <ol class="works-dots" aria-hidden="true">
+          <li class="is-on"></li><li></li><li></li>
+        </ol>
       </div>
-      <div>
-        <p class="lead">2026년 법무부 신규 지정. 체류, 생활, 일자리 정보를 상담과 연계로 연결하는 최우선 공적 창구입니다.</p>
-        <div class="actions">
+      <div class="works-visual" aria-hidden="true">
+        <figure class="is-on"><img src="media/quick-settlement.jpg" alt=""></figure>
+        <figure><img src="media/quick-kiip.jpg" alt=""></figure>
+        <figure><img src="media/quick-early.jpg" alt=""></figure>
+      </div>
+      <div class="works-right">
+        <article class="is-on" id="settlement">
+          <div class="works-mimg"><img src="media/quick-settlement.jpg" alt=""></div>
+          <em class="pill">Settlement</em>
+          <p class="kicker">01 · 핵심사업</p>
+          <h3>동포체류지원센터</h3>
+          <p>2026년 법무부 신규 지정. 체류, 생활, 일자리 정보를 상담과 연계로 연결하는 최우선 공적 창구입니다.</p>
           <a class="btn" href="settlement.html">센터 안내</a>
-        </div>
+        </article>
+        <article id="kiip">
+          <div class="works-mimg"><img src="media/quick-kiip.jpg" alt=""></div>
+          <em class="pill">Integration</em>
+          <p class="kicker">02 · 법무부 지원사업</p>
+          <h3>사회통합프로그램 (KIIP)</h3>
+          <p>한국어와 한국사회 이해교육으로 적응과 사회통합을 지원합니다. 2011년부터 법무부 운영기관으로 지정되어 왔습니다.</p>
+          <a class="btn" href="ministry.html#kiip">과정 안내</a>
+        </article>
+        <article id="early">
+          <div class="works-mimg"><img src="media/quick-early.jpg" alt=""></div>
+          <em class="pill">Adaptation</em>
+          <p class="kicker">03 · 법무부 지원사업</p>
+          <h3>조기적응프로그램</h3>
+          <p>입국 초기에 필요한 한국생활 정보와 기초 적응을 안내합니다. 2018년 조기적응 지원센터 지정 이후 이어 오고 있습니다.</p>
+          <a class="btn" href="ministry.html#early">이용 안내</a>
+        </article>
       </div>
     </div>
-  </article>
-  <div class="edge work-pair">
-    <article class="work-card" id="kiip">
-      <div class="work-card-photo"><img src="media/quick-kiip.jpg" alt=""></div>
-      <div class="work-card-in">
-        <em class="pill">Integration</em>
-        <p class="kicker">02 · 법무부 지원사업</p>
-        <h3>사회통합프로그램 (KIIP)</h3>
-        <p>한국어와 한국사회 이해교육으로 적응과 사회통합을 지원합니다. 2011년부터 법무부 운영기관으로 지정되어 왔습니다.</p>
-        <a class="go" href="ministry.html#kiip">과정 안내 <b>→</b></a>
-      </div>
-    </article>
-    <article class="work-card" id="early">
-      <div class="work-card-photo"><img src="media/quick-early.jpg" alt=""></div>
-      <div class="work-card-in">
-        <em class="pill">Adaptation</em>
-        <p class="kicker">03 · 법무부 지원사업</p>
-        <h3>조기적응프로그램</h3>
-        <p>입국 초기에 필요한 한국생활 정보와 기초 적응을 안내합니다. 2018년 조기적응 지원센터 지정 이후 이어 오고 있습니다.</p>
-        <a class="go" href="ministry.html#early">이용 안내 <b>→</b></a>
-      </div>
-    </article>
   </div>
 </section>
 
@@ -302,6 +265,7 @@
           <a class="news-item" href="news.html#files"><span>민간자격증 과정 소개</span><time>2025-12-08</time></a>
           <a class="news-item" href="news.html#files"><span>모집요강 신청 자료</span><time>2026-03-02</time></a>
         </div>
+        <a class="news-more" href="news.html">전체 소식 보기 <b>→</b></a>
       </div>
       <aside class="news-aside">
         <a class="news-card" href="news.html">
@@ -422,6 +386,30 @@ function showVision(n){
 document.getElementById("vPrev").onclick=()=>showVision(vAt-1);
 document.getElementById("vNext").onclick=()=>showVision(vAt+1);
 paintVision();
+(function(){
+  const track=document.querySelector(".works-track");
+  const figs=[...document.querySelectorAll(".works-visual figure")];
+  const copies=[...document.querySelectorAll(".works-right article")];
+  const dots=[...document.querySelectorAll(".works-dots li")];
+  if(!track||!figs.length) return;
+  let at=-1;
+  const set=(i)=>{
+    if(i===at) return;
+    at=i;
+    figs.forEach((el,n)=>el.classList.toggle("is-on",n===i));
+    copies.forEach((el,n)=>el.classList.toggle("is-on",n===i));
+    dots.forEach((el,n)=>el.classList.toggle("is-on",n===i));
+  };
+  const onScroll=()=>{
+    if(window.matchMedia("(max-width:980px)").matches){set(0);return;}
+    const r=track.getBoundingClientRect();
+    const total=r.height-window.innerHeight;
+    const p=total<=0?0:Math.min(.999,Math.max(0,-r.top/total));
+    set(Math.min(figs.length-1,Math.floor(p*figs.length)));
+  };
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+})();
 document.querySelectorAll(".news-tabs button").forEach(btn=>{
   btn.onclick=()=>{
     const key=btn.dataset.news;
@@ -429,6 +417,28 @@ document.querySelectorAll(".news-tabs button").forEach(btn=>{
     document.querySelectorAll(".news-board").forEach(board=>board.classList.toggle("is-on",board.dataset.news===key));
   };
 });
+const heroMap=[
+  {keys:["동포","체류","정착","상담","취업"],href:"settlement.html"},
+  {keys:["사회통합","kiip","KIIP","통합"],href:"ministry.html#kiip"},
+  {keys:["조기적응","조기","적응","입국"],href:"ministry.html#early"},
+  {keys:["한국어","한국문화"],href:"ministry.html#korean"},
+  {keys:["자격","병원동행","기초학력","방과후"],href:"programs.html#license"},
+  {keys:["지역사회","복지"],href:"programs.html#community"},
+  {keys:["평생","문해","직업훈련"],href:"programs.html#lifelong"},
+  {keys:["강의","lms","교육과정","수강"],href:"education.html"},
+  {keys:["소식","공지","자료"],href:"news.html"},
+  {keys:["문의","협력"],href:"contact.html"}
+];
+const heroForm=document.getElementById("heroSearch");
+if(heroForm){
+  heroForm.addEventListener("submit",e=>{
+    e.preventDefault();
+    const q=(document.getElementById("heroQ").value||"").trim();
+    if(!q){document.getElementById("heroQ").focus();return;}
+    const hit=heroMap.find(item=>item.keys.some(k=>q.includes(k)||k.toLowerCase().includes(q.toLowerCase())));
+    location.href=hit?hit.href:"#quick";
+  });
+}
 </script>
 </body>
 </html>
