@@ -7,7 +7,6 @@
 <title>사회통합프로그램(KIIP) | 참조은다문화</title>
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov-dynamic-subset.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="common.css">
 </head>
 <body>
@@ -15,12 +14,17 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="index.html"><img src="logo.png" alt="참조은다문화 로고"><span>참조은다문화</span></a>
-    <nav aria-label="주요 메뉴">
+    <button class="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="siteNav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="siteNav" aria-label="주요 메뉴">
+      <a href="about.html">기업소개</a>
       <a href="business.html">사업안내</a>
       <a href="settlement.html">동포체류지원센터</a>
       <a href="ministry.html" class="is-on">사회통합(KIIP)</a>
       <a href="education.html">교육과정</a>
       <a href="news.html">기관소식</a>
+      <a class="nav-m" href="contact.html">문의</a>
     </nav>
     <a class="nav-cta" href="contact.html">문의</a>
   </div>
@@ -88,7 +92,7 @@
       <div>
         <h4>바로가기</h4>
         <p>
-          <a href="about.html">회사소개</a><br>
+          <a href="about.html">기업소개</a><br>
           <a href="business.html">사업안내</a><br>
           <a href="settlement.html">동포체류지원센터</a><br>
           <a href="ministry.html">사회통합프로그램(KIIP)</a><br>
@@ -107,5 +111,6 @@
     <p class="draft">고객 확인용 시안입니다. 사진은 임시이며 PC 기준으로 봐 주세요.</p>
   </div>
 </footer>
+<script src="nav.js"></script>
 </body>
 </html>
