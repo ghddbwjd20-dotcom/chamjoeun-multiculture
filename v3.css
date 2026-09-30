@@ -73,17 +73,15 @@ nav a:hover{color:var(--orange)}
 .go{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-style:normal;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--orange)}
 .go b{display:grid;place-items:center;width:22px;height:22px;border:1px solid var(--orange);border-radius:50%;font-weight:500;line-height:1}
 
-.more{padding:40px 0 88px;background:var(--cream)}
-.more-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
-.mcard{padding:28px 22px 8px 0;border-right:1px solid var(--line)}
-.mcard:last-child{border-right:0;padding-right:0}
-.mcard:not(:first-child){padding-left:22px}
-.mcard-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.mcard .ico{width:28px;height:28px;flex:0 0 auto;color:var(--orange)}
-.mcard .pill{margin:0;min-height:26px;padding:0 12px;font-size:10px;white-space:nowrap}
-.mcard strong{display:block;font-family:var(--serif);font-size:18px;font-weight:500;margin-bottom:6px}
-.mcard span{display:block;font-size:13px;color:var(--mute)}
-.mcard .go{margin-top:16px}
+.more{padding:8px 0 88px;background:var(--cream)}
+.more .edge{padding-left:clamp(56px,8vw,120px);padding-right:clamp(56px,8vw,120px)}
+.more-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(28px,3.4vw,48px);border-top:1px solid var(--line);padding-top:36px}
+.mcard{padding:0;border:0;min-width:0}
+.mcard-top{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:10px;margin:0 0 16px}
+.mcard .ico{width:32px;height:32px;flex:0 0 32px;color:var(--orange)}
+.mcard .pill{display:inline-flex;flex:0 0 auto;margin:0;min-height:28px;padding:0 12px;font-size:11px;font-style:normal;white-space:nowrap}
+.mcard strong{display:block;font-family:var(--serif);font-size:clamp(20px,1.8vw,28px);font-weight:500;letter-spacing:-.03em;margin:0 0 10px}
+.mcard > span{display:block;font-size:15px;line-height:1.7;color:var(--mute)}
 .mcard:hover strong{color:var(--orange)}
 
 .intro{display:grid;grid-template-columns:1.05fr .95fr;min-height:82vh;background:#fff}
@@ -172,13 +170,14 @@ footer a:hover{color:var(--orange)}
   .hero{min-height:100svh;height:100svh;padding:0}
   .hero h1 span{white-space:normal}
   .hero video,.hero .poster{position:absolute}
-  .intro,.chapter,.next-grid,.lms-grid,.news-grid,.footer-grid,.more-grid,.cta-in{grid-template-columns:1fr;display:block}
+  .intro,.chapter,.next-grid,.lms-grid,.news-grid,.footer-grid,.cta-in{grid-template-columns:1fr;display:block}
   .quick-grid{grid-template-columns:1fr;gap:32px}
   .quick-head h2{white-space:normal}
   .qimg{aspect-ratio:16/10}
   .qcard-in{padding:22px 0 4px}
   .chapter-photo,.intro-photo{min-height:320px}
   .intro-copy{margin-left:0;border-radius:0;padding:56px var(--pad);box-shadow:none}
-  .mcard,.mcard:not(:first-child){padding:28px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .more-grid{grid-template-columns:1fr;gap:28px}
+  .mcard{padding:0 0 8px;border:0}
   .chapter.reverse{direction:ltr}
 }
