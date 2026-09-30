@@ -60,25 +60,29 @@ nav a:hover{color:var(--orange)}
 .qcard:nth-child(1) img{object-position:72% 38%}
 .qcard:nth-child(3) img{object-position:68% 40%}
 .qcard:nth-child(4) img{object-position:40% 42%}
-.qcard-in{padding:32px 28px 8px}
+.qcard-in{padding:32px 28px 12px}
 .qcard:first-child .qcard-in{padding-left:var(--pad)}
 .qcard:last-child .qcard-in{padding-right:var(--pad)}
 .qcard .pill{margin-bottom:16px}
 .qcard strong{display:block;margin:0 0 10px;font-family:var(--serif);font-size:clamp(20px,1.8vw,28px);font-weight:500;letter-spacing:-.03em}
 .qcard span{display:block;font-size:15px;line-height:1.7;color:var(--mute)}
-.qcard i{display:inline-block;margin-top:22px;font-style:normal;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--orange)}
 .qcard:hover img{transform:scale(1.04)}
 .qcard:hover strong{color:var(--orange)}
+
+.go{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-style:normal;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--orange)}
+.go b{display:grid;place-items:center;width:22px;height:22px;border:1px solid var(--orange);border-radius:50%;font-weight:500;line-height:1}
 
 .more{padding:40px 0 88px;background:var(--cream)}
 .more-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
 .mcard{padding:28px 22px 8px 0;border-right:1px solid var(--line)}
 .mcard:last-child{border-right:0;padding-right:0}
 .mcard:not(:first-child){padding-left:22px}
-.mcard .ico{width:28px;height:28px;margin-bottom:16px;color:var(--orange)}
-.mcard .pill{margin-bottom:10px;min-height:24px;padding:0 10px;font-size:10px}
+.mcard-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.mcard .ico{width:28px;height:28px;flex:0 0 auto;color:var(--orange)}
+.mcard .pill{margin:0;min-height:26px;padding:0 12px;font-size:10px;white-space:nowrap}
 .mcard strong{display:block;font-family:var(--serif);font-size:18px;font-weight:500;margin-bottom:6px}
 .mcard span{display:block;font-size:13px;color:var(--mute)}
+.mcard .go{margin-top:16px}
 .mcard:hover strong{color:var(--orange)}
 
 .intro{display:grid;grid-template-columns:1.15fr .85fr;min-height:88vh;background:var(--paper)}
