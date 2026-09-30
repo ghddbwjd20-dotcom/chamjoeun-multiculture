@@ -39,6 +39,14 @@ nav a.is-on{color:var(--orange)}
 .nav-cta{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;background:var(--orange);color:#fff;font-size:13px;font-weight:600}
 .nav-cta.is-on{background:#e46822}
 
+.hero-banner{position:relative;min-height:380px;padding:168px 0 72px;background-color:#1b1714;background-position:center;background-size:cover;background-repeat:no-repeat;color:#fff}
+.hero-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,12,.62) 0%,rgba(20,16,12,.18) 70%)}
+.hero-banner .wrap{position:relative;z-index:1}
+.hero-banner .kicker{color:#fc7830}
+.hero-banner h1{margin:0 0 14px;max-width:14em;font-size:clamp(32px,4vw,50px);color:#fff}
+.hero-banner .lead{color:rgba(255,253,248,.88)}
+.hero-banner .crumb{color:rgba(255,253,248,.58)}
+
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid var(--orange);background:var(--orange);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
 .btn:hover{background:#e46822;border-color:#e46822;color:#fff}
@@ -52,7 +60,7 @@ table.data th{width:28%;color:var(--orange);font-weight:600}
 table.data td{color:var(--ink)}
 
 /* 1. 사업안내 — 목차형 세로 목록 */
-.page-toc{padding:140px 0 88px}
+.page-toc{padding:72px 0 88px}
 .page-toc h1{margin:0 0 16px;font-size:clamp(36px,4.4vw,54px);max-width:12em}
 .page-toc .lead{margin-bottom:56px}
 .toc-label{margin:40px 0 0;padding-bottom:12px;font-size:12px;letter-spacing:.16em;color:var(--orange);border-bottom:1px solid var(--ink)}
@@ -65,7 +73,7 @@ table.data td{color:var(--ink)}
 .toc a:hover strong{color:var(--orange)}
 
 /* 2. 동포체류 — 지정 사실 + 절차 */
-.page-facts{padding:140px 0 0}
+.page-facts{padding:64px 0 0}
 .page-facts h1{margin:0 0 12px;font-size:clamp(34px,4vw,48px)}
 .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:48px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
 .fact{padding:36px 32px 36px 0;border-right:1px solid var(--line)}
@@ -85,7 +93,7 @@ table.data td{color:var(--ink)}
 .visit h2{font-size:26px}
 
 /* 3. 사회통합 — 왼쪽 목차 + 본문 */
-.doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:80px;padding:120px 0 96px}
+.doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:80px;padding:72px 0 96px}
 .doc-nav{position:sticky;top:108px;align-self:start}
 .doc-nav p{margin:0 0 16px;font-size:12px;letter-spacing:.16em;color:var(--orange)}
 .doc-nav a{display:block;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
@@ -98,7 +106,7 @@ table.data td{color:var(--ink)}
 .chapter li{padding:10px 0;border-bottom:1px solid var(--line);color:var(--mute)}
 
 /* 4. 주요 사업 — 좌제목 / 우본문 카탈로그 */
-.page-cat{padding:140px 0 40px}
+.page-cat{padding:64px 0 40px}
 .page-cat h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
 .cat{display:grid;grid-template-columns:260px minmax(0,1fr);gap:56px;padding:56px 0;border-top:1px solid var(--line)}
 .cat:first-of-type{border-top:1px solid var(--ink);margin-top:56px}
@@ -109,7 +117,7 @@ table.data td{color:var(--ink)}
 .course span{font-size:15px;color:var(--mute)}
 
 /* 5. 교육과정 — 4단 이용 절차 */
-.page-steps{padding:140px 0 96px}
+.page-steps{padding:64px 0 96px}
 .page-steps h1{margin:0 0 14px;font-size:clamp(34px,4vw,48px)}
 .steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:56px;border-top:1px solid var(--ink)}
 .step{padding:32px 28px 8px 0;border-right:1px solid var(--line)}
@@ -123,7 +131,7 @@ table.data td{color:var(--ink)}
 .panel p{margin:0}
 
 /* 6. 기관소식 — 신문 3단 */
-.page-news{padding:140px 0 40px}
+.page-news{padding:64px 0 40px}
 .page-news h1{margin:0 0 8px;font-size:42px}
 .gazette{display:grid;grid-template-columns:1.15fr .95fr .9fr;gap:0;padding:48px 0 96px;border-top:1px solid var(--ink)}
 .gcol{padding:0 32px}
@@ -136,7 +144,7 @@ table.data td{color:var(--ink)}
 .news-item:hover span{color:var(--orange)}
 
 /* 7. 문의 — 짧은 머리 + 양식/주소 */
-.page-ask{padding:128px 0 88px}
+.page-ask{padding:56px 0 88px}
 .page-ask h1{margin:0 0 10px;font-size:clamp(32px,3.6vw,44px)}
 .ask-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:72px;margin-top:48px;align-items:start}
 form.ask{display:grid;gap:14px}
@@ -148,7 +156,7 @@ form.ask textarea{min-height:132px;resize:vertical}
 .sidebox + .sidebox{margin-top:16px}
 
 /* 8. 회사소개 — 이념 문장 + 연혁 */
-.page-about{padding:140px 0 96px}
+.page-about{padding:64px 0 96px}
 .quote{font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);font-weight:500;line-height:1.5;max-width:16em;margin:0 0 20px;color:var(--ink)}
 .about-lead{max-width:40em;margin-bottom:72px}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
@@ -176,4 +184,5 @@ footer a:hover{color:var(--orange)}
   .fact,.fact:last-child,.fact:nth-child(2){padding:24px 0;border-right:0;border-bottom:1px solid var(--line)}
   .gcol,.gcol + .gcol,.step,.step:not(:first-child){padding:24px 0;border-left:0;border-right:0;border-bottom:1px solid var(--line)}
   .doc-nav{position:static;margin-bottom:32px}
+  .hero-banner{min-height:300px;padding:140px 0 48px}
 }
