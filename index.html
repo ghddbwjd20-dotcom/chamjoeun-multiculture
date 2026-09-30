@@ -259,7 +259,7 @@ section{padding:110px 0}
 .lms-tabs button em{font-style:normal;margin-right:7px;color:#c4b8ac}
 .lms-tabs button.is-on{color:#fc7830;background:#fff8f2;box-shadow:inset 0 0 0 1px #fc7830}
 .lms-tabs button.is-on em{color:#fc7830}
-.lms-stage{position:relative;max-width:1100px;margin:0 auto;min-height:620px;padding:72px 0 48px}
+.lms-stage{position:relative;max-width:1100px;margin:0 auto;min-height:620px;padding:72px 0 8px}
 .lms-tip{position:absolute;z-index:6;left:16%;top:8px;width:min(268px,72%);padding:16px 18px 16px 20px;border:1px solid #fc7830;border-radius:18px;background:#fff;text-align:left;box-shadow:0 14px 36px rgba(27,23,20,.08)}
 .lms-tip b{display:flex;align-items:center;gap:8px;margin:0 0 7px;font-size:13px;font-weight:600;color:#171717}
 .lms-tip b i{flex:0 0 18px;width:18px;height:18px;border:1.5px solid #fc7830;border-radius:50%;position:relative}
@@ -287,7 +287,7 @@ section{padding:110px 0}
 .lms-phone .lms-pane{min-height:172px;padding:16px 8px}
 .lms-phone .lms-pane strong{font-size:14px}
 .lms-phone .lms-pane small{display:none}
-.lms-cta{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 30px;border-radius:999px;background:#fc7830;color:#fff;font-size:14px;font-weight:600;position:absolute;z-index:5;left:42%;bottom:18px;transform:translateX(-50%);box-shadow:0 12px 28px rgba(252,120,48,.3)}
+.lms-cta{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 30px;margin:36px auto 0;border-radius:999px;background:#fc7830;color:#fff;font-size:14px;font-weight:600;position:relative;z-index:5;box-shadow:0 12px 28px rgba(252,120,48,.3)}
 .lms-cta:hover{background:#e46822;color:#fff}
 .lms-arrows{position:absolute;left:0;right:0;top:56%;display:flex;justify-content:space-between;pointer-events:none;z-index:4}
 .lms-arrows button{pointer-events:auto;width:46px;height:46px;border:1px solid #e6ddd4;border-radius:50%;background:#fff;color:#171717;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
@@ -370,7 +370,7 @@ footer a:hover{color:var(--orange)}
   .hero-eyebrow,.hero h1 span,.hero h1 em{white-space:normal}
   .lms-desk{width:min(680px,86%);margin:28px auto 0}
   .lms-phone,.lms-arrows{display:none}
-  .lms-cta{left:50%}
+  .lms-cta{margin-top:32px}
   .pshow{--pin-h:min(70vh,520px)}
   .pshow-pin{top:calc(76px + (100vh - 76px - var(--pin-h)) / 2);height:var(--pin-h)}
   .pcard-in{grid-template-columns:1fr;padding:28px 24px;align-content:space-between}
@@ -394,7 +394,7 @@ footer a:hover{color:var(--orange)}
   .lms-arrows{display:none}
   .lms-tip{left:0;right:0;top:auto;position:relative;width:auto;margin:0 auto 22px}
   .lms-tip:after{display:none}
-  .lms-cta{left:50%;bottom:8px}
+  .lms-cta{margin-top:28px}
   .news-aside{grid-template-columns:1fr}
   .news-item{grid-template-columns:1fr;gap:4px}
   .news-item span{white-space:normal}
@@ -696,8 +696,8 @@ footer a:hover{color:var(--orange)}
         <button type="button" id="lmsPrev" aria-label="이전">←</button>
         <button type="button" id="lmsNext" aria-label="다음">→</button>
       </div>
-      <a class="lms-cta" href="#contact">나의 강의실 입장</a>
     </div>
+    <a class="lms-cta" href="#contact">나의 강의실 입장</a>
   </div>
 </section>
 
