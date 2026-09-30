@@ -125,16 +125,29 @@ nav a:hover{color:var(--orange)}
 .chapter:nth-child(even) .chapter-copy{background:var(--paper)}
 .chapter-copy .pill{margin-bottom:16px;align-self:flex-start}
 
-.next{padding:96px 0;background:#efe8df}
-.next-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
-.ncard{min-height:280px;padding:32px 28px;background:var(--cream);display:flex;flex-direction:column}
-.ncard:nth-child(2){background:var(--peach)}
-.ncard:nth-child(3){background:var(--sand)}
-.ncard .pill{align-self:flex-start;margin-bottom:18px}
-.ncard strong{font-family:var(--serif);font-size:26px;font-weight:500;margin-bottom:10px}
-.ncard span{font-size:15px;color:var(--mute)}
-.ncard i{margin-top:auto;padding-top:24px;font-style:normal;font-weight:600;color:var(--orange)}
-.ncard:hover strong{color:var(--orange)}
+.vision{padding:100px 0;background:#fffaf4;overflow:hidden}
+.vision-in{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.28fr);gap:clamp(28px,4vw,64px);align-items:center}
+.vision-copy .kicker{margin-bottom:22px}
+.vision .quote{font-family:var(--serif);font-size:clamp(26px,3.1vw,40px);font-weight:500;line-height:1.45;max-width:11em;margin:0 0 22px;color:var(--ink)}
+.vision-copy .lead{max-width:28em;margin-bottom:28px}
+.vision-copy .hero-go{margin-top:0}
+.vision-nav{display:flex;align-items:center;gap:14px;margin-top:36px;color:#9a938c;font-size:13px;letter-spacing:.08em}
+.vision-nav b{color:var(--ink);font-weight:600}
+.vision-nav button{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer}
+.vision-nav button:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+.vision-stage{display:grid;grid-template-columns:1.35fr .72fr .62fr;gap:14px;min-height:520px;align-items:stretch}
+.vcard{position:relative;display:flex;flex-direction:column;min-width:0;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 18px 40px rgba(27,23,20,.07);color:var(--ink);cursor:pointer}
+.vcard .vimg{position:relative;flex:1 1 auto;min-height:180px}
+.vcard.is-main .vimg{min-height:260px}
+.vcard .vimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vcard .vgo{position:absolute;top:14px;right:14px;z-index:2;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#fff;color:var(--ink);font-style:normal;box-shadow:0 6px 16px rgba(27,23,20,.1)}
+.vcard-in{padding:20px 20px 22px}
+.vcard em{display:block;margin:0 0 8px;font-size:12px;font-style:normal;letter-spacing:.12em;color:var(--orange)}
+.vcard strong{display:block;font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:8px}
+.vcard p{margin:0;font-size:13px;line-height:1.7;color:var(--mute)}
+.vcard .vico{display:block;width:22px;height:22px;margin-top:16px;color:var(--orange)}
+.vcard.is-mid strong,.vcard.is-side strong{font-size:18px}
+.vcard.is-mid p,.vcard.is-side p{font-size:12px}
 
 .lms{padding:100px 0;background:var(--cream);text-align:center;overflow:hidden}
 .lms .lead{margin:0 auto 32px}
@@ -180,11 +193,6 @@ nav a:hover{color:var(--orange)}
 .lms-arrows button:hover{background:var(--orange);border-color:var(--orange);color:#fff}
 .lms .actions{margin-top:36px;justify-content:center}
 
-.vision{padding:88px 0;background:var(--paper)}
-.vision .quote{font-family:var(--serif);font-size:clamp(24px,3vw,38px);font-weight:500;line-height:1.5;max-width:18em;margin:0 0 20px;color:var(--ink)}
-.vrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.vrow span{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1px solid var(--orange);border-radius:999px;font-size:12px;letter-spacing:.1em;color:var(--orange)}
-
 .news{padding:96px 0;background:#fff}
 .news-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.9fr);gap:40px;align-items:start;margin-top:40px}
 .news-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;padding-bottom:12px;border-bottom:1px solid var(--line)}
@@ -229,7 +237,9 @@ footer a:hover{color:var(--orange)}
   .hero{min-height:100svh;height:100svh;padding:0}
   .hero h1 span{white-space:normal}
   .hero video,.hero .poster{position:absolute}
-  .intro,.chapter,.next-grid,.footer-grid,.cta-in{grid-template-columns:1fr;display:block}
+  .intro,.chapter,.footer-grid,.cta-in{grid-template-columns:1fr;display:block}
+  .vision-in,.vision-stage{grid-template-columns:1fr;min-height:0}
+  .vcard.is-mid,.vcard.is-side{min-height:220px}
   .news-grid{grid-template-columns:1fr;gap:28px}
   .news-aside{grid-template-columns:1fr 1fr}
   .lms-desk{width:min(680px,86%);margin:28px auto 0}
