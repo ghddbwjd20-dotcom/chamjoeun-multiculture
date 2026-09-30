@@ -187,6 +187,29 @@
           <p class="kicker">02 · 법무부 지원사업</p>
           <h3>사회통합프로그램 (KIIP)</h3>
           <p>한국어와 한국사회 이해교육으로 적응과 사회통합을 지원합니다. 2011년부터 법무부 운영기관으로 지정되어 왔습니다.</p>
+          <ul class="works-pts">
+            <li>
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 8h10a4 4 0 0 1 4 4v12H12a4 4 0 0 0-4 4V8z" stroke="currentColor" stroke-width="1.5"/><path d="M18 8v16" stroke="currentColor" stroke-width="1.5"/><path d="M11 13h4M11 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <div>
+                <b>01 한국어 교육</b>
+                <span>생활 한국어와 의사소통</span>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 24V12l10-6 10 6v12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 24v-8h6v8" stroke="currentColor" stroke-width="1.5"/><path d="M6 24h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <div>
+                <b>02 한국사회 이해</b>
+                <span>제도와 문화를 단계별로</span>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="9" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="23" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="23" cy="22" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 16h8M21.2 12.4l-9 3.2M21.2 19.6l-9-3.2" stroke="currentColor" stroke-width="1.5"/></svg>
+              <div>
+                <b>03 단계별 이수</b>
+                <span>과정 이수 · 수강 안내</span>
+              </div>
+            </li>
+          </ul>
           <a class="btn" href="ministry.html#kiip">과정 안내</a>
         </article>
         <article id="early">
@@ -195,6 +218,29 @@
           <p class="kicker">03 · 법무부 지원사업</p>
           <h3>조기적응프로그램</h3>
           <p>입국 초기에 필요한 한국생활 정보와 기초 적응을 안내합니다. 2018년 조기적응 지원센터 지정 이후 이어 오고 있습니다.</p>
+          <ul class="works-pts">
+            <li>
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 5l9 6v8c0 5.4-3.6 9-9 10.4C10.6 28 7 24.4 7 19V11l9-6z" stroke="currentColor" stroke-width="1.5"/><path d="M13 16h6M16 13v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <div>
+                <b>01 생활 정보</b>
+                <span>교통 · 의료 · 행정 안내</span>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 24V13l10-7 10 7v11" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 24v-7h8v7M6 24h20" stroke="currentColor" stroke-width="1.5"/></svg>
+              <div>
+                <b>02 초기 적응</b>
+                <span>입국 초기 기초 생활</span>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="11" cy="16" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="16" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M15 16h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <div>
+                <b>03 사업 연계</b>
+                <span>정착상담 · KIIP로 연결</span>
+              </div>
+            </li>
+          </ul>
           <a class="btn" href="ministry.html#early">이용 안내</a>
         </article>
       </div>
@@ -409,6 +455,7 @@
   </div>
 </footer>
 <script src="nav.js"></script>
+<script src="fx.js"></script>
 <script>
 const hd=document.querySelector("header");
 const on=()=>hd.classList.toggle("is-solid", window.scrollY>40);
@@ -495,7 +542,7 @@ let vTimer=null,vPaused=false;
 function playVision(){
   if(vPaused) return;
   clearInterval(vTimer);
-  vTimer=setInterval(()=>showVision(vAt+1),4200);
+  vTimer=setInterval(()=>showVision(vAt+1),3000);
   restartVisionBar();
 }
 function stopVision(){

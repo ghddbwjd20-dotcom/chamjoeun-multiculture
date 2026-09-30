@@ -49,6 +49,59 @@
     </div>
   </div>
 </section>
+<section class="lms" id="lms">
+  <div class="edge-lms">
+    <div class="lms-tabs" role="tablist" aria-label="LMS 메뉴">
+      <button type="button" class="is-on" data-lms="0"><em>01</em>온라인 강의</button>
+      <button type="button" data-lms="1"><em>02</em>수강과정</button>
+      <button type="button" data-lms="2"><em>03</em>학습지원</button>
+      <button type="button" data-lms="3"><em>04</em>나의 강의실</button>
+    </div>
+    <div class="lms-stage">
+    <div class="lms-tip">
+      <b><i></i>PC와 모바일 학습</b>
+      <p>집에서도, 이동 중에도 이어서 배울 수 있도록 두 환경을 함께 지원합니다.</p>
+    </div>
+    <div class="lms-desk">
+      <i class="lms-cam" aria-hidden="true"></i>
+      <div class="lms-screen">
+        <div class="lms-chrome"><i></i><i></i><i></i><span id="lmsPath">나의 강의실 / 온라인 강의</span></div>
+        <div class="lms-body">
+          <div class="lms-pane" id="lmsLeft">
+            <div class="lms-cards">
+              <i style="background-image:url('media/quick-lms.jpg')"></i>
+              <i style="background-image:url('media/quick-kiip.jpg')"></i>
+              <i style="background-image:url('media/quick-early.jpg')"></i>
+            </div>
+            <strong id="lmsA">강의 목록</strong>
+            <small>이어서 바로 수강</small>
+          </div>
+          <div class="lms-pane is-dark">
+            <div class="lms-play" style="background-image:url('media/quick-lms.jpg')"><b></b></div>
+            <strong id="lmsB">바로 수강</strong>
+            <small>영상과 자료가 한 화면</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lms-phone">
+      <div class="lms-screen">
+        <div class="lms-chrome"><i></i><i></i><i></i></div>
+        <div class="lms-phone-mark" style="background-image:url('media/quick-lms.jpg')"><i></i></div>
+        <div class="lms-body">
+          <div class="lms-pane"><strong id="lmsPA">강의 목록</strong></div>
+          <div class="lms-pane is-dark"><strong id="lmsPB">바로 수강</strong></div>
+        </div>
+      </div>
+      <i class="lms-home" aria-hidden="true"></i>
+    </div>
+    <div class="lms-arrows">
+      <button type="button" id="lmsPrev" aria-label="이전">←</button>
+      <button type="button" id="lmsNext" aria-label="다음">→</button>
+    </div>
+    </div>
+  </div>
+</section>
 <section class="course-band" id="course">
   <div class="wrap course-block">
     <p class="kicker">02</p>
@@ -120,5 +173,30 @@
   </div>
 </footer>
 <script src="nav.js"></script>
+<script src="fx.js"></script>
+<script>
+const lmsViews=[
+  {path:"나의 강의실 / 온라인 강의",a:"강의 목록",as:"이어서 바로 수강",b:"바로 수강",bs:"영상과 자료가 한 화면"},
+  {path:"나의 강의실 / 수강과정",a:"과정 안내",as:"분야별 수강과정",b:"수강신청",bs:"신청부터 출석까지"},
+  {path:"나의 강의실 / 학습지원",a:"학습자료",as:"강의 자료실 모음",b:"1:1 문의",bs:"학습 중 궁금한 점"},
+  {path:"나의 강의실 / 나의 강의실",a:"학습 현황",as:"출석과 이수 현황",b:"과제 · 퀴즈",bs:"결과를 바로 확인"}
+];
+let lmsAt=0;
+function showLms(n){
+  lmsAt=(n+lmsViews.length)%lmsViews.length;
+  const v=lmsViews[lmsAt];
+  document.querySelectorAll(".lms-tabs button").forEach((btn,i)=>btn.classList.toggle("is-on",i===lmsAt));
+  document.getElementById("lmsPath").textContent=v.path;
+  document.getElementById("lmsA").textContent=v.a;
+  document.getElementById("lmsLeft").querySelector("small").textContent=v.as;
+  document.getElementById("lmsB").textContent=v.b;
+  document.getElementById("lmsB").nextElementSibling.textContent=v.bs;
+  document.getElementById("lmsPA").textContent=v.a;
+  document.getElementById("lmsPB").textContent=v.b;
+}
+document.querySelectorAll(".lms-tabs button").forEach((btn,i)=>btn.onclick=()=>showLms(i));
+document.getElementById("lmsPrev").onclick=()=>showLms(lmsAt-1);
+document.getElementById("lmsNext").onclick=()=>showLms(lmsAt+1);
+</script>
 </body>
 </html>
