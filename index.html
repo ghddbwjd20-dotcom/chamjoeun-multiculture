@@ -297,27 +297,43 @@
     <p class="kicker">News</p>
     <h2>기관소식</h2>
     <div class="news-grid">
-      <div class="ncol">
-        <p class="kicker">Notice</p>
-        <h3>공지사항</h3>
-        <a class="news-item" href="news.html#notice"><span>교육 및 지원사업 안내</span><time>2026-03-10</time></a>
-        <a class="news-item" href="news.html#notice"><span>2026년 상반기 교육일정 안내</span><time>2026-02-18</time></a>
-        <a class="news-item" href="news.html#notice"><span>사회통합프로그램 신규 과정 모집</span><time>2026-01-22</time></a>
+      <div class="news-main">
+        <div class="news-tabs" role="tablist" aria-label="기관소식">
+          <button type="button" class="is-on" data-news="notice">공지사항</button>
+          <button type="button" data-news="biz">사업소식</button>
+          <button type="button" data-news="files">자료실</button>
+        </div>
+        <div class="news-board is-on" data-news="notice">
+          <a class="news-item" href="news.html#notice"><span>교육 및 지원사업 안내</span><time>2026-03-10</time></a>
+          <a class="news-item" href="news.html#notice"><span>2026년 상반기 교육일정 안내</span><time>2026-02-18</time></a>
+          <a class="news-item" href="news.html#notice"><span>사회통합프로그램 신규 과정 모집</span><time>2026-01-22</time></a>
+          <a class="news-item" href="news.html#notice"><span>센터 이용 시간 운영 안내</span><time>2026-01-08</time></a>
+        </div>
+        <div class="news-board" data-news="biz">
+          <a class="news-item" href="news.html#biz"><span>동포체류지원센터 지정 안내</span><time>2026-03-04</time></a>
+          <a class="news-item" href="news.html#biz"><span>사회통합프로그램 3월 개강</span><time>2026-02-25</time></a>
+          <a class="news-item" href="news.html#biz"><span>지역사회서비스 연계 진행</span><time>2026-02-06</time></a>
+          <a class="news-item" href="news.html#biz"><span>평생교육 성인문해교육 운영</span><time>2026-01-15</time></a>
+        </div>
+        <div class="news-board" data-news="files">
+          <a class="news-item" href="news.html#files"><span>사회통합프로그램 안내</span><time>2026-02-12</time></a>
+          <a class="news-item" href="news.html#files"><span>동포체류지원센터 이용 가이드</span><time>2026-01-20</time></a>
+          <a class="news-item" href="news.html#files"><span>민간자격증 과정 소개</span><time>2025-12-08</time></a>
+          <a class="news-item" href="news.html#files"><span>모집요강 신청 자료</span><time>2026-03-02</time></a>
+        </div>
       </div>
-      <div class="ncol">
-        <p class="kicker">Programs</p>
-        <h3>사업소식</h3>
-        <a class="news-item" href="news.html#biz"><span>동포체류지원센터 지정 안내</span><time>2026-03-04</time></a>
-        <a class="news-item" href="news.html#biz"><span>사회통합프로그램 3월 개강</span><time>2026-02-25</time></a>
-        <a class="news-item" href="news.html#biz"><span>지역사회서비스 연계 진행</span><time>2026-02-06</time></a>
-      </div>
-      <div class="ncol">
-        <p class="kicker">Files</p>
-        <h3>자료실</h3>
-        <a class="news-item" href="news.html#files"><span>사회통합프로그램 안내</span><time>2026-02-12</time></a>
-        <a class="news-item" href="news.html#files"><span>동포체류지원센터 이용 가이드</span><time>2026-01-20</time></a>
-        <a class="news-item" href="news.html#files"><span>민간자격증 과정 소개</span><time>2025-12-08</time></a>
-      </div>
+      <aside class="news-aside">
+        <a class="news-card" href="news.html">
+          <strong>갤러리</strong>
+          <p>현장과 교육 활동 사진</p>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect x="14" y="8" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="6" y="11" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="20" r="5" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+        <a class="news-card" href="education.html">
+          <strong>교육과정</strong>
+          <p>온라인 강의부터 나의 강의실까지</p>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true"><rect x="5" y="8" width="26" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M12 28h12M18 24v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+      </aside>
     </div>
   </div>
 </section>
@@ -391,6 +407,13 @@ function showLms(n){
 document.querySelectorAll(".lms-tabs button").forEach((btn,i)=>btn.onclick=()=>showLms(i));
 document.getElementById("lmsPrev").onclick=()=>showLms(lmsAt-1);
 document.getElementById("lmsNext").onclick=()=>showLms(lmsAt+1);
+document.querySelectorAll(".news-tabs button").forEach(btn=>{
+  btn.onclick=()=>{
+    const key=btn.dataset.news;
+    document.querySelectorAll(".news-tabs button").forEach(b=>b.classList.toggle("is-on",b===btn));
+    document.querySelectorAll(".news-board").forEach(board=>board.classList.toggle("is-on",board.dataset.news===key));
+  };
+});
 </script>
 </body>
 </html>
