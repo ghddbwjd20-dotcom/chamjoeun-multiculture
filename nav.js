@@ -8,8 +8,16 @@
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     btn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
   };
-  btn.addEventListener("click", () => set(!hd.classList.contains("is-open")));
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    set(!hd.classList.contains("is-open"));
+  });
   hd.querySelectorAll("nav a").forEach((a) => a.addEventListener("click", () => set(false)));
+  document.addEventListener("click", (e) => {
+    if (!hd.classList.contains("is-open")) return;
+    if (btn.contains(e.target) || hd.querySelector("nav").contains(e.target)) return;
+    set(false);
+  });
   window.addEventListener("resize", () => {
     if (window.innerWidth > 980) set(false);
   });
