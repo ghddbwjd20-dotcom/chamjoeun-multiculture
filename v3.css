@@ -172,10 +172,11 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 .pblock:hover strong{color:var(--orange)}
 
 .vision{padding:100px 0;background:#fffaf4;overflow:hidden}
-.vision-in{display:grid;grid-template-columns:minmax(260px,.68fr) minmax(0,1.42fr);gap:clamp(28px,4vw,64px);align-items:center}
+.vision-in{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(28px,4vw,64px);align-items:center}
+.vision-copy{min-width:0}
 .vision-copy .kicker{margin-bottom:22px}
-.vision .quote{font-family:var(--sans);font-size:clamp(22px,2.5vw,34px);font-weight:600;line-height:1.45;max-width:none;margin:0 0 22px;color:var(--ink)}
-.vision .quote span{display:block;white-space:nowrap}
+.vision .quote{font-family:var(--sans);font-size:clamp(22px,2.2vw,34px);font-weight:600;line-height:1.45;max-width:none;margin:0 0 22px;color:var(--ink)}
+.vision .quote span{display:block;white-space:normal;word-break:keep-all}
 .vision .quote em,.vision-copy .lead em{color:var(--orange);font-style:normal;font-weight:700}
 .vision-copy .lead{max-width:28em;margin-bottom:28px}
 .vision-copy .hero-go{margin-top:0}
@@ -314,6 +315,10 @@ footer a:hover{color:var(--orange)}
   .vcard .vimg img{animation:none}
 }
 
+@media(max-width:1280px){
+  .vision-in{grid-template-columns:1fr;gap:40px;align-items:start}
+  .vision-stage{min-height:480px}
+}
 @media(max-width:1200px){
   .pillars-grid{grid-template-columns:1fr}
   .pblock{grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr)}
