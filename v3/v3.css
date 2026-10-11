@@ -50,10 +50,11 @@ header.is-open .menu-btn span:nth-child(1){transform:translateY(6.5px) rotate(45
 header.is-open .menu-btn span:nth-child(2){opacity:0}
 header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-.hero{position:relative;width:100%;height:100svh;min-height:100svh;overflow:hidden}
+.first{min-height:100svh;display:flex;flex-direction:column}
+.hero{position:relative;width:100%;flex:1 1 auto;height:auto;min-height:0;overflow:hidden}
 .hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center;transform:none}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,253,248,.94) 0%,rgba(255,253,248,.84) 24%,rgba(255,253,248,.46) 46%,rgba(255,253,248,.08) 66%,transparent 80%)}
-.hero-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:80px}
+.hero-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding:80px 0 28px}
 .hero .kicker{margin:0 0 26px;color:var(--orange);font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .hero .kicker:after{content:"";display:block;width:36px;height:2px;margin-top:16px;background:var(--orange)}
 .hero h1{margin:0 0 28px;font-size:clamp(34px,4.5vw,64px);font-weight:700;letter-spacing:-.04em;line-height:1.32;color:#14110f}
@@ -80,9 +81,9 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 .hero-keys a{display:inline-flex;align-items:center;min-height:30px;padding:0 12px;border:1px solid rgba(27,23,20,.1);border-radius:999px;background:rgba(255,253,248,.72);color:#3a342e;transition:border-color .25s,color .25s,background .25s,transform .25s}
 .hero-keys a:hover{border-color:var(--orange);color:var(--orange);background:#fff;transform:translateY(-2px)}
 
-.jump{position:relative;z-index:3;margin-top:-56px;background:#fff;box-shadow:0 -18px 48px rgba(27,23,20,.08)}
+.jump{position:relative;z-index:3;flex:0 0 auto;margin-top:0;background:#fff;box-shadow:0 -18px 48px rgba(27,23,20,.08)}
 .jump-main .edge{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-.jump-main a{position:relative;display:flex;flex-direction:column;min-width:0;padding:28px 22px 26px;border-right:1px solid var(--line);color:var(--ink);transition:background .25s,transform .25s}
+.jump-main a{position:relative;display:flex;flex-direction:column;min-width:0;padding:22px 22px 20px;border-right:1px solid var(--line);color:var(--ink);transition:background .25s,transform .25s}
 .jump-main a:last-child{border-right:0}
 .jump-main em{display:block;margin:0 0 10px;font-size:12px;font-style:normal;font-weight:700;letter-spacing:.14em;color:var(--orange)}
 .jump-main strong{display:block;margin:0 0 8px;font-size:17px;font-weight:600;letter-spacing:-.03em}
@@ -315,6 +316,13 @@ footer a:hover{color:var(--orange)}
   .vcard .vimg img{animation:none}
 }
 
+@media(max-height:780px) and (min-width:981px){
+  .hero .kicker{margin-bottom:14px}
+  .hero h1{font-size:clamp(30px,4vw,48px);margin-bottom:14px}
+  .hero-search{margin-top:20px}
+  .jump-main a{padding:18px 20px 16px}
+}
+
 @media(max-width:1280px){
   .vision-in{grid-template-columns:1fr;gap:40px;align-items:start}
   .vision-stage{min-height:480px}
@@ -336,22 +344,27 @@ footer a:hover{color:var(--orange)}
   header nav a{display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--line);font-size:16px}
   header nav a:after{display:none!important}
   header nav a:hover{color:var(--orange)}
-  .hero{height:auto;min-height:100svh;padding:0}
-  .hero:after{background:linear-gradient(180deg,rgba(255,253,248,.88) 0%,rgba(255,253,248,.72) 36%,rgba(255,253,248,.42) 100%)}
-  .hero-copy{box-sizing:border-box;width:100%;min-height:100svh;justify-content:flex-start;padding:96px var(--pad) 40px}
-  .hero .kicker{font-size:11px;letter-spacing:.1em;margin-bottom:16px}
-  .hero h1{max-width:100%;font-size:clamp(24px,7vw,32px);margin-bottom:14px}
+  .first{min-height:100svh;display:flex;flex-direction:column}
+  .hero{flex:1 1 auto;height:auto;min-height:280px;padding:0}
+  .hero:after{background:linear-gradient(180deg,rgba(20,16,12,.1) 0%,rgba(20,16,12,.04) 26%,rgba(255,253,248,.38) 58%,rgba(255,253,248,.86) 82%,rgba(255,253,248,.94) 100%)}
+  .hero-copy{box-sizing:border-box;width:100%;min-height:0;height:100%;justify-content:flex-end;padding:72px var(--pad) 20px}
+  .hero .kicker{font-size:11px;letter-spacing:.1em;margin-bottom:10px}
+  .hero h1{max-width:100%;font-size:clamp(24px,7vw,32px);margin-bottom:10px}
   .hero h1 span{white-space:normal}
-  .hero .lead{max-width:100%;font-size:14px;line-height:1.75}
-  .hero-search{width:100%;margin-top:20px}
-  .hero-keys{max-width:none;margin-top:12px}
-  .hero-keys span{display:block;width:100%;margin:0 0 6px}
-  .hero video,.hero .poster{position:absolute}
-  .jump{margin-top:0}
+  .hero .lead{max-width:100%;font-size:14px;line-height:1.65}
+  .hero-search{width:100%;margin-top:14px}
+  .hero-keys{display:none}
+  .hero video,.hero .poster{position:absolute;object-position:58% 18%}
+  .jump{margin-top:0;flex:0 0 auto}
+  .jump-main a{display:grid;grid-template-columns:36px minmax(0,1fr) 18px;grid-template-rows:auto auto;column-gap:10px;row-gap:2px;align-items:center;padding:11px 4px}
+  .jump-main em{grid-column:1;grid-row:1/3;margin:0}
+  .jump-main strong{grid-column:2;grid-row:1;margin:0;font-size:15px}
+  .jump-main span{grid-column:2;grid-row:2;padding:0;font-size:12px;line-height:1.4}
+  .jump-main i{grid-column:3;grid-row:1/3;position:static;top:auto;right:auto}
   .jump-main .edge,.jump-sub .edge{display:grid;grid-template-columns:1fr}
-  .jump-main a,.jump-sub a{border-right:0;border-bottom:1px solid var(--line);padding:20px 4px}
+  .jump-main a,.jump-sub a{border-right:0;border-bottom:1px solid var(--line)}
+  .jump-sub a{padding:14px 4px}
   .jump-main a:last-child,.jump-sub a:last-child{border-bottom:0}
-  .jump-main i{right:4px}
   .intro{padding:56px 0}
   .intro-in{grid-template-columns:1fr;gap:24px}
   .intro-photo,.intro-photo img{min-height:220px;border-radius:0}
