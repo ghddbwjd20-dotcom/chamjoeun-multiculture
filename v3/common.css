@@ -371,7 +371,9 @@ footer a:hover{color:var(--orange)}
   .nav-cta{display:none}
   .nav-m{display:flex;align-items:center;justify-content:center;min-height:48px;margin-top:16px;background:var(--orange);color:#fff;font-weight:600}
   .nav-m:after{display:none}
-  header nav{display:flex;flex-direction:column;gap:0;position:fixed;inset:64px 0 0 0;z-index:60;width:auto;margin:0;padding:12px 20px 32px;background:#fffdf8;overflow-y:auto;transform:translateX(100%);visibility:hidden;pointer-events:none;transition:transform .3s ease,visibility .3s}
+  header:before{content:"";position:fixed;inset:0;z-index:55;background:rgba(27,23,20,.36);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,visibility .3s}
+  header.is-open:before{opacity:1;visibility:visible;pointer-events:auto}
+  header nav{display:flex;flex-direction:column;gap:0;position:fixed;top:64px;right:0;left:auto;bottom:0;z-index:60;width:min(300px,84vw);margin:0;padding:8px 22px 28px;background:#fff;box-shadow:-16px 0 40px rgba(27,23,20,.14);overflow-y:auto;transform:translateX(100%);visibility:hidden;pointer-events:none;transition:transform .3s ease,visibility .3s}
   header.is-open nav{transform:none;visibility:visible;pointer-events:auto}
   header nav a{display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--line);font-size:16px}
   header nav a:after{display:none}
