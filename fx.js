@@ -1,8 +1,6 @@
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const sel = [
-    ".jump-main a",
-    ".jump-sub a",
     ".intro-photo",
     ".intro-copy",
     ".works-left",
