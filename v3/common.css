@@ -49,12 +49,21 @@ header.is-open .menu-btn span:nth-child(1){transform:translateY(6.5px) rotate(45
 header.is-open .menu-btn span:nth-child(2){opacity:0}
 header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-.hero-banner{position:relative;min-height:clamp(500px,48vw,640px);padding:180px 0 88px;background-color:#1b1714;background-position:center 22%;background-size:cover;background-repeat:no-repeat;color:#fff}
+.hero-banner{position:relative;display:flex;align-items:flex-end;min-height:0;max-height:min(72vh,720px);aspect-ratio:16/9;overflow:hidden;padding:0;background:#1b1714;color:#fff}
+.hero-banner-pic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.hero-banner.is-about .hero-banner-pic{object-position:center 16%}
+.hero-banner.is-business .hero-banner-pic{object-position:center 42%}
+.hero-banner.is-settlement .hero-banner-pic{object-position:center 68%}
+.hero-banner.is-ministry .hero-banner-pic{object-position:center 72%}
+.hero-banner.is-education .hero-banner-pic{object-position:center 48%}
+.hero-banner.is-programs .hero-banner-pic{object-position:center 58%}
+.hero-banner.is-news .hero-banner-pic{object-position:center 42%}
+.hero-banner.is-contact .hero-banner-pic{object-position:center 38%}
 .hero-banner .kicker,.hero-banner h1,.hero-banner .lead{animation:fadeUp .75s ease both}
 .hero-banner h1{animation-delay:.1s}
 .hero-banner .lead{animation-delay:.2s}
 .hero-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,12,.62) 0%,rgba(20,16,12,.18) 70%)}
-.hero-banner .wrap{position:relative;z-index:1}
+.hero-banner .wrap{position:relative;z-index:1;width:100%;padding:160px 0 64px}
 .hero-banner .kicker{color:#fc7830}
 .hero-banner h1{margin:0 0 14px;max-width:14em;font-size:clamp(32px,4vw,50px);color:#fff}
 .hero-banner .lead{color:rgba(255,253,248,.88)}
@@ -366,7 +375,8 @@ footer a:hover{color:var(--orange)}
   header.is-open nav{transform:none;visibility:visible;pointer-events:auto}
   header nav a{display:flex;align-items:center;min-height:52px;border-bottom:1px solid var(--line);font-size:16px}
   header nav a:after{display:none}
-  .hero-banner{min-height:0;padding:112px 0 40px}
+  .hero-banner{aspect-ratio:16/10;max-height:none;min-height:280px}
+  .hero-banner .wrap{padding:112px 0 40px}
   .hero-banner h1{font-size:clamp(26px,7.6vw,36px)}
   .hero-banner .lead{font-size:15px}
   .page-toc,.page-facts,.page-cat,.page-steps,.page-news,.page-ask,.corp-greet,.corp-overview,.corp-idea,.corp-history,.corp-org,.corp-net{padding-top:48px;padding-bottom:56px}
