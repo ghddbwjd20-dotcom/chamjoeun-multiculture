@@ -180,10 +180,9 @@ article.cat .kicker{margin-bottom:8px}
 .board{width:100%;table-layout:fixed;border-collapse:collapse}
 .board th,.board td{padding:15px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle;font-size:14px}
 .board th:nth-child(1),.board td:nth-child(1){width:72px}
-.board th:nth-child(2),.board td:nth-child(2){width:108px;white-space:nowrap}
-.board th:nth-child(3),.board td:nth-child(3){width:auto}
-.board th:nth-child(4),.board td:nth-child(4){width:110px}
-.board th:nth-child(5),.board td:nth-child(5){width:64px}
+.board th:nth-child(2),.board td:nth-child(2){width:auto}
+.board th:nth-child(3),.board td:nth-child(3){width:110px}
+.board th:nth-child(4),.board td:nth-child(4){width:64px}
 .board th{border-top:2px solid var(--ink);background:#faf7f2;font-size:13px;font-weight:600;color:#5c564f}
 .board td{color:var(--ink)}
 .board td.tit{text-align:left}
@@ -194,7 +193,7 @@ article.cat .kicker{margin-bottom:8px}
 .board tbody tr{cursor:pointer}
 .board tbody tr:hover td{background:#fffaf4}
 .board .num,.board .hit{color:#9a938c;font-variant-numeric:tabular-nums}
-.board .cat{display:table-cell;padding:15px 12px;margin:0;border-top:0;color:var(--mute);white-space:nowrap}
+.board .cat{display:none}
 .board .date{color:#9a938c;font-variant-numeric:tabular-nums;white-space:nowrap}
 .board-page{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:36px}
 .board-page a,.board-page span{display:grid;place-items:center;min-width:36px;height:36px;padding:0 8px;font-size:13px;color:#5c564f}
@@ -394,8 +393,8 @@ footer a:hover{color:var(--orange)}
   .page-news h1{font-size:28px}
   .board-head{flex-direction:column;align-items:stretch}
   .board-search input{width:100%}
-  .board .num,.board .hit,.board th:nth-child(1),.board th:nth-child(5){display:none}
-  .board td.tit,.board th:nth-child(3){text-align:left}
+  .board .num,.board .hit,.board th:nth-child(1),.board th:nth-child(4){display:none}
+  .board td.tit,.board th:nth-child(2){text-align:left}
   .page-toc h1,.page-facts h1,.page-cat h1,.page-steps h1{font-size:clamp(26px,7.4vw,34px)}
   table.data th{width:34%}
   table.data th,table.data td{padding:10px 0;font-size:14px}
