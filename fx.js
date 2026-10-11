@@ -34,7 +34,7 @@
     ".depts article",
     ".nets article",
     ".corp-visit",
-    ".cat",
+    "article.cat",
     ".feat",
     ".step",
     ".course-card",
