@@ -189,10 +189,10 @@ article.cat .kicker{margin-bottom:8px}
 .board-search button{height:42px;padding:0 16px;border:0;background:var(--orange);color:#fff;font-size:13px;font-weight:600;cursor:pointer}
 .board{width:100%;table-layout:fixed;border-collapse:collapse}
 .board th,.board td{padding:15px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle;font-size:14px}
-.board th:nth-child(1),.board td:nth-child(1){width:72px}
-.board th:nth-child(2),.board td:nth-child(2){width:auto}
-.board th:nth-child(3),.board td:nth-child(3){width:110px}
-.board th:nth-child(4),.board td:nth-child(4){width:64px}
+.board th:nth-child(1),.board td:nth-child(1){width:80px}
+.board th:nth-child(2),.board td:nth-child(2){width:56%}
+.board th:nth-child(3),.board td:nth-child(3){width:160px}
+.board th:nth-child(4),.board td:nth-child(4){width:88px}
 .board th{border-top:2px solid var(--ink);background:#faf7f2;font-size:13px;font-weight:600;color:#5c564f}
 .board td{color:var(--ink)}
 .board td.tit{text-align:left}
