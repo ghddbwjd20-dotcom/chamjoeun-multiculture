@@ -22,6 +22,8 @@
     ".news h2",
     ".news-main",
     ".news-card",
+    ".partners-head",
+    ".partners-view",
     ".cta-in",
     ".toc a",
     ".greet-in > *",

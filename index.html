@@ -451,6 +451,76 @@
   </div>
 </section>
 
+<section class="partners" aria-label="함께하는 기관">
+  <div class="edge">
+    <div class="partners-head">
+      <div>
+        <h2>함께하는 기관</h2>
+        <p>참조은다문화는 다양한 기관과 함께 더 나은 사회를 만들어갑니다.</p>
+      </div>
+      <div class="partners-ctrl">
+        <span>관련 사이트</span>
+        <button class="partners-prev" type="button" aria-label="이전 기관">←</button>
+        <button class="partners-next" type="button" aria-label="다음 기관">→</button>
+      </div>
+    </div>
+    <div class="partners-view">
+      <div class="partners-track" id="partnersTrack">
+        <a class="partner" href="https://www.moj.go.kr" target="_blank" rel="noopener">
+          <i class="partner-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 8a24 24 0 0 1 0 48A12 12 0 0 0 32 32 12 12 0 0 1 32 8z" fill="currentColor"/><circle cx="32" cy="20" r="5" fill="#fff"/><circle cx="32" cy="44" r="5" fill="currentColor"/></svg></i>
+          <strong>법무부</strong>
+          <small>Ministry of Justice</small>
+        </a>
+        <a class="partner" href="https://www.moel.go.kr" target="_blank" rel="noopener">
+          <i class="partner-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 8a24 24 0 0 1 0 48A12 12 0 0 0 32 32 12 12 0 0 1 32 8z" fill="currentColor"/><circle cx="32" cy="20" r="5" fill="#fff"/><circle cx="32" cy="44" r="5" fill="currentColor"/></svg></i>
+          <strong>고용노동부</strong>
+          <small>Ministry of Employment and Labor</small>
+        </a>
+        <a class="partner" href="https://www.cup.ac.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-uni" aria-hidden="true">가</i>
+          <strong>부산가톨릭대학교</strong>
+          <small>Catholic University of Pusan</small>
+        </a>
+        <a class="partner" href="https://www.cuk.edu" target="_blank" rel="noopener">
+          <i class="partner-mark is-uni" aria-hidden="true">고</i>
+          <strong>고려사이버대학교</strong>
+          <small>Korea Cyber University</small>
+        </a>
+        <a class="partner" href="https://www.dit.ac.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-uni" aria-hidden="true">동</i>
+          <strong>동의과학대학교</strong>
+          <small>Dong-Eui Institute of Technology</small>
+        </a>
+        <a class="partner" href="https://www.knou.ac.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-uni" aria-hidden="true">방</i>
+          <strong>한국방송통신대학교</strong>
+          <small>Korea National Open University</small>
+        </a>
+        <a class="partner" href="https://www.gimhae.ac.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-uni" aria-hidden="true">김</i>
+          <strong>김해대학교</strong>
+          <small>Gimhae University</small>
+        </a>
+        <a class="partner" href="https://bne.pen.go.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-edu" aria-hidden="true">동</i>
+          <strong>동래교육지원청</strong>
+          <small>Dongnae Office of Education</small>
+        </a>
+        <a class="partner" href="https://pen.go.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-edu" aria-hidden="true">북</i>
+          <strong>북부교육지원청</strong>
+          <small>Bukbu Office of Education</small>
+        </a>
+        <a class="partner" href="https://pen.go.kr" target="_blank" rel="noopener">
+          <i class="partner-mark is-edu" aria-hidden="true">서</i>
+          <strong>서부교육지원청</strong>
+          <small>Seobu Office of Education</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="cta">
   <div class="cta-bg" aria-hidden="true"><img src="banners/settlement.jpg" alt=""></div>
   <div class="edge cta-in">
@@ -496,6 +566,26 @@
 </footer>
 <script src="nav.js"></script>
 <script src="fx.js"></script>
+<script>
+(function(){
+  const track=document.getElementById("partnersTrack");
+  if(!track) return;
+  const items=[...track.children];
+  const prev=document.querySelector(".partners-prev");
+  const next=document.querySelector(".partners-next");
+  let at=0;
+  const vis=()=>window.innerWidth<=980?2:6;
+  const go=dir=>{
+    const v=vis();
+    const max=Math.max(0,items.length-v);
+    at=Math.min(max,Math.max(0,at+dir));
+    track.style.transform="translateX(-"+(at*(100/v))+"%)";
+  };
+  prev.addEventListener("click",()=>go(-1));
+  next.addEventListener("click",()=>go(1));
+  window.addEventListener("resize",()=>go(0));
+})();
+</script>
 <script>
 const hd=document.querySelector("header");
 const on=()=>hd.classList.toggle("is-solid", window.scrollY>40);
