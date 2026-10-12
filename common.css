@@ -49,7 +49,7 @@ header.is-open .menu-btn span:nth-child(1){transform:translateY(6.5px) rotate(45
 header.is-open .menu-btn span:nth-child(2){opacity:0}
 header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-.hero-banner{position:relative;display:flex;align-items:flex-end;min-height:0;max-height:min(72vh,720px);aspect-ratio:16/9;overflow:hidden;padding:0;background:#1b1714;color:#fff}
+.hero-banner{position:relative;display:flex;align-items:flex-end;width:100%;min-height:420px;max-height:min(72vh,720px);aspect-ratio:16/9;overflow:hidden;padding:0;background:#1b1714;color:#fff}
 .hero-banner-pic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%}
 .hero-banner.is-about .hero-banner-pic{object-position:center 16%}
 .hero-banner.is-business .hero-banner-pic{object-position:center 42%}
@@ -63,7 +63,7 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 .hero-banner h1{animation-delay:.1s}
 .hero-banner .lead{animation-delay:.2s}
 .hero-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,12,.62) 0%,rgba(20,16,12,.18) 70%)}
-.hero-banner .wrap{position:relative;z-index:1;width:100%;padding:160px 0 64px}
+.hero-banner .wrap{position:relative;z-index:1;padding:160px 0 64px}
 .hero-banner .kicker{color:#fc7830}
 .hero-banner h1{margin:0 0 14px;max-width:14em;font-size:clamp(32px,4vw,50px);color:#fff}
 .hero-banner .lead{color:rgba(255,253,248,.88)}
