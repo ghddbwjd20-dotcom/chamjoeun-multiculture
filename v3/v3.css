@@ -41,7 +41,8 @@ nav a{position:relative;color:#1b1714;transition:color .25s}
 nav a:hover{color:var(--orange)}
 header nav a:not(.nav-m):after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--orange);transition:right .3s}
 header nav a:not(.nav-m):hover:after{right:0}
-.nav-cta{display:inline-flex;align-items:center;justify-self:end;min-height:40px;padding:0 18px;background:var(--orange);color:#fff;font-family:var(--nav);font-size:14px;font-weight:600;transition:transform .25s,background .25s,box-shadow .25s}
+.nav-cta{display:inline-flex;align-items:center;justify-content:center;justify-self:end;gap:10px;min-width:148px;min-height:44px;padding:0 32px;background:var(--orange);color:#fff;font-family:var(--nav);font-size:15px;font-weight:600;letter-spacing:.02em;transition:transform .25s,background .25s,box-shadow .25s}
+.nav-cta:after{content:"→";font-weight:500}
 .nav-cta:hover{transform:translateY(-2px);background:#e46822;box-shadow:0 10px 22px rgba(252,120,48,.28)}
 .nav-m{display:none}
 .menu-btn{display:none;width:44px;height:44px;margin-left:auto;padding:0;border:0;background:transparent;cursor:pointer}

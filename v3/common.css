@@ -40,7 +40,8 @@ nav a{position:relative;color:#1b1714}
 nav a:after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--orange);transition:.3s}
 nav a:hover:after,nav a.is-on:after{right:0}
 nav a.is-on{color:var(--orange)}
-.nav-cta{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;background:var(--orange);color:#fff;font-family:var(--nav);font-size:14px;font-weight:600}
+.nav-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:148px;min-height:44px;padding:0 32px;background:var(--orange);color:#fff;font-family:var(--nav);font-size:15px;font-weight:600;letter-spacing:.02em}
+.nav-cta:after{content:"→";font-weight:500}
 .nav-cta.is-on{background:#e46822}
 .nav-m{display:none}
 .menu-btn{display:none;width:44px;height:44px;margin-left:auto;padding:0;border:0;background:transparent;cursor:pointer}
