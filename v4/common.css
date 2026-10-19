@@ -58,29 +58,26 @@ header.is-open .menu-btn span:nth-child(1){transform:translateY(6.5px) rotate(45
 header.is-open .menu-btn span:nth-child(2){opacity:0}
 header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-.hero-banner{position:relative;display:flex;align-items:flex-end;width:100%;min-height:420px;max-height:min(72vh,720px);aspect-ratio:16/9;overflow:hidden;padding:0;background:#1b1714;color:#fff}
-.hero-banner-pic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%}
-.hero-banner.is-about .hero-banner-pic{object-position:center 16%}
-.hero-banner.is-business .hero-banner-pic{object-position:center 42%}
-.hero-banner.is-settlement .hero-banner-pic{object-position:center 68%}
-.hero-banner.is-ministry .hero-banner-pic{object-position:center 72%}
-.hero-banner.is-education .hero-banner-pic{object-position:center 48%}
-.hero-banner.is-programs .hero-banner-pic{object-position:center 58%}
-.hero-banner.is-news .hero-banner-pic{object-position:center 42%}
-.hero-banner.is-contact .hero-banner-pic{object-position:center 38%}
+.hero-banner{position:relative;display:block;width:100%;min-height:0;max-height:none;aspect-ratio:auto;overflow:hidden;padding:76px 0 0;background:#fff6f1;color:var(--ink)}
+.hero-banner-pic{display:none}
+.hero-banner:before{display:none}
+.hero-banner-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,220px);align-items:center;gap:clamp(16px,3vw,40px);min-height:200px}
+.hero-banner-copy{min-width:0}
+.hero-banner-art{display:flex;align-items:center;justify-content:center}
+.hero-banner-art img{width:100%;max-width:200px;max-height:168px;height:auto;object-fit:contain}
 .hero-banner.is-lms{aspect-ratio:auto;min-height:0;max-height:none;height:auto}
-.hero-banner.is-lms .wrap{padding:112px 0 36px}
-.hero-banner.is-lms h1{max-width:12em;font-size:clamp(24px,2.8vw,34px)}
+.hero-banner.is-lms h1{max-width:14em;font-size:clamp(22px,2.4vw,30px)}
 .hero-banner.is-lms .lead{max-width:34em;font-size:15px}
 .hero-banner .kicker,.hero-banner h1,.hero-banner .lead{animation:fadeUp .75s ease both}
 .hero-banner h1{animation-delay:.1s}
 .hero-banner .lead{animation-delay:.2s}
-.hero-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,12,.62) 0%,rgba(20,16,12,.18) 70%)}
-.hero-banner .wrap{position:relative;z-index:1;padding:160px 0 64px}
-.hero-banner .kicker{color:rgba(255,255,255,.7)}
-.hero-banner h1{margin:0 0 14px;max-width:14em;font-size:clamp(28px,3.4vw,40px);color:#fff}
-.hero-banner .lead{color:rgba(255,253,248,.88)}
-.hero-banner .crumb{color:rgba(255,253,248,.58)}
+.hero-banner .wrap{position:relative;z-index:1;padding:28px 0 24px}
+.hero-banner .kicker{color:#8a8a8a}
+.hero-banner h1{margin:0 0 12px;max-width:16em;font-size:clamp(24px,2.6vw,34px);color:#191919}
+.hero-banner .lead{color:#5a5a5a}
+.hero-banner .crumb{margin:0 0 10px;color:#9a9a9a}
+.hero-banner .crumb a{color:#9a9a9a}
+.hero-banner .crumb a:hover{color:var(--orange)}
 
 .actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
 .actions > * + *{margin-left:16px}
@@ -398,12 +395,14 @@ footer a:hover{color:var(--orange)}
   .gnb-top:after{display:none}
   .lnb{position:static;min-width:0;padding:0 0 10px 10px;opacity:1;visibility:visible;pointer-events:auto}
   .lnb a{min-height:40px;padding:8px 0;font-size:14px}
-  .hero-banner{aspect-ratio:16/10;max-height:none;min-height:280px}
-  .hero-banner .wrap{padding:112px 0 40px}
-  .hero-banner h1{font-size:clamp(26px,7.6vw,36px)}
-  .hero-banner .lead{font-size:15px}
+  .hero-banner{aspect-ratio:auto;max-height:none;min-height:0;padding-top:64px;background:#fff6f1}
+  .hero-banner-in{grid-template-columns:minmax(0,1fr) 120px;min-height:0;gap:12px}
+  .hero-banner .wrap{padding:20px 0 16px}
+  .hero-banner h1{font-size:clamp(22px,6.4vw,28px);color:#191919}
+  .hero-banner .lead{font-size:14px;color:#5a5a5a}
+  .hero-banner-art img{max-width:120px;max-height:110px}
   .hero-banner.is-lms{aspect-ratio:auto;min-height:0;height:auto}
-  .hero-banner.is-lms .wrap{padding:96px 0 28px}
+  .hero-banner.is-lms .wrap{padding:20px 0 16px}
   .hero-banner.is-lms h1{font-size:clamp(22px,6.4vw,28px)}
   .page-toc,.page-facts,.page-cat,.page-steps,.page-news,.page-ask,.corp-greet,.corp-overview,.corp-idea,.corp-history,.corp-org,.corp-net{padding-top:48px;padding-bottom:56px}
   .corp-greet,.corp-overview,.corp-idea,.corp-history,.corp-org,.corp-net{scroll-margin-top:80px}
