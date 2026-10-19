@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="수강신청. 기관 과정은 강의실에서, 사회통합은 사회통합정보망에서.">
+<title>수강신청 | 참조은다문화</title>
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov-dynamic-subset.min.css">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html"><img src="logo.png" alt="참조은다문화 로고"><span>참조은다문화(주)</span></a>
+    <button class="menu-btn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+    <nav id="siteNav" aria-label="주요 메뉴">
+      <ul class="gnb">
+        <li>
+          <a class="gnb-top" href="about.html">기업소개</a>
+          <ul class="lnb">
+            <li><a href="about.html#greet">인사말</a></li>
+            <li><a href="about.html#overview">기관 현황</a></li>
+            <li><a href="about.html#philosophy">설립이념</a></li>
+            <li><a href="about.html#history">연혁</a></li>
+            <li><a href="about.html#network">협력 네트워크</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="gnb-top" href="business.html">사업안내</a>
+          <ul class="lnb">
+            <li><a href="business.html">사업 개요</a></li>
+            <li><a href="programs.html#lifelong">평생교육</a></li>
+            <li><a href="programs.html#license">민간자격과정</a></li>
+            <li><a href="programs.html#community">지역사회서비스</a></li>
+            <li><a href="programs.html#books">도서납품</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="gnb-top" href="settlement.html">동포체류지원센터</a>
+          <ul class="lnb">
+            <li><a href="settlement.html">센터 안내</a></li>
+            <li><a href="settlement.html#job">취업지원</a></li>
+            <li><a href="settlement.html#guide">오시는 길</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="gnb-top" href="ministry.html">사회통합(KIIP)</a>
+          <ul class="lnb">
+            <li><a href="ministry.html#kiip">사회통합프로그램</a></li>
+            <li><a href="ministry.html#early">조기적응프로그램</a></li>
+            <li><a href="ministry.html#korean">한국어 · 한국문화</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="gnb-top is-on" href="education.html">교육과정</a>
+          <ul class="lnb">
+            <li><a href="education.html">과정 안내</a></li>
+            <li><a href="apply.html">수강신청</a></li>
+            <li><a href="classroom.html">나의 강의실</a></li>
+            <li><a href="login.html">로그인</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="gnb-top" href="news.html">기관소식</a>
+          <ul class="lnb">
+            <li><a href="news.html#notice">공지사항</a></li>
+            <li><a href="news.html#biz">사업소식</a></li>
+            <li><a href="news.html#files">자료실</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="nav-m" href="contact.html">문의</a>
+        </li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="contact.html">문의</a>
+  </div>
+  <div class="mega" aria-hidden="true"></div>
+</header>
+<main id="main">
+<section class="hero-banner is-education is-lms">
+  <img class="hero-banner-pic" src="banners/education.jpg" alt="">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">홈</a> · <a href="education.html">교육과정</a> · 수강신청</p>
+    <p class="kicker">Apply</p>
+    <h1>과정을 고르고<br>강의실로 갑니다</h1>
+    <p class="lead">한국어·자격·평생교육은 여기서 신청합니다. 사회통합프로그램은 사회통합정보망에서 조회합니다.</p>
+  </div>
+</section>
+<section class="page-steps">
+  <div class="wrap">
+    <div class="account-bar" data-lms-account></div>
+    <p class="kicker">Courses</p>
+    <h2 class="apply-title">수강 과정</h2>
+    <p class="lead">로그인 후 기관 과정에 신청하면 나의 강의실에서 이어서 들을 수 있습니다.</p>
+    <div class="apply-grid" id="applyGrid"></div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"><img src="logo.png" alt=""><span>참조은다문화</span></div>
+        <p style="margin:12px 0 0">외국인의 안정적인 정착과 교육을 지원하는 전문기관입니다.</p>
+      </div>
+      <div>
+        <h4>바로가기</h4>
+        <p>
+          <a href="education.html">교육과정 / LMS</a><br>
+          <a href="apply.html">수강신청</a><br>
+          <a href="classroom.html">나의 강의실</a><br>
+          <a href="contact.html">협력 · 문의</a>
+        </p>
+      </div>
+      <div>
+        <h4>참조은다문화 주식회사</h4>
+        <p>부산 동래구 금강로 70<br>참조은빌딩 5층, 7층</p>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Chamjoeun Multiculture. · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a></div>
+    <p class="draft">고객 확인용 시안입니다. 사진은 임시이며 PC 기준으로 봐 주세요.</p>
+  </div>
+</footer>
+<script src="nav.js"></script>
+<script src="lms.js"></script>
+<script>
+const grid=document.getElementById("applyGrid");
+LMS.courses.forEach(function(c){
+  const card=document.createElement("article");
+  card.className="apply-card";
+  const enrolled=LMS.isEnrolled(c.id);
+  let action="";
+  if(c.official){
+    action='<a class="btn line" href="'+c.official+'"'+(c.official.indexOf("http")===0?' target="_blank" rel="noopener"':'')+'>'+c.officialLabel+'</a>';
+  }else if(!LMS.user()){
+    action='<a class="btn" href="login.html?next=apply.html">로그인 후 신청</a>';
+  }else if(enrolled){
+    action='<a class="btn" href="classroom.html?course='+c.id+'">강의실 열기</a>';
+  }else{
+    action='<button class="btn" type="button" data-enroll="'+c.id+'">수강신청</button>';
+  }
+  card.innerHTML='<img src="'+c.img+'" alt=""><div class="in"><em>'+c.cat+'</em><strong>'+c.name+'</strong><p>'+c.desc+'</p>'+action+'</div>';
+  grid.appendChild(card);
+});
+grid.addEventListener("click",function(e){
+  const btn=e.target.closest("[data-enroll]");
+  if(!btn) return;
+  if(!LMS.user()){location.href="login.html?next=apply.html";return;}
+  LMS.enroll(btn.getAttribute("data-enroll"));
+  location.href="classroom.html?course="+btn.getAttribute("data-enroll");
+});
+</script>
+</body>
+</html>
