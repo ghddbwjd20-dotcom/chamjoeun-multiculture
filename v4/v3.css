@@ -100,8 +100,8 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 .svc-copy p{margin:0;font-size:13px;line-height:1.7;color:#6b7380}
 .svc-list{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
 .svc-list a{display:flex;flex-direction:column;align-items:center;min-width:0;padding:8px 6px 4px;text-align:center}
-.svc-ico{display:grid;place-items:center;width:64px;height:64px;margin:0 0 12px;border:1.5px solid #d7dde6;border-radius:50%;background:#f6f8fb;color:#2a3140}
-.svc-ico svg{width:26px;height:26px}
+.svc-ico{display:grid;place-items:center;width:88px;height:88px;margin:0 0 14px;border:1.5px solid #d7dde6;border-radius:50%;background:#f6f8fb;color:#2a3140}
+.svc-ico svg{width:40px;height:40px}
 .svc-list strong{display:block;font-size:14px;font-weight:700;letter-spacing:-.02em;line-height:1.4}
 .svc-list small{display:block;margin-top:4px;font-size:11px;line-height:1.4;color:#8a93a3}
 .svc-list a:hover .svc-ico{border-color:var(--orange);color:var(--orange);background:#f6f1ea}
@@ -402,7 +402,8 @@ footer a:hover{color:var(--orange)}
   .hero-card h2{font-size:20px}
   .svc-in{grid-template-columns:1fr;gap:16px}
   .svc-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 6px}
-  .svc-ico{width:52px;height:52px}
+  .svc-ico{width:72px;height:72px}
+  .svc-ico svg{width:32px;height:32px}
   .svc-list strong{font-size:12px}
   .core{padding:56px 0}
   .core-in{grid-template-columns:1fr;gap:28px}
