@@ -1,11 +1,10 @@
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const sel = [
-    ".intro-photo",
-    ".intro-copy",
-    ".works-left",
-    ".works-visual",
-    ".works-right",
+    ".svc-copy",
+    ".svc-list a",
+    ".core-copy",
+    ".core-card",
     ".next-head",
     ".ncard",
     ".pillars-head",
