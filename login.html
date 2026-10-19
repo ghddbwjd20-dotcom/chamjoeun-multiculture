@@ -94,11 +94,19 @@
 <section class="page-ask">
   <div class="wrap">
     <div class="account-bar" data-lms-account></div>
+    <div class="demo-box">
+      <div>
+        <b>데모 계정</b>
+        <p><code>demo@chamjoeun.kr</code> / <code>demo1234</code></p>
+        <p class="note" style="margin:6px 0 0">이민호 님으로 들어가며, 생활 한국어·병원동행 과정이 이미 신청되어 있습니다.</p>
+      </div>
+      <button class="btn fill" type="button" id="demoIn">바로 들어가기</button>
+    </div>
     <form class="ask lms-auth" id="loginForm">
       <h2>로그인</h2>
-      <p class="lead">가입한 이메일과 비밀번호를 입력해 주세요.</p>
-      <label>이메일 <input name="email" type="email" required autocomplete="username"></label>
-      <label>비밀번호 <input name="password" type="password" required autocomplete="current-password"></label>
+      <p class="lead">시안용 로그인입니다. 데모 계정으로 바로 강의실을 볼 수 있습니다.</p>
+      <label>이메일 <input name="email" type="email" value="demo@chamjoeun.kr" required autocomplete="username"></label>
+      <label>비밀번호 <input name="password" type="password" value="demo1234" required autocomplete="current-password"></label>
       <p class="note" id="loginMsg" hidden></p>
       <div class="actions"><button class="btn" type="submit">로그인</button><a class="btn line" id="toReg" href="register.html">회원가입</a></div>
     </form>
@@ -133,13 +141,19 @@
 <script src="nav.js"></script>
 <script src="lms.js"></script>
 <script>
+function goDemo(){
+  LMS.loginDemo();
+  location.href=LMS.LMS_URL+"classroom.html?demo=1";
+}
 document.getElementById("toReg").href="register.html?next="+encodeURIComponent(LMS.next());
+document.getElementById("demoIn").onclick=goDemo;
 document.getElementById("loginForm").onsubmit=function(e){
   e.preventDefault();
   const f=e.target;
   const err=LMS.login(f.email.value,f.password.value);
   const msg=document.getElementById("loginMsg");
   if(err){msg.hidden=false;msg.textContent=err;return;}
+  if((f.email.value||"").trim().toLowerCase()===LMS.DEMO.email){goDemo();return;}
   location.href=LMS.next();
 };
 </script>

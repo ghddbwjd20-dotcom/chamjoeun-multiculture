@@ -1,5 +1,7 @@
 (function (global) {
   const KEY = "chamjoeun-lms";
+  const LMS_URL = "https://ghddbwjd20-dotcom.github.io/chamjoeun-lms/";
+  const DEMO = { name: "이민호", email: "demo@chamjoeun.kr", password: "demo1234", phone: "010-1234-5678" };
   const COURSES = [
     {id:"kiip",cat:"법무부",name:"사회통합프로그램(KIIP)",desc:"공식 과정조회·신청은 사회통합정보망에서 합니다.",img:"media/quick-kiip.jpg",lessons:[],official:"https://www.socinet.go.kr/soci/main/main.jsp?MENU_TYPE=S_TOP_SY",officialLabel:"과정조회"},
     {id:"early",cat:"법무부",name:"조기적응프로그램",desc:"입국 초기 안내는 센터에서 받습니다. 홈페이지에서 바로 신청하지 않습니다.",img:"media/quick-early.jpg",lessons:[],official:"ministry.html#early",officialLabel:"이용 안내"},
@@ -19,10 +21,16 @@
     if (!s.session) s.session = null;
     if (!s.enrolls) s.enrolls = {};
     if (!s.attend) s.attend = {};
+    const i = s.users.findIndex((u) => u.email === DEMO.email);
+    if (i < 0) s.users.push({ ...DEMO });
+    else Object.assign(s.users[i], DEMO);
+    if (!s.enrolls[DEMO.email] || !s.enrolls[DEMO.email].length) s.enrolls[DEMO.email] = ["korean", "license"];
     return s;
   };
 
   const api = {
+    LMS_URL,
+    DEMO,
     courses: COURSES,
     course(id) { return COURSES.find((c) => c.id === id) || COURSES[0]; },
     user() {
@@ -40,9 +48,20 @@
       save(s);
       return "";
     },
-    login(email, password) {
+    loginDemo() {
       const s = state();
-      const user = s.users.find((u) => u.email === (email || "").trim().toLowerCase() && u.password === password);
+      s.session = DEMO.email;
+      save(s);
+    },
+    login(email, password) {
+      const e = (email || "").trim().toLowerCase();
+      const p = (password || "").trim();
+      if (e === DEMO.email && p === DEMO.password) {
+        api.loginDemo();
+        return "";
+      }
+      const s = state();
+      const user = s.users.find((u) => u.email === e && u.password === p);
       if (!user) return "이메일 또는 비밀번호가 맞지 않습니다.";
       s.session = user.email;
       save(s);
