@@ -24,7 +24,7 @@ button{font:inherit}
 img,video{display:block;max-width:100%}
 .skip,.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip:focus{left:16px;top:16px;z-index:99;width:auto;height:auto;margin:0;overflow:visible;clip:auto;background:#fff;padding:10px 12px}
-.edge{width:100%;padding-left:var(--pad);padding-right:var(--pad)}
+.edge{width:100%;max-width:1440px;margin-left:auto;margin-right:auto;padding-left:var(--pad);padding-right:var(--pad)}
 .kicker{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.08em;color:#6b6b6b}
 .pill{display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border:1px solid var(--line);border-radius:0;font-size:11px;letter-spacing:.08em;color:#6b6b6b;background:#fff}
 h1,h2,h3,p{margin-top:0}
