@@ -62,10 +62,10 @@ header.is-open .menu-btn span:nth-child(3){transform:translateY(-6.5px) rotate(-
 .hero-banner{position:relative;display:block;width:100%;min-height:0;max-height:none;aspect-ratio:auto;overflow:hidden;padding:76px 0 0;background:#f6f2eb;color:var(--ink)}
 .hero-banner-pic{display:none}
 .hero-banner:before{display:none}
-.hero-banner-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,220px);align-items:center;gap:clamp(16px,3vw,40px);min-height:200px}
+.hero-banner-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,220px);align-items:center;gap:clamp(16px,3vw,40px);min-height:220px}
 .hero-banner-copy{min-width:0}
-.hero-banner-art{display:flex;align-items:center;justify-content:center}
-.hero-banner-art img{width:100%;max-width:200px;max-height:168px;height:auto;object-fit:contain}
+.hero-banner-art{display:flex;align-items:center;justify-content:center;width:200px;height:200px;max-width:100%;justify-self:center;overflow:hidden}
+.hero-banner-art img{width:100%;height:100%;object-fit:contain}
 .hero-banner.is-lms{aspect-ratio:auto;min-height:0;max-height:none;height:auto}
 .hero-banner.is-lms h1{max-width:14em;font-size:clamp(22px,2.4vw,30px)}
 .hero-banner.is-lms .lead{max-width:34em;font-size:15px}
@@ -401,7 +401,7 @@ footer a:hover{color:var(--orange)}
   .hero-banner .wrap{padding:20px 0 16px}
   .hero-banner h1{font-size:clamp(22px,6.4vw,28px);color:#191919}
   .hero-banner .lead{font-size:14px;color:#5a5a5a}
-  .hero-banner-art img{max-width:120px;max-height:110px}
+  .hero-banner-art{width:120px;height:120px}
   .hero-banner.is-lms{aspect-ratio:auto;min-height:0;height:auto}
   .hero-banner.is-lms .wrap{padding:20px 0 16px}
   .hero-banner.is-lms h1{font-size:clamp(22px,6.4vw,28px)}
