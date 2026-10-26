@@ -1,0 +1,9 @@
+.git
+.next
+.local
+.env*
+!.env.example
+node_modules
+.codex
+*.tsbuildinfo
+coverage

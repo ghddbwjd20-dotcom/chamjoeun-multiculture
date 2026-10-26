@@ -1,0 +1,2 @@
+CREATE TABLE oauth_sessions(state_hash text PRIMARY KEY,provider text NOT NULL,code_verifier text NOT NULL,link_user_id uuid REFERENCES users,expires_at timestamptz NOT NULL);
+CREATE TABLE social_pending(token_hash text PRIMARY KEY,provider text NOT NULL,provider_user_id text NOT NULL,email text NOT NULL DEFAULT '',name text NOT NULL DEFAULT '',email_verified boolean NOT NULL DEFAULT false,expires_at timestamptz NOT NULL);

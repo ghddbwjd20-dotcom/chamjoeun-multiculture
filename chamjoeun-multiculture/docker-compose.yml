@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:18-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: chamjoeun
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong PostgreSQL password}
+      POSTGRES_DB: chamjoeun
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chamjoeun -d chamjoeun"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    mem_limit: 768m
+  app:
+    profiles: [production]
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      DATABASE_URL: postgresql://chamjoeun:${POSTGRES_PASSWORD}@db:5432/chamjoeun
+      APP_URL: ${APP_URL:?Set APP_URL to your https origin}
+      DEV_EMAIL_PREVIEW: "false"
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      UPLOAD_DIR: /app/data/uploads
+      VIDEO_GATEWAY_URL: ${VIDEO_GATEWAY_URL:-}
+      VIDEO_SIGNING_SECRET: ${VIDEO_SIGNING_SECRET:-}
+    volumes:
+      - uploads:/app/data/uploads
+    mem_limit: 1536m
+volumes:
+  postgres_data:
+  uploads:

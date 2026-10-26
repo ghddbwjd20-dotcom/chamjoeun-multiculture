@@ -1,0 +1,9 @@
+name = "chamjoeun-video-gateway"
+main = "video-gateway.mjs"
+compatibility_date = "2026-10-26"
+[vars]
+APP_ORIGIN = "https://YOUR-CONFIRMED-DOMAIN"
+[[r2_buckets]]
+binding = "VIDEOS"
+bucket_name = "YOUR-PRIVATE-VIDEO-BUCKET"
+# VIDEO_SIGNING_SECRET must be supplied with wrangler secret put, never committed.
