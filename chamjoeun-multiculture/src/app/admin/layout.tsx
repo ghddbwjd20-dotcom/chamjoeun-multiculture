@@ -22,6 +22,7 @@ export default async function Layout({
             ["/admin/members", "회원·수강"],
             ["/admin/inquiries", "문의"],
             ["/admin/posts", "기관소식"],
+            ["/admin/agreements", "업무협약 원본"],
             ["/admin/documents", "발급문서"],
             ["/admin/settings", "기관·배너·팝업"],
             ["/admin/payments", "결제·취소"],

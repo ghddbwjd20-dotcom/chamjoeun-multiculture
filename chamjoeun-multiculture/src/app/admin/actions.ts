@@ -133,19 +133,33 @@ export async function answerInquiry(
     .safeParse(Object.fromEntries(form));
   if (!p.success) return { error: "5자 이상의 답변을 입력해 주세요." };
   await transaction(async (c) => {
-    await c.query(
-      "UPDATE inquiries SET answer=$1,status='answered',answered_by=$2,answered_at=now() WHERE id=$3",
+    const updated = await c.query(
+      "UPDATE inquiries SET answer=$1,status='answered',answered_by=$2,answered_at=now() WHERE id=$3 RETURNING user_id",
       [p.data.answer, user.id, p.data.id],
     );
+    if (!updated.rows[0]) throw new Error("문의를 찾을 수 없습니다.");
+    if (updated.rows[0].user_id) {
+      await c.query(
+        "INSERT INTO notifications(user_id,title,body,href) VALUES($1,$2,$3,$4)",
+        [
+          updated.rows[0].user_id,
+          "문의에 답변이 등록되었습니다.",
+          "내 문의에서 기관의 답변을 확인해 주세요.",
+          "/mypage/inquiries",
+        ],
+      );
+    }
     await c.query(
       "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'문의 답변 기록',$2)",
       [user.id, p.data.id],
     );
   });
   revalidatePath("/admin/inquiries");
+  revalidatePath("/mypage/inquiries");
+  revalidatePath("/classroom");
   return {
     success:
-      "답변을 저장했습니다. 현재 자동 메일 전송은 연결되지 않았으므로 고객 이메일로 별도 안내해 주세요.",
+      "답변을 저장했습니다. 회원은 내 문의에서 확인할 수 있습니다. 이메일 안내가 필요한 문의는 별도로 발송해 주세요.",
   };
 }
 export async function savePost(

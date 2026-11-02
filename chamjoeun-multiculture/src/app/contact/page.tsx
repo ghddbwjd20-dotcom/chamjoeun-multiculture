@@ -1,12 +1,17 @@
 import { PageHeading } from "@/components/page-heading";
 import { ActionForm } from "@/components/form";
 import { submitInquiry } from "./actions";
+import Link from "next/link";
+import { currentUser } from "@/lib/auth";
+import { contactSettings } from "@/lib/site-settings";
 export default async function Page({
   searchParams,
 }: {
   searchParams: Promise<{ kind?: string }>;
 }) {
   const q = await searchParams;
+  const user = await currentUser();
+  const contact = await contactSettings();
   const kind = ["books", "settlement"].includes(q.kind ?? "")
     ? q.kind
     : "education";
@@ -20,26 +25,38 @@ export default async function Page({
       <div className="container content contact-grid">
         <div className="contact-details">
           <span className="eyebrow">GET IN TOUCH</span>
-          <h2>참조은다문화(주)</h2>
+          <h2>{contact.name}</h2>
           <p>필요한 정보를 확인하고 안내드리겠습니다.</p>
           <dl>
             <dt>대표전화</dt>
             <dd>
-              <a href="tel:0515585629">051-558-5629</a>
+              <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}>
+                {contact.phone}
+              </a>
             </dd>
             <dt>이메일</dt>
             <dd>
-              <a href="mailto:chamjoeund@gmail.com">chamjoeund@gmail.com</a>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
             </dd>
             <dt>주소</dt>
-            <dd>
-              부산 동래구 금강로 70
-              <br />
-              참조은빌딩 5층, 7층
-            </dd>
+            <dd>{contact.address}</dd>
           </dl>
         </div>
         <ActionForm action={submitInquiry} label="문의 접수하기">
+          <p className="muted">
+            {user ? (
+              <>
+                접수한 문의와 답변은{" "}
+                <Link href="/mypage/inquiries">내 문의</Link>에서 확인할 수
+                있습니다.
+              </>
+            ) : (
+              <>
+                <Link href="/login">로그인</Link> 후 문의하면 마이페이지에서도
+                답변을 확인할 수 있습니다.
+              </>
+            )}
+          </p>
           <label>
             문의 종류
             <select name="kind" defaultValue={kind}>
@@ -54,6 +71,7 @@ export default async function Page({
             이름
             <input
               name="name"
+              defaultValue={user?.name ?? ""}
               autoComplete="name"
               required
               minLength={2}
@@ -64,6 +82,7 @@ export default async function Page({
             답변받을 이메일
             <input
               name="email"
+              defaultValue={user?.email ?? ""}
               type="email"
               autoComplete="email"
               required

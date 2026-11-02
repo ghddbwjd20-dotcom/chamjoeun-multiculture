@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import "./globals.css";
 import { query } from "@/lib/db";
 import { SitePromotions } from "@/components/site-promotions";
+import { contactSettings } from "@/lib/site-settings";
 export const metadata: Metadata = {
   title: {
     default: "참조은다문화(주) | 배움에서 정착까지",
@@ -20,6 +21,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
+  const contact = await contactSettings();
   const promotions = await query(
     "SELECT id,kind,title,body,href FROM site_promotions WHERE active=true AND starts_at<=now() AND ends_at>now() ORDER BY starts_at DESC LIMIT 5",
   );
@@ -43,7 +45,10 @@ export default async function Layout({
         />
         <main id="main">{children}</main>
         <Footer />
-        <ContactWidgets kakaoUrl={process.env.KAKAO_CHANNEL_URL ?? ""} />
+        <ContactWidgets
+          kakaoUrl={process.env.KAKAO_CHANNEL_URL ?? ""}
+          phone={contact.phone}
+        />
       </body>
     </html>
   );

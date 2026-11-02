@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Paperclip, Download, ArrowLeft } from "lucide-react";
 import { query } from "@/lib/db";
 import { PageHeading } from "@/components/page-heading";
+import { formatAgreementDate } from "@/lib/agreements";
 export default async function Page({
   params,
 }: {
@@ -16,6 +17,10 @@ export default async function Page({
     [id],
   );
   if (!p) notFound();
+  const [agreement] = await query(
+    "SELECT signed_on FROM agreements WHERE post_id=$1",
+    [id],
+  );
   const files = await query(
     "SELECT id,original_name,size_bytes,mime_type FROM attachments WHERE post_id=$1 AND deleted_at IS NULL ORDER BY created_at",
     [id],
@@ -39,6 +44,9 @@ export default async function Page({
           <div>
             <span>참조은다문화(주)</span>
             <time>
+              {agreement
+                ? `협약일 ${formatAgreementDate(agreement.signed_on)} · 등록일 `
+                : ""}
               {new Date(p.created_at).toLocaleDateString("ko-KR", {
                 timeZone: "Asia/Seoul",
               })}

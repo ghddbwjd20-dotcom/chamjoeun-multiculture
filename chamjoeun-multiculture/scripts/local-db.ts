@@ -19,6 +19,15 @@ let previousHome: string | undefined;
 try {
   previousHome = JSON.parse(await readFile(".local/runtime.json", "utf8")).home;
 } catch {}
+if (previousHome && !process.env.LOCAL_PG_HOME) {
+  try {
+    await access(join(previousHome, "data", "PG_VERSION"));
+  } catch {
+    throw new Error(
+      "The saved PostgreSQL data directory is missing. Recover the existing data or explicitly set LOCAL_PG_HOME to initialize a separate database, then restore a backup. The helper will not silently create an empty replacement.",
+    );
+  }
+}
 const home =
   process.env.LOCAL_PG_HOME ??
   previousHome ??

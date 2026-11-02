@@ -1,3 +1,4 @@
+import { contactSettings } from "@/lib/site-settings";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -11,7 +12,8 @@ import {
 import { PageHeading } from "@/components/page-heading";
 import { socinet } from "@/lib/data";
 import { Reveal } from "@/components/reveal";
-export default function Page() {
+export default async function Page() {
+  const contact = await contactSettings();
   return (
     <>
       <PageHeading
@@ -237,7 +239,7 @@ export default function Page() {
             ],
             [
               "정착·취업 관련 상담을 받고 싶습니다.",
-              "대표전화 051-558-5629 또는 온라인 문의를 통해 상담할 내용을 알려주세요. 담당 분야에 맞는 이용 방법을 안내해 드립니다.",
+              `대표전화 ${contact.phone} 또는 온라인 문의를 통해 상담할 내용을 알려주세요. 담당 분야에 맞는 이용 방법을 안내해 드립니다.`,
             ],
             [
               "방문 전에 무엇을 확인하면 좋을까요?",

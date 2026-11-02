@@ -1,0 +1,18 @@
+ALTER TABLE delivery_jobs DROP CONSTRAINT delivery_jobs_status_check;
+ALTER TABLE delivery_jobs ADD CONSTRAINT delivery_jobs_status_check CHECK(status IN ('queued','processing','sent','failed','awaiting_configuration','cancelled'));
+ALTER TABLE delivery_jobs ADD COLUMN recipient text NOT NULL DEFAULT '';
+ALTER TABLE delivery_jobs ADD COLUMN marketing boolean NOT NULL DEFAULT false;
+ALTER TABLE delivery_jobs ADD COLUMN newsletter_id uuid REFERENCES newsletters;
+ALTER TABLE delivery_jobs ADD COLUMN dedupe_key text;
+ALTER TABLE delivery_jobs ADD COLUMN next_attempt_at timestamptz NOT NULL DEFAULT now();
+ALTER TABLE delivery_jobs ADD COLUMN locked_at timestamptz;
+ALTER TABLE delivery_jobs ADD COLUMN lock_token uuid;
+ALTER TABLE delivery_jobs ADD COLUMN generation integer NOT NULL DEFAULT 0;
+ALTER TABLE delivery_jobs ADD COLUMN provider_id text;
+ALTER TABLE delivery_jobs ADD COLUMN updated_at timestamptz NOT NULL DEFAULT now();
+CREATE UNIQUE INDEX delivery_dedupe_idx ON delivery_jobs(dedupe_key) WHERE dedupe_key IS NOT NULL;
+CREATE INDEX delivery_due_idx ON delivery_jobs(next_attempt_at) WHERE status IN ('queued','awaiting_configuration');
+ALTER TABLE newsletters ADD COLUMN status text NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','queued','cancelled'));
+ALTER TABLE newsletters ADD COLUMN queued_at timestamptz;
+CREATE TABLE unsubscribe_tokens(token_hash text PRIMARY KEY,user_id uuid NOT NULL REFERENCES users ON DELETE CASCADE,created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE worker_heartbeats(name text PRIMARY KEY,last_run_at timestamptz NOT NULL DEFAULT now(),detail text NOT NULL DEFAULT '');

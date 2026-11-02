@@ -11,11 +11,21 @@ if (-not (Test-Path -LiteralPath $pgDump)) {
     if (-not $installedPgDump) { throw 'Install PostgreSQL client tools (pg_dump) matching the server major version.' }
     $pgDump = $installedPgDump
 }
-$localDatabasePassword = (Get-Content -LiteralPath '.local/db-password' -Raw).Trim()
-$env:PGPASSWORD = $localDatabasePassword
+$databaseJson = @'
+const u = new URL(process.env.DATABASE_URL);
+if (!["127.0.0.1", "localhost"].includes(u.hostname)) throw new Error("Local backup helper requires a local database");
+console.log(JSON.stringify({host:u.hostname,port:u.port||"5432",user:decodeURIComponent(u.username),password:decodeURIComponent(u.password),database:decodeURIComponent(u.pathname.slice(1))}));
+'@ | & node --env-file-if-exists=.env.local --input-type=module
+$databaseConfig = $databaseJson | ConvertFrom-Json
+if ($LASTEXITCODE -ne 0 -or -not $databaseConfig.database) { throw 'Cannot read local database configuration' }
+$previousPgPassword = $env:PGPASSWORD
+$env:PGPASSWORD = $databaseConfig.password
 try {
-    & $pgDump -h 127.0.0.1 -p 55432 -U chamjoeun -d chamjoeun -Fc -f $backupFile
+    & $pgDump -h $databaseConfig.host -p $databaseConfig.port -U $databaseConfig.user -d $databaseConfig.database -Fc -f $backupFile
     if ($LASTEXITCODE -ne 0) { throw 'Backup failed' }
     Write-Output ('Backup created: ' + $backupFile)
-} finally { Remove-Item Env:PGPASSWORD -ErrorAction SilentlyContinue }
+} finally {
+    if ($null -eq $previousPgPassword) { Remove-Item Env:PGPASSWORD -ErrorAction SilentlyContinue }
+    else { $env:PGPASSWORD = $previousPgPassword }
+}
 # Local development helper. Production needs a daily scheduler, seven-day retention, separate encrypted storage, and restore checks.

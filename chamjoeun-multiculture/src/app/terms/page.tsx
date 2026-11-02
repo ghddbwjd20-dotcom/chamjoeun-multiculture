@@ -1,5 +1,7 @@
 import { PageHeading } from "@/components/page-heading";
-export default function Page() {
+import { contactSettings } from "@/lib/site-settings";
+export default async function Page() {
+  const contact = await contactSettings();
   return (
     <>
       <PageHeading
@@ -34,7 +36,9 @@ export default function Page() {
         <h2>5. 콘텐츠 이용</h2>
         <p>교육 영상과 자료의 무단 복제·배포·판매를 금지합니다.</p>
         <h2>6. 문의</h2>
-        <p>051-558-5629 / chamjoeund@gmail.com</p>
+        <p>
+          {contact.phone} / {contact.email}
+        </p>
         <p>개발 초안: 2026년 10월 26일</p>
       </article>
     </>

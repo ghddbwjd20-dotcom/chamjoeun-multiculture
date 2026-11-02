@@ -12,7 +12,11 @@ export async function saveContact(
   const p = z
     .object({
       name: z.string().min(2).max(60),
-      phone: z.string().min(8).max(24),
+      phone: z
+        .string()
+        .trim()
+        .regex(/^\+?[\d ()-]{8,24}$/)
+        .refine((value) => value.replace(/\D/g, "").length >= 8),
       email: z.email(),
       address: z.string().min(5).max(200),
       privacyOfficer: z.string().min(2).max(30),

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { currentUser, rateLimit } from "@/lib/auth";
 import { transaction } from "@/lib/db";
+import { videoUrl } from "@/lib/video";
 import {
   acceptInterval,
   mergeRanges,
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
     const data = p.data;
     if (data.kind === "start") {
       const { rows } = await client.query(
-        `SELECT l.id,lp.last_position FROM lessons l JOIN enrollments e ON e.course_id=l.course_id AND e.user_id=$1 LEFT JOIN lesson_progress lp ON lp.lesson_id=l.id AND lp.user_id=$1 WHERE l.id=$2 AND e.status IN ('active','completed') AND e.expires_at>now() AND l.video_status='ready' AND l.duration_seconds>0`,
+        `SELECT l.id,l.video_key,e.expires_at,lp.last_position FROM lessons l JOIN enrollments e ON e.course_id=l.course_id AND e.user_id=$1 LEFT JOIN lesson_progress lp ON lp.lesson_id=l.id AND lp.user_id=$1 WHERE l.id=$2 AND e.status IN ('active','completed') AND e.expires_at>now() AND l.video_status='ready' AND l.duration_seconds>0`,
         [user.id, data.lessonId],
       );
       if (!rows[0]) return null;
@@ -65,10 +66,13 @@ export async function POST(request: NextRequest) {
       return {
         sessionId: r.rows[0].id,
         lastPosition: Number(rows[0].last_position ?? 0),
+        videoSrc: rows[0].video_key
+          ? videoUrl(rows[0].video_key, user.id, rows[0].expires_at)
+          : null,
       };
     }
     const { rows } = await client.query(
-      `SELECT s.*,l.duration_seconds,l.course_id,c.completion_threshold FROM watch_sessions s JOIN lessons l ON l.id=s.lesson_id JOIN courses c ON c.id=l.course_id JOIN enrollments e ON e.course_id=l.course_id AND e.user_id=s.user_id WHERE s.id=$1 AND s.user_id=$2 AND s.expires_at>now() AND e.status IN ('active','completed') AND e.expires_at>now() FOR UPDATE OF s,e`,
+      `SELECT s.*,l.duration_seconds,l.course_id,l.video_key,e.expires_at enrollment_expires_at,c.completion_threshold FROM watch_sessions s JOIN lessons l ON l.id=s.lesson_id JOIN courses c ON c.id=l.course_id JOIN enrollments e ON e.course_id=l.course_id AND e.user_id=s.user_id WHERE s.id=$1 AND s.user_id=$2 AND s.expires_at>now() AND e.status IN ('active','completed') AND e.expires_at>now() AND l.video_status='ready' FOR UPDATE OF s,e`,
       [data.sessionId, user.id],
     );
     const s = rows[0];
@@ -126,7 +130,13 @@ export async function POST(request: NextRequest) {
           [user.id, done.rows[0].id, JSON.stringify({ progress })],
         );
     }
-    return { watchedSeconds: seconds, courseProgress: Math.floor(progress) };
+    return {
+      watchedSeconds: seconds,
+      courseProgress: Math.floor(progress),
+      videoSrc: s.video_key
+        ? videoUrl(s.video_key, user.id, s.enrollment_expires_at)
+        : null,
+    };
   });
   return result
     ? NextResponse.json(result, { headers: { "Cache-Control": "no-store" } })

@@ -1,10 +1,13 @@
+import { contactSettings } from "@/lib/site-settings";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Phone, Mail } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
 import { Reveal } from "@/components/reveal";
 import { Partners } from "@/components/partners";
-import { history, values } from "@/lib/content";
-export default function Page() {
+import { values } from "@/lib/content";
+import { HistoryJourney } from "@/components/history-journey";
+export default async function Page() {
+  const contact = await contactSettings();
   return (
     <>
       <PageHeading
@@ -71,7 +74,7 @@ export default function Page() {
             <dt>법인명</dt>
             <dd>참조은다문화 주식회사</dd>
             <dt>소재지</dt>
-            <dd>부산광역시 동래구 금강로 70(온천동, 참조은빌딩) 5층·7층</dd>
+            <dd>{contact.address}</dd>
             <dt>기관 성격</dt>
             <dd>
               교육·사회서비스를 제공하는 사회적기업, 이민자 정착·사회통합 지원
@@ -118,29 +121,7 @@ export default function Page() {
             ))}
           </div>
         </section>
-        <section className="detail-section history-layout" id="history">
-          <div>
-            <span className="eyebrow">OUR JOURNEY</span>
-            <h2>
-              2010년부터,
-              <br />
-              함께 걸어온 길.
-            </h2>
-            <p>
-              부산에서 시작한 다문화 활동이
-              <br />
-              교육과 정착지원의 전문성으로 이어집니다.
-            </p>
-          </div>
-          <div className="history-list">
-            {[...history].reverse().map(([year, text]) => (
-              <div key={year}>
-                <b>{year}</b>
-                <p>{text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <HistoryJourney />
         <section className="detail-section" id="partners">
           <Partners />
           <div className="network-types">
@@ -171,23 +152,23 @@ export default function Page() {
           <h2>참조은다문화에 오시는 길</h2>
           <div className="live-map">
             <iframe
-              title="참조은다문화 위치 · 부산 동래구 금강로 70"
-              src="https://maps.google.com/maps?q=%EB%B6%80%EC%82%B0%20%EB%8F%99%EB%9E%98%EA%B5%AC%20%EA%B8%88%EA%B0%95%EB%A1%9C%2070&amp;z=16&amp;output=embed"
+              title={`${contact.name} 위치 · ${contact.address}`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(contact.address)}&z=16&output=embed`}
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
             />
             <div>
-              <span>부산 동래구 금강로 70 · 참조은빌딩 5층, 7층</span>
+              <span>{contact.address}</span>
               <a
-                href="https://map.naver.com/p/search/부산%20동래구%20금강로%2070"
+                href={`https://map.naver.com/p/search/${encodeURIComponent(contact.address)}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 네이버 지도 ↗
               </a>
               <a
-                href="https://map.kakao.com/?q=부산%20동래구%20금강로%2070"
+                href={`https://map.kakao.com/?q=${encodeURIComponent(contact.address)}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -198,11 +179,10 @@ export default function Page() {
           <div className="visit-layout">
             <div className="visit-address">
               <MapPin size={28} />
-              <h3>부산 동래구 금강로 70</h3>
-              <p>온천동, 참조은빌딩 5층·7층</p>
+              <h3>{contact.address}</h3>
               <a
                 className="button outline"
-                href="https://map.naver.com/p/search/부산%20동래구%20금강로%2070"
+                href={`https://map.naver.com/p/search/${encodeURIComponent(contact.address)}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -213,14 +193,16 @@ export default function Page() {
               <p>
                 <Phone size={18} />
                 <span>
-                  대표전화 <a href="tel:0515585629">051-558-5629</a>
+                  대표전화{" "}
+                  <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}>
+                    {contact.phone}
+                  </a>
                 </span>
               </p>
               <p>
                 <Mail size={18} />
                 <span>
-                  이메일{" "}
-                  <a href="mailto:chamjoeund@gmail.com">chamjoeund@gmail.com</a>
+                  이메일 <a href={`mailto:${contact.email}`}>{contact.email}</a>
                 </span>
               </p>
               <p>

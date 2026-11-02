@@ -2,8 +2,10 @@ import Link from "next/link";
 import { currentUser } from "@/lib/auth";
 import { logout } from "@/app/auth-actions";
 import { SiteNavigation } from "@/components/site-navigation";
+import { contactSettings } from "@/lib/site-settings";
 export async function Header() {
   const user = await currentUser();
+  const contact = await contactSettings();
   return (
     <header className="site-header">
       <div className="utility">
@@ -34,7 +36,10 @@ export async function Header() {
           <img src="/images/logo.png" alt="" />
           <span>
             <span className="brand-name">
-              참조은다문화<span className="corporation">(주)</span>
+              {contact.name.replace(/\(주\)$/, "")}
+              {contact.name.endsWith("(주)") && (
+                <span className="corporation">(주)</span>
+              )}
             </span>
             <small>CHAMJOEUN MULTICULTURE</small>
           </span>

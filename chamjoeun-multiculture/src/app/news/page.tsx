@@ -4,7 +4,9 @@ import {
   ArrowUpRight,
   Image as ImageIcon,
   FileText,
+  Handshake,
 } from "lucide-react";
+import { formatAgreementDate } from "@/lib/agreements";
 import { query } from "@/lib/db";
 import { boardCategories, boardCategory, pageNumber } from "@/lib/board";
 import { PageHeading } from "@/components/page-heading";
@@ -24,7 +26,7 @@ export default async function Page({
     pages = Math.max(1, Math.ceil(total / 10)),
     page = Math.min(pageNumber(args.page), pages);
   const posts = await query(
-    `SELECT p.id,p.title,p.category,p.created_at,p.pinned,left(p.body,160) excerpt,(SELECT count(*) FROM attachments a WHERE a.post_id=p.id AND a.deleted_at IS NULL) files,(SELECT a.id FROM attachments a WHERE a.post_id=p.id AND a.deleted_at IS NULL AND a.mime_type LIKE 'image/%' ORDER BY a.created_at LIMIT 1) thumbnail FROM posts p WHERE p.published=true AND p.deleted_at IS NULL AND ($1='전체' OR p.category=$1) AND (p.title ILIKE $2 OR p.body ILIKE $2) ORDER BY p.pinned DESC,p.created_at DESC LIMIT 10 OFFSET $3`,
+    `SELECT p.id,p.title,p.category,p.created_at,p.pinned,a.signed_on,left(p.body,160) excerpt,(SELECT count(*) FROM attachments a WHERE a.post_id=p.id AND a.deleted_at IS NULL) files,(SELECT a.id FROM attachments a WHERE a.post_id=p.id AND a.deleted_at IS NULL AND a.mime_type LIKE 'image/%' ORDER BY a.created_at LIMIT 1) thumbnail FROM posts p LEFT JOIN agreements a ON a.post_id=p.id WHERE p.published=true AND p.deleted_at IS NULL AND ($1='전체' OR p.category=$1) AND (p.title ILIKE $2 OR p.body ILIKE $2) ORDER BY p.pinned DESC,CASE WHEN p.category='업무협약' THEN a.signed_on END DESC NULLS LAST,p.created_at DESC,p.id DESC LIMIT 10 OFFSET $3`,
     [category, `%${q}%`, (page - 1) * 10],
   );
   const link = (p: number) =>
@@ -79,6 +81,11 @@ export default async function Page({
                         alt=""
                         loading="lazy"
                       />
+                    ) : p.category === "업무협약" ? (
+                      <>
+                        <Handshake size={44} />
+                        <span>함께 만드는 협력</span>
+                      </>
                     ) : (
                       <>
                         <ImageIcon size={34} />
@@ -90,9 +97,11 @@ export default async function Page({
                   <h2>{p.title}</h2>
                   <p>{p.excerpt}</p>
                   <time>
-                    {new Date(p.created_at).toLocaleDateString("ko-KR", {
-                      timeZone: "Asia/Seoul",
-                    })}
+                    {p.signed_on
+                      ? `협약일 ${formatAgreementDate(p.signed_on)}`
+                      : new Date(p.created_at).toLocaleDateString("ko-KR", {
+                          timeZone: "Asia/Seoul",
+                        })}
                   </time>
                 </Link>
               ))}

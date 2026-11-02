@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { refreshedVideoRequest, videoTokenExpiry } from "@/lib/playback-url";
 export function Player({
   lessonId,
   src,
@@ -15,34 +16,94 @@ export function Player({
     let session = "",
       timer: ReturnType<typeof setInterval> | undefined,
       closed = false,
-      busy = false;
+      stopped = false;
+    let requests = Promise.resolve();
     let cleanupMedia = () => {};
-    async function ping(playing: boolean) {
-      if (!session || busy || closed) return;
-      busy = true;
-      try {
-        const r = await fetch("/api/watch", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            kind: "ping",
-            sessionId: session,
-            position: el.currentTime,
-            playing,
-          }),
-        });
-        const d = await r.json();
-        if (!r.ok) {
-          el.pause();
-          setMessage(d.error);
-          return;
-        }
-        setMessage(`진도 저장 완료 · 과정 진도 ${d.courseProgress}%`);
-      } catch {
-        setMessage("진도를 저장하지 못했습니다. 연결을 확인해 주세요.");
-      } finally {
-        busy = false;
+    let cleanupSeek = () => {};
+    let activeSrc = src;
+    let nativePlayback = false;
+    let renewing = false;
+    let cleanupRenewal = () => {};
+    function refreshSource(next: string | null | undefined) {
+      if (!next || closed) return;
+      if (!nativePlayback) {
+        activeSrc = next;
+        return;
       }
+      const expiry = videoTokenExpiry(activeSrc);
+      const nextExpiry = videoTokenExpiry(next);
+      if (
+        renewing ||
+        expiry === null ||
+        nextExpiry === null ||
+        nextExpiry <= expiry ||
+        expiry > Date.now() + 60000
+      )
+        return;
+      const position = el.currentTime;
+      const resume = !el.paused;
+      renewing = true;
+      activeSrc = next;
+      const restore = () => {
+        if (closed) return;
+        el.currentTime = Math.min(position, el.duration || position);
+        renewing = false;
+        if (resume)
+          void el.play().catch(() => {
+            if (!closed)
+              setMessage(
+                "영상 연결을 갱신했습니다. 재생 버튼을 눌러 이어가세요.",
+              );
+          });
+      };
+      cleanupRenewal();
+      el.addEventListener("loadedmetadata", restore, { once: true });
+      cleanupRenewal = () => el.removeEventListener("loadedmetadata", restore);
+      el.src = next;
+      el.load();
+    }
+    function ping(playing: boolean) {
+      if (
+        !session ||
+        stopped ||
+        closed ||
+        renewing ||
+        !Number.isFinite(el.currentTime)
+      )
+        return;
+      // Capture the position before serializing saves, including the final
+      // keepalive request sent when the learner leaves the page.
+      const snapshot = {
+        kind: "ping",
+        sessionId: session,
+        position: el.currentTime,
+        playing,
+      };
+      requests = requests.then(async () => {
+        if (stopped) return;
+        try {
+          const r = await fetch("/api/watch", {
+            method: "POST",
+            keepalive: true,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(snapshot),
+          });
+          const d = await r.json();
+          if (!r.ok) {
+            stopped = true;
+            el.pause();
+            if (!closed)
+              setMessage(d.error ?? "학습 기록을 저장할 수 없습니다.");
+            return;
+          }
+          refreshSource(d.videoSrc);
+          if (!closed)
+            setMessage(`진도 저장 완료 · 과정 진도 ${d.courseProgress}%`);
+        } catch {
+          if (!closed)
+            setMessage("진도를 저장하지 못했습니다. 연결을 확인해 주세요.");
+        }
+      });
     }
     async function start() {
       const r = await fetch("/api/watch", {
@@ -57,21 +118,28 @@ export function Player({
         return;
       }
       session = d.sessionId;
+      activeSrc = d.videoSrc ?? src!;
       const seek = () => {
         el.currentTime = Math.min(d.lastPosition || 0, el.duration || Infinity);
       };
       el.addEventListener("loadedmetadata", seek, { once: true });
+      cleanupSeek = () => el.removeEventListener("loadedmetadata", seek);
       if (
         src!.startsWith("/api/demo-video/") ||
         el.canPlayType("application/vnd.apple.mpegurl")
       ) {
-        el.src = src!;
+        nativePlayback = true;
+        el.src = activeSrc;
       } else {
         const { default: Hls } = await import("hls.js");
         if (closed) return;
         if (Hls.isSupported()) {
-          const hls = new Hls();
-          hls.loadSource(src!);
+          const hls = new Hls({
+            xhrSetup(xhr, url) {
+              xhr.open("GET", refreshedVideoRequest(url, activeSrc), true);
+            },
+          });
+          hls.loadSource(activeSrc);
           hls.attachMedia(el);
           cleanupMedia = () => hls.destroy();
           hls.on(Hls.Events.ERROR, (_, data) => {
@@ -89,19 +157,41 @@ export function Player({
       );
     }
     const onSeek = () => void ping(false);
-    const onPause = () => void ping(true);
+    const onPause = () => {
+      if (!renewing) void ping(!el.seeking);
+    };
     const onEnded = () => void ping(true);
+    const onPlay = () => {
+      if (!renewing) void ping(false);
+    };
+    const saveBeforeLeaving = () =>
+      void ping(!el.paused && !el.seeking && !el.ended);
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") saveBeforeLeaving();
+      else void ping(false);
+    };
     el.addEventListener("seeked", onSeek);
     el.addEventListener("pause", onPause);
     el.addEventListener("ended", onEnded);
-    start().catch(() => setMessage("학습 기록 서버에 연결하지 못했습니다."));
+    el.addEventListener("play", onPlay);
+    window.addEventListener("pagehide", saveBeforeLeaving);
+    document.addEventListener("visibilitychange", onVisibility);
+    start().catch(() => {
+      if (!closed) setMessage("학습 기록 서버에 연결하지 못했습니다.");
+    });
     return () => {
+      saveBeforeLeaving();
       closed = true;
       if (timer) clearInterval(timer);
+      cleanupSeek();
+      cleanupRenewal();
       cleanupMedia();
       el.removeEventListener("seeked", onSeek);
       el.removeEventListener("pause", onPause);
       el.removeEventListener("ended", onEnded);
+      el.removeEventListener("play", onPlay);
+      window.removeEventListener("pagehide", saveBeforeLeaving);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [lessonId, src]);
   return (

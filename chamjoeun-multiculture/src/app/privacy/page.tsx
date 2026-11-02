@@ -1,5 +1,7 @@
 import { PageHeading } from "@/components/page-heading";
-export default function Page() {
+import { contactSettings } from "@/lib/site-settings";
+export default async function Page() {
+  const contact = await contactSettings();
   return (
     <>
       <PageHeading
@@ -31,9 +33,9 @@ export default function Page() {
         <p>열람·정정·삭제·처리정지는 아래 연락처로 요청할 수 있습니다.</p>
         <h2>5. 개인정보 보호책임자</h2>
         <p>
-          이주현 / 051-558-5629 / chamjoeund@gmail.com
+          {contact.privacyOfficer} / {contact.phone} / {contact.email}
           <br />
-          부산 동래구 금강로 70, 참조은빌딩 5층·7층
+          {contact.address}
         </p>
         <h2>6. 안전성 확보</h2>
         <p>

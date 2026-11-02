@@ -31,6 +31,7 @@ export default async function Page() {
           <Link href="/classroom">나의 강의실</Link>
           <a href="#profile">회원정보</a>
           <a href="#payments">결제내역</a>
+          <Link href="/mypage/inquiries">내 문의</Link>
           <a href="#account-security">계정 관리</a>
         </nav>
         <section id="profile" className="detail-section">

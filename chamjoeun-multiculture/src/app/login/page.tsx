@@ -1,3 +1,4 @@
+import { contactSettings } from "@/lib/site-settings";
 import Link from "next/link";
 import { BookOpen, ShieldCheck, HelpCircle, ArrowUpRight } from "lucide-react";
 import { ActionForm } from "@/components/form";
@@ -9,6 +10,7 @@ export default async function Page({
   searchParams: Promise<{ verified?: string; social?: string }>;
 }) {
   const { verified, social } = await searchParams;
+  const contact = await contactSettings();
   return (
     <div className="container membership-layout login-layout">
       <aside className="membership-intro">
@@ -31,9 +33,9 @@ export default async function Page({
           <div>
             <b>이용에 도움이 필요하신가요?</b>
             <p>
-              051-558-5629
+              {contact.phone}
               <br />
-              chamjoeund@gmail.com
+              {contact.email}
             </p>
           </div>
           <Link href="/contact" aria-label="이용 문의">
@@ -84,12 +86,46 @@ export default async function Page({
             <span>로그인 상태 유지 (7일)</span>
           </label>
         </ActionForm>
-        <div className="social-signin-divider"><span>간편 로그인</span></div>
+        <div className="social-signin-divider">
+          <span>간편 로그인</span>
+        </div>
         <div className="social-login-buttons">
           {(["kakao", "naver", "google"] as const).map((provider) => (
-            <a key={provider} className={`social-signin ${provider}`} href={`/api/social/${provider}`}>
-              <span className="social-provider-icon" aria-hidden="true">{provider === "kakao" ? <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.4 2 10.5c0 2.7 1.8 5 4.5 6.3L5.4 21l4.8-3.2 1.8.2c5.5 0 10-3.4 10-7.5S17.5 3 12 3Z"/></svg> : provider === "naver" ? "N" : <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.4a4.6 4.6 0 0 1-2 3v2.6h3.3c1.9-1.8 2.9-4.3 2.9-7.5Z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.6a6.1 6.1 0 0 1-9.1-3.2H2.9v2.7A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.3 13.8a6 6 0 0 1 0-3.6V7.5H2.9a10 10 0 0 0 0 9l3.4-2.7Z"/><path fill="#EA4335" d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.7 9.7 0 0 0 12 2a10 10 0 0 0-9.1 5.5l3.4 2.7A6 6 0 0 1 12 6Z"/></svg>}</span>
-              {{kakao:"카카오",naver:"네이버",google:"Google"}[provider]}로 로그인
+            <a
+              key={provider}
+              className={`social-signin ${provider}`}
+              href={`/api/social/${provider}`}
+            >
+              <span className="social-provider-icon" aria-hidden="true">
+                {provider === "kakao" ? (
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3C6.5 3 2 6.4 2 10.5c0 2.7 1.8 5 4.5 6.3L5.4 21l4.8-3.2 1.8.2c5.5 0 10-3.4 10-7.5S17.5 3 12 3Z" />
+                  </svg>
+                ) : provider === "naver" ? (
+                  "N"
+                ) : (
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      fill="#4285F4"
+                      d="M21.6 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.4a4.6 4.6 0 0 1-2 3v2.6h3.3c1.9-1.8 2.9-4.3 2.9-7.5Z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.6a6.1 6.1 0 0 1-9.1-3.2H2.9v2.7A10 10 0 0 0 12 22Z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M6.3 13.8a6 6 0 0 1 0-3.6V7.5H2.9a10 10 0 0 0 0 9l3.4-2.7Z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 6c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.7 9.7 0 0 0 12 2a10 10 0 0 0-9.1 5.5l3.4 2.7A6 6 0 0 1 12 6Z"
+                    />
+                  </svg>
+                )}
+              </span>
+              {{ kakao: "카카오", naver: "네이버", google: "Google" }[provider]}
+              로 로그인
             </a>
           ))}
         </div>

@@ -3,12 +3,19 @@ const globalDb = globalThis as unknown as { pool?: Pool };
 export function pool() {
   if (!process.env.DATABASE_URL)
     throw new Error("DATABASE_URL이 설정되지 않았습니다.");
-  if (!globalDb.pool)
+  if (!globalDb.pool) {
     globalDb.pool = new Pool({
       connectionString: process.env.DATABASE_URL,
       max: 8,
-      connectionTimeoutMillis: 4000,
+      connectionTimeoutMillis: 10000,
     });
+    globalDb.pool.on("error", (error) => {
+      console.warn(
+        "PostgreSQL idle connection closed",
+        (error as { code?: string }).code ?? "CONNECTION_RESET",
+      );
+    });
+  }
   return globalDb.pool;
 }
 export async function query<T extends QueryResultRow = QueryResultRow>(

@@ -1,3 +1,4 @@
+import { contactSettings } from "@/lib/site-settings";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -108,6 +109,7 @@ const ministry = [
   },
 ];
 export default async function Home() {
+  const contact = await contactSettings();
   const posts = await query(
     "SELECT id,title,category,created_at FROM posts WHERE published=true AND deleted_at IS NULL ORDER BY pinned DESC,created_at DESC LIMIT 40",
   );
@@ -460,25 +462,24 @@ export default async function Home() {
               </Link>
             </div>
             <div className="contact-directory">
-              <a href="tel:0515585629">
+              <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}>
                 <Phone size={22} />
                 <span>
-                  대표전화<strong>051-558-5629</strong>
+                  대표전화<strong>{contact.phone}</strong>
                 </span>
                 <ArrowUpRight size={20} />
               </a>
-              <a href="mailto:chamjoeund@gmail.com">
+              <a href={`mailto:${contact.email}`}>
                 <span className="directory-symbol">@</span>
                 <span>
-                  이메일<strong>chamjoeund@gmail.com</strong>
+                  이메일<strong>{contact.email}</strong>
                 </span>
                 <ArrowUpRight size={20} />
               </a>
               <Link href="/about#visit">
                 <MapPin size={22} />
                 <span>
-                  오시는 길<strong>부산 동래구 금강로 70</strong>
-                  <small>참조은빌딩 5층, 7층</small>
+                  오시는 길<strong>{contact.address}</strong>
                 </span>
                 <ArrowUpRight size={20} />
               </Link>

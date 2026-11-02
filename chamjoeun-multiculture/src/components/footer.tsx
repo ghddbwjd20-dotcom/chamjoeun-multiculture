@@ -1,23 +1,24 @@
 import Link from "next/link";
-export function Footer() {
+import { contactSettings } from "@/lib/site-settings";
+export async function Footer() {
+  const contact = await contactSettings();
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
         <div>
-          <h2>참조은다문화(주)</h2>
+          <h2>{contact.name}</h2>
           <p>외국인의 안정적인 정착과 교육을 지원하는 전문기관</p>
-          <p>
-            부산광역시 동래구 금강로 70
-            <br />
-            참조은빌딩 5층, 7층
-          </p>
+          <p>{contact.address}</p>
         </div>
         <div>
           <span className="eyebrow">CONTACT</span>
-          <a className="footer-phone" href="tel:0515585629">
-            051-558-5629
+          <a
+            className="footer-phone"
+            href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
+          >
+            {contact.phone}
           </a>
-          <a href="mailto:chamjoeund@gmail.com">chamjoeund@gmail.com</a>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </div>
         <div className="footer-links">
           <Link href="/business">주요사업</Link>

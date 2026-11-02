@@ -3,28 +3,47 @@ import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 export function HeroFilm() {
   const ref = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(true),
+  const [ready, setReady] = useState(false);
+  const [playing, setPlaying] = useState(false),
     [muted, setMuted] = useState(true);
   useEffect(() => {
+    const video = ref.current;
+    const markReady = () => {
+      if (video && video.readyState >= 2) setReady(true);
+    };
+    // A cached video can decode before React attaches its event handlers.
+    markReady();
+    if (video) setPlaying(!video.paused && !video.ended);
+    video?.addEventListener("loadeddata", markReady);
+    video?.addEventListener("playing", markReady);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      ref.current?.pause();
+      video?.pause();
       setPlaying(false);
     }
+    return () => {
+      video?.removeEventListener("loadeddata", markReady);
+      video?.removeEventListener("playing", markReady);
+    };
   }, []);
   return (
-    <div className="hero-film">
+    <div className="hero-film" data-video-ready={ready}>
       <video
         ref={ref}
         src="/media/hero-navy.mp4"
-        poster="/images/learning-space.jpg"
+        poster="/images/hero-video-poster.jpg"
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         aria-label="교육과 정착을 함께하는 기관 소개 비주얼"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
+        onLoadedData={() => setReady(true)}
+        onError={() => {
+          setReady(false);
+          setPlaying(false);
+        }}
       />
       <div className="film-caption">
         <span>LEARNING. CONNECTING. BELONGING.</span>
