@@ -205,6 +205,17 @@ export default async function Page() {
                   이메일 <a href={`mailto:${contact.email}`}>{contact.email}</a>
                 </span>
               </p>
+              {contact.mobile && (
+                <p>
+                  <Phone size={18} />
+                  <span>
+                    휴대전화{" "}
+                    <a href={`tel:${contact.mobile.replace(/[^+\d]/g, "")}`}>
+                      {contact.mobile}
+                    </a>
+                  </span>
+                </p>
+              )}
               <p>
                 방문 상담을 원하시면 연락을 통해 사업별 이용 방법과 담당자
                 안내를 먼저 확인해 주세요. 운영 일정은 기관으로 문의하시면

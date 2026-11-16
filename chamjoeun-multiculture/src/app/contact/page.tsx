@@ -34,6 +34,16 @@ export default async function Page({
                 {contact.phone}
               </a>
             </dd>
+            {contact.mobile && (
+              <>
+                <dt>휴대전화</dt>
+                <dd>
+                  <a href={`tel:${contact.mobile.replace(/[^+\d]/g, "")}`}>
+                    {contact.mobile}
+                  </a>
+                </dd>
+              </>
+            )}
             <dt>이메일</dt>
             <dd>
               <a href={`mailto:${contact.email}`}>{contact.email}</a>

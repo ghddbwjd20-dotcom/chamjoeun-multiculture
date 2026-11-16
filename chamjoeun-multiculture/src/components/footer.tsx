@@ -18,6 +18,11 @@ export async function Footer() {
           >
             {contact.phone}
           </a>
+          {contact.mobile && (
+            <a href={`tel:${contact.mobile.replace(/[^+\d]/g, "")}`}>
+              휴대전화 {contact.mobile}
+            </a>
+          )}
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </div>
         <div className="footer-links">

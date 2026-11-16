@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
 import { transaction, query } from "@/lib/db";
 import { issueDocument } from "@/lib/documents";
+import { PDFDocument } from "pdf-lib";
 import type { FormState } from "@/components/form";
 export async function saveTemplate(
   _: FormState,
@@ -20,10 +21,39 @@ export async function saveTemplate(
     .safeParse(Object.fromEntries(form));
   if (!p.success) return { error: "양식 정보를 확인해 주세요." };
   const d = p.data;
+  const stamp = form.get("stamp");
+  let stampPng: string | null = null;
+  if (stamp instanceof File && stamp.size) {
+    if (stamp.type !== "image/png" || stamp.size > 256 * 1024)
+      return { error: "직인은 256KB 이하 PNG 파일로 올려 주세요." };
+    try {
+      const bytes = Buffer.from(await stamp.arrayBuffer());
+      if (
+        bytes.length < 24 ||
+        bytes.readUInt32BE(16) > 1024 ||
+        bytes.readUInt32BE(20) > 1024
+      )
+        return {
+          error: "직인 크기는 가로·세로 각각 1024px 이하로 올려 주세요.",
+        };
+      await (await PDFDocument.create()).embedPng(bytes);
+      stampPng = bytes.toString("base64");
+    } catch {
+      return { error: "유효한 PNG 직인 파일인지 확인해 주세요." };
+    }
+  }
   await transaction(async (c) => {
     await c.query(
-      "UPDATE document_templates SET title=$1,issuer=$2,footer=$3,active=$4,version=version+1,updated_at=now() WHERE id=$5",
-      [d.title, d.issuer, d.footer, form.get("active") === "on", d.id],
+      "UPDATE document_templates SET title=$1,issuer=$2,footer=$3,active=$4,version=version+1,updated_at=now(),stamp_png=CASE WHEN $6::boolean THEN NULL ELSE COALESCE($7,stamp_png) END WHERE id=$5",
+      [
+        d.title,
+        d.issuer,
+        d.footer,
+        form.get("active") === "on",
+        d.id,
+        form.get("removeStamp") === "on",
+        stampPng,
+      ],
     );
     await c.query(
       "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'문서 양식 변경',$2)",

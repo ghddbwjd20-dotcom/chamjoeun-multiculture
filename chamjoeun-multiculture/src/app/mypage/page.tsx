@@ -28,6 +28,7 @@ export default async function Page() {
       />
       <div className="container content">
         <nav className="section-links">
+          <Link href="/notifications">내 알림</Link>
           <Link href="/classroom">나의 강의실</Link>
           <a href="#profile">회원정보</a>
           <a href="#payments">결제내역</a>

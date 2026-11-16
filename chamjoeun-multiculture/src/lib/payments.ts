@@ -1,4 +1,5 @@
 import { query, transaction } from "@/lib/db";
+import { notifyMember } from "@/lib/delivery";
 function authorization() {
   const secret = process.env.TOSS_SECRET_KEY;
   if (!secret) throw new Error("결제 연동 설정이 필요합니다.");
@@ -81,13 +82,14 @@ async function grantPaidOrder(
       "INSERT INTO payment_events(id,order_id,type,payload) VALUES($1,$2,'approved',$3) ON CONFLICT DO NOTHING",
       [`approved:${paymentKey}`, orderId, JSON.stringify({ amount })],
     );
-    await c.query(
-      "INSERT INTO notifications(user_id,title,body,href) VALUES($1,'결제 완료','결제가 확인되어 수강권한이 부여되었습니다.','/classroom')",
-      [order.user_id],
-    );
-    await c.query(
-      "INSERT INTO delivery_jobs(user_id,channel,subject,body) VALUES($1,'email','참조은다문화 결제 완료','결제가 완료되었습니다. 나의 강의실에서 과정을 확인해 주세요.')",
-      [order.user_id],
+    await notifyMember(
+      c,
+      order.user_id,
+      "결제 완료",
+      "결제가 확인되어 수강권한이 부여되었습니다.",
+      "/classroom",
+      `payment:${orderId}`,
+      "payment",
     );
   });
 }

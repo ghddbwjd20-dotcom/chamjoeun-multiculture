@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { currentUser, rateLimit } from "@/lib/auth";
 import { transaction } from "@/lib/db";
+import { notifyMember } from "@/lib/delivery";
 import { videoUrl } from "@/lib/video";
 import {
   acceptInterval,
@@ -124,11 +125,21 @@ export async function POST(request: NextRequest) {
         "UPDATE enrollments SET status='completed',completed_at=now() WHERE user_id=$1 AND course_id=$2 AND status='active' RETURNING id",
         [user.id, s.course_id],
       );
-      if (done.rows[0])
+      if (done.rows[0]) {
         await client.query(
           "INSERT INTO audit_logs(actor_id,action,entity_id,detail) VALUES($1,'자동 수료',$2,$3)",
           [user.id, done.rows[0].id, JSON.stringify({ progress })],
         );
+        await notifyMember(
+          client,
+          user.id,
+          "수료 완료",
+          "수료 과정과 발급 문서를 확인해 주세요.",
+          "/classroom",
+          `completion:${done.rows[0].id}`,
+          "completion",
+        );
+      }
     }
     return {
       watchedSeconds: seconds,

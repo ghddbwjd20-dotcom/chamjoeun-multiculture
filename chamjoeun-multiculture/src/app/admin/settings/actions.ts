@@ -18,6 +18,11 @@ export async function saveContact(
         .regex(/^\+?[\d ()-]{8,24}$/)
         .refine((value) => value.replace(/\D/g, "").length >= 8),
       email: z.email(),
+      mobile: z
+        .string()
+        .trim()
+        .regex(/^(?:\+?[\d ()-]{8,24})?$/)
+        .optional(),
       address: z.string().min(5).max(200),
       privacyOfficer: z.string().min(2).max(30),
     })

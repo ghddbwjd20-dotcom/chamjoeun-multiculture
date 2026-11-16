@@ -6,6 +6,40 @@ import { digest, rateLimit } from "@/lib/auth";
 import { hashPassword } from "@/lib/password";
 import { mailPreview, mailConfigured, sendEmail } from "@/lib/mail";
 import type { FormState } from "@/components/form";
+import { normalizePhone } from "@/lib/delivery-policy";
+import { queueDelivery } from "@/lib/delivery";
+
+export async function findAccount(
+  _: FormState,
+  form: FormData,
+): Promise<FormState> {
+  const name = String(form.get("name") ?? "").trim();
+  const phone = normalizePhone(String(form.get("phone") ?? "").slice(0, 24));
+  if (!phone || name.length < 2 || name.length > 60)
+    return { error: "이름과 휴대전화 번호를 확인해 주세요." };
+  const response = {
+    success:
+      "일치하는 가입 정보가 있으면 등록된 번호로 이메일 힌트를 안내합니다.",
+  };
+  if (!(await rateLimit(`find-account:${digest(phone)}`, 3))) return response;
+  await transaction(async (client) => {
+    const { rows } = await client.query(
+      `SELECT id,email FROM users WHERE name=$1 AND deleted_at IS NULL AND email_verified_at IS NOT NULL
+      AND regexp_replace(regexp_replace(phone,'[^0-9+]','','g'),'^\\+82','0')=$2 LIMIT 2`,
+      [name, phone],
+    );
+    if (rows.length !== 1) return;
+    const [local, domain] = String(rows[0].email).split("@");
+    await queueDelivery(client, {
+      userId: rows[0].id,
+      recipient: phone,
+      channel: "sms",
+      subject: "가입 이메일 안내",
+      body: `참조은다문화 가입 이메일 힌트: ${local.slice(0, 1)}***@${domain}. 추가 확인은 기관에 문의해 주세요.`,
+    });
+  });
+  return response;
+}
 async function requestToken(
   form: FormData,
   purpose: "reset" | "verify",

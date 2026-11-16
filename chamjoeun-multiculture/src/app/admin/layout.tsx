@@ -27,6 +27,8 @@ export default async function Layout({
             ["/admin/settings", "기관·배너·팝업"],
             ["/admin/payments", "결제·취소"],
             ["/admin/videos", "영상관리"],
+            ["/admin/deliveries", "알림·발송"],
+            ["/admin/integrations", "연동 상태"],
           ].map(([href, label]) => (
             <Link key={href} href={href}>
               {label}

@@ -173,6 +173,36 @@ export function VideoUpload({
           영상 노출 중지
         </button>
       )}
+      {jobId && ["ready", "failed"].includes(status) && (
+        <button
+          className="text-link"
+          type="button"
+          onClick={async () => {
+            if (
+              !window.confirm(
+                "이 차시의 저장된 원본과 변환 영상을 모두 영구 삭제하시겠습니까?",
+              )
+            )
+              return;
+            try {
+              const result = await api({
+                action: "delete",
+                lessonId,
+                confirm: true,
+              });
+              setMessage(result.note);
+            } catch (error) {
+              setMessage(
+                error instanceof Error ? error.message : "영상 삭제 실패",
+              );
+            } finally {
+              router.refresh();
+            }
+          }}
+        >
+          저장 영상 영구 삭제
+        </button>
+      )}
       {message && (
         <p role="status" className="alert" style={{ marginTop: 15 }}>
           {message}

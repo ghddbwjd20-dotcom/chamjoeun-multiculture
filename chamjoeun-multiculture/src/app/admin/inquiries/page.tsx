@@ -36,6 +36,14 @@ export default async function Page() {
                   required
                 />
               </label>
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  name="emailReply"
+                  defaultChecked={!i.user_id && i.status !== "answered"}
+                />
+                <span>문의에 입력한 이메일로 답변 발송 예약</span>
+              </label>
             </ActionForm>
           </section>
         ))}

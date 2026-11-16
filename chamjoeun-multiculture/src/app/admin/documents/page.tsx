@@ -51,6 +51,15 @@ export default async function Page() {
                 />
               </label>
               <label className="checkbox">
+                <input type="checkbox" name="removeStamp" />
+                <span>저장된 직인 제거</span>
+              </label>
+              <label>
+                직인 PNG (256KB 이하, 최대 1024×1024)
+                <input type="file" name="stamp" accept="image/png" />
+              </label>
+              <p>{t.stamp_png ? "직인 등록됨" : "직인 미등록"}</p>
+              <label className="checkbox">
                 <input
                   type="checkbox"
                   name="active"

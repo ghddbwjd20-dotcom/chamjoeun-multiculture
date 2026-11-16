@@ -273,6 +273,8 @@ test("watch API saves final intervals, resumes, completes and rejects revoked ac
     if (userId) {
       await db.query("DELETE FROM audit_logs WHERE actor_id=$1", [userId]);
       await db.query("DELETE FROM learning_daily WHERE user_id=$1", [userId]);
+      await db.query("DELETE FROM delivery_jobs WHERE user_id=$1", [userId]);
+      await db.query("DELETE FROM notifications WHERE user_id=$1", [userId]);
       await db.query("DELETE FROM lesson_progress WHERE user_id=$1", [userId]);
       await db.query("DELETE FROM watch_sessions WHERE user_id=$1", [userId]);
       await db.query("DELETE FROM enrollments WHERE user_id=$1", [userId]);

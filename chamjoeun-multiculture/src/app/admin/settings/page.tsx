@@ -17,6 +17,7 @@ export default async function Page() {
             {[
               ["name", "기관명"],
               ["phone", "대표전화"],
+              ["mobile", "추가 연락처 (휴대전화)"],
               ["email", "이메일"],
               ["address", "주소"],
               ["privacyOfficer", "개인정보 보호책임자"],
@@ -26,7 +27,7 @@ export default async function Page() {
                 <input
                   name={key}
                   defaultValue={c[key as keyof typeof c]}
-                  required
+                  required={key !== "mobile"}
                 />
               </label>
             ))}

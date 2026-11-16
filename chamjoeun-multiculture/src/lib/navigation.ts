@@ -3,12 +3,9 @@ export const navigation = [
     title: "기관소개",
     href: "/about",
     items: [
-      ["인사말·기관소개", "/about"],
-      ["기관 현황", "/about#overview"],
-      ["설립이념·비전", "/about#philosophy"],
-      ["걸어온 길", "/about#history"],
-      ["협력 네트워크", "/about#partners"],
-      ["오시는 길", "/about#visit"],
+      ["기관소개", "/about"],
+      ["연혁", "/about#history"],
+      ["오시는길", "/about#visit"],
     ],
   },
   {
@@ -29,7 +26,6 @@ export const navigation = [
       ["정착상담·취업지원", "/support#counsel"],
       ["사회통합프로그램(KIIP)", "/support#kiip"],
       ["조기적응프로그램", "/support#early"],
-      ["한국어·한국문화", "/support#korean"],
     ],
   },
   {
@@ -48,8 +44,6 @@ export const navigation = [
     items: [
       ["공지사항", "/news?category=공지사항"],
       ["사업소식", "/news?category=사업소식"],
-      ["행사사진", "/news?category=행사사진"],
-      ["자료실", "/news?category=자료실"],
       ["업무협약", "/news?category=업무협약"],
     ],
   },

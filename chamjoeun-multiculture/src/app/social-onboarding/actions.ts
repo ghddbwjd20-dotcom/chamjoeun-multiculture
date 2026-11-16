@@ -1,4 +1,5 @@
 "use server";
+import { notifyMember } from "@/lib/delivery";
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -65,6 +66,18 @@ export async function finishSocialSignup(
       await c.query("DELETE FROM social_pending WHERE token_hash=$1", [
         digest(token),
       ]);
+      if (verified) {
+        const id = row.rows[0].id;
+        await notifyMember(
+          c,
+          id,
+          "가입 완료",
+          "참조은다문화 회원가입이 완료되었습니다.",
+          "/mypage",
+          `signup:${id}`,
+          "signup",
+        );
+      }
       return row.rows[0].id;
     });
   } catch (e) {

@@ -4,9 +4,11 @@ import { MessageCircle, Phone, X, ArrowUpRight } from "lucide-react";
 export function ContactWidgets({
   kakaoUrl,
   phone,
+  mobile,
 }: {
   kakaoUrl: string;
   phone: string;
+  mobile?: string;
 }) {
   const [open, setOpen] = useState(false);
   const channel = /^https:\/\/pf\.kakao\.com\/[A-Za-z0-9_/-]+$/.test(kakaoUrl)
@@ -39,6 +41,11 @@ export function ContactWidgets({
           <a href={`tel:${phone.replace(/[^+\d]/g, "")}`}>
             {phone} <Phone size={16} />
           </a>
+          {mobile && (
+            <a href={`tel:${mobile.replace(/[^+\d]/g, "")}`}>
+              휴대전화 {mobile} <Phone size={16} />
+            </a>
+          )}
         </section>
       )}
       {channel ? (

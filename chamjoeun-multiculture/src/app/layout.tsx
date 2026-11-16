@@ -48,6 +48,7 @@ export default async function Layout({
         <ContactWidgets
           kakaoUrl={process.env.KAKAO_CHANNEL_URL ?? ""}
           phone={contact.phone}
+          mobile={contact.mobile}
         />
       </body>
     </html>

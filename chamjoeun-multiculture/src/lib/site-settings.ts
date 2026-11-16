@@ -3,6 +3,7 @@ import { cache } from "react";
 export type ContactSettings = {
   name: string;
   phone: string;
+  mobile?: string;
   email: string;
   address: string;
   privacyOfficer: string;

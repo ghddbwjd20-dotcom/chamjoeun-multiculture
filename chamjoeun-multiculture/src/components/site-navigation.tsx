@@ -1,9 +1,29 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowUpRight,
+  Search,
+  UserRound,
+  ChevronDown,
+  ArrowRight,
+} from "lucide-react";
+import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/navigation";
 export function SiteNavigation() {
+  const homepage = usePathname() === "/";
+  const mainLinks = homepage
+    ? [
+        { title: "기관소개", href: "/about" },
+        { title: "사업안내", href: "/business" },
+        { title: "동포체류지원센터", href: "/support#settlement" },
+        { title: "사회통합프로그램(KIIP)", href: "/support#kiip" },
+        { title: "교육과정", href: "/courses" },
+        { title: "기관소식", href: "/news" },
+      ]
+    : navigation.slice(0, 5);
   const [open, setOpen] = useState(false);
   const shell = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -28,18 +48,30 @@ export function SiteNavigation() {
         onMouseEnter={() => setOpen(true)}
         onFocus={() => setOpen(true)}
       >
-        {navigation.slice(0, 5).map((g) => (
+        {mainLinks.map((g) => (
           <Link href={g.href} key={g.title} onClick={() => setOpen(false)}>
             {g.title}
           </Link>
         ))}
       </nav>
+      <div className="ref-nav-tools">
+        <Link href="/news" className="ref-search" aria-label="기관 소식 검색">
+          <Search size={17} />
+        </Link>
+        <span className="ref-language" aria-label="현재 언어 한국어">
+          KR <ChevronDown size={10} />
+        </span>
+        <Link href="/mypage" aria-label="로그인 및 마이페이지">
+          <UserRound size={17} />
+        </Link>
+      </div>
       <Link
         href="/contact"
         className="nav-inquiry-button"
         onClick={() => setOpen(false)}
       >
-        문의 <ArrowUpRight size={16} />
+        {homepage ? "문의하기" : "문의"}{" "}
+        {homepage ? <ArrowRight size={16} /> : <ArrowUpRight size={16} />}
       </Link>
       <button
         className="all-menu-button"

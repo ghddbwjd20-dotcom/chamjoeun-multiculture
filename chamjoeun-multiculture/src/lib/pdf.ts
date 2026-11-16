@@ -74,6 +74,7 @@ export type DocumentSnapshot = {
   number: string;
   version: number;
   preview: boolean;
+  stampPng?: string;
 };
 export async function certificatePdf(data: DocumentSnapshot) {
   const { pdf, font } = await setup();
@@ -143,6 +144,11 @@ export async function certificatePdf(data: DocumentSnapshot) {
     225,
   );
   center(page, data.issuer, font, 22, 163);
+  if (data.stampPng && !data.preview) {
+    const stamp = await pdf.embedPng(Buffer.from(data.stampPng, "base64"));
+    const size = stamp.scaleToFit(56, 56);
+    page.drawImage(stamp, { x: 455, y: 143, ...size });
+  }
   page.drawText(`발급번호 ${data.number} · 양식 버전 ${data.version}`, {
     x: 64,
     y: 83,

@@ -20,7 +20,16 @@ import {
   uploadPartSize,
 } from "@/lib/storage";
 const base = z.object({
-  action: z.enum(["begin", "sign", "complete", "abort", "retry", "unlink"]),
+  action: z.enum([
+    "begin",
+    "sign",
+    "complete",
+    "abort",
+    "retry",
+    "unlink",
+    "delete",
+  ]),
+  confirm: z.literal(true).optional(),
   lessonId: z.uuid().optional(),
   uploadId: z.uuid().optional(),
   jobId: z.uuid().optional(),
@@ -78,6 +87,12 @@ export async function POST(request: NextRequest) {
       const reserved = d.size * 4;
       const result = await transaction(async (c) => {
         await c.query("SELECT pg_advisory_xact_lock(20261026)");
+        const deleting = await c.query(
+          "SELECT 1 FROM video_jobs WHERE lesson_id=$1 AND stage='deleting' LIMIT 1",
+          [d.lessonId],
+        );
+        if (deleting.rowCount)
+          throw new Error("이전 영상 삭제를 먼저 완료해 주세요.");
         const [{ used }] = (
           await c.query(
             "SELECT COALESCE(sum(reserved_bytes),0) used FROM video_uploads WHERE status<>'aborted'",
@@ -122,7 +137,7 @@ export async function POST(request: NextRequest) {
       if (!d.jobId) throw new Error("작업을 확인해 주세요.");
       await transaction(async (c) => {
         const r = await c.query(
-          "UPDATE video_jobs SET status='queued',stage='waiting',error=NULL,updated_at=now() WHERE id=$1 AND status='failed' RETURNING lesson_id",
+          "UPDATE video_jobs SET status='queued',stage='waiting',error=NULL,updated_at=now() WHERE id=$1 AND status='failed' AND stage<>'deleting' RETURNING lesson_id",
           [d.jobId],
         );
         if (!r.rows[0]) throw new Error("재처리할 작업이 없습니다.");
@@ -132,6 +147,114 @@ export async function POST(request: NextRequest) {
         );
       });
       return NextResponse.json({ success: true });
+    }
+    if (d.action === "delete") {
+      if (!d.lessonId || !d.confirm)
+        throw new Error("차시와 영구 삭제 확인이 필요합니다.");
+      await transaction(async (c) => {
+        await c.query("SELECT pg_advisory_xact_lock(20261026)");
+        const jobs = await c.query(
+          "SELECT id,status FROM video_jobs WHERE lesson_id=$1 FOR UPDATE",
+          [d.lessonId],
+        );
+        const uploads = await c.query(
+          "SELECT id,status,object_key FROM video_uploads WHERE lesson_id=$1 AND status<>'aborted' FOR UPDATE",
+          [d.lessonId],
+        );
+        if (
+          jobs.rows.some(
+            (j) => j.status === "queued" || j.status === "processing",
+          ) ||
+          uploads.rows.some((u) => u.status === "uploading")
+        )
+          throw new Error("업로드 또는 변환 작업이 끝난 후 삭제해 주세요.");
+        await c.query(
+          "UPDATE lessons SET video_key=NULL,video_status='pending' WHERE id=$1",
+          [d.lessonId],
+        );
+        await c.query(
+          "UPDATE video_jobs SET status='failed',stage='deleting',error='스토리지 파일 삭제 확인 중' WHERE lesson_id=$1",
+          [d.lessonId],
+        );
+      });
+      const result = await transaction(async (c) => {
+        await c.query("SELECT pg_advisory_xact_lock(20261026)");
+        const jobs = await c.query(
+          "SELECT id FROM video_jobs WHERE lesson_id=$1 AND stage='deleting'",
+          [d.lessonId],
+        );
+        if (!jobs.rowCount) return true;
+        const uploads = await c.query(
+          "SELECT id,object_key FROM video_uploads WHERE lesson_id=$1 AND status<>'aborted'",
+          [d.lessonId],
+        );
+        try {
+          const remove = async (keys: string[]) => {
+            for (let i = 0; i < keys.length; i += 1000) {
+              const response = await s3.send(
+                new DeleteObjectsCommand({
+                  Bucket,
+                  Delete: {
+                    Objects: keys.slice(i, i + 1000).map((Key) => ({ Key })),
+                    Quiet: true,
+                  },
+                }),
+              );
+              if (response.Errors?.length)
+                throw new Error("스토리지 삭제 실패");
+            }
+          };
+          for (const job of jobs.rows) {
+            let token: string | undefined;
+            do {
+              const page = await s3.send(
+                new ListObjectsV2Command({
+                  Bucket,
+                  Prefix: `lessons/${d.lessonId}/v-${job.id}/`,
+                  ContinuationToken: token,
+                }),
+              );
+              await remove(
+                (page.Contents ?? []).flatMap((item) =>
+                  item.Key ? [item.Key] : [],
+                ),
+              );
+              token = page.NextContinuationToken;
+            } while (token);
+          }
+          await remove(
+            uploads.rows
+              .filter((u) => u.object_key === `originals/${u.id}/source.mp4`)
+              .map((u) => u.object_key),
+          );
+        } catch {
+          return false;
+        }
+        await c.query(
+          "DELETE FROM video_jobs WHERE lesson_id=$1 AND stage='deleting'",
+          [d.lessonId],
+        );
+        await c.query(
+          "UPDATE video_uploads SET status='aborted',reserved_bytes=0 WHERE lesson_id=$1",
+          [d.lessonId],
+        );
+        await c.query(
+          "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'영상 파일 삭제',$2)",
+          [user.id, d.lessonId],
+        );
+        return true;
+      });
+      if (!result)
+        return NextResponse.json(
+          {
+            error: "영상 노출을 중지했습니다. 파일 삭제를 다시 시도해 주세요.",
+          },
+          { status: 502 },
+        );
+      return NextResponse.json({
+        success: true,
+        note: "원본과 변환 파일을 삭제했습니다.",
+      });
     }
     if (d.action === "unlink") {
       if (!d.lessonId) throw new Error("차시를 확인해 주세요.");

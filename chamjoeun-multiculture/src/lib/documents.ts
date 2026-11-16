@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { transaction } from "@/lib/db";
 import type { DocumentSnapshot } from "@/lib/pdf";
+import { notifyMember } from "@/lib/delivery";
 export async function issueDocument(
   userId: string,
   courseId: string,
@@ -45,6 +46,7 @@ export async function issueDocument(
       number,
       version: t.version,
       preview,
+      stampPng: t.stamp_png ?? undefined,
     };
     await c.query(
       "INSERT INTO issued_documents(id,user_id,course_id,document_number,kind,template_id,snapshot) VALUES($1,$2,$3,$4,$5,$6,$7)",
@@ -58,6 +60,14 @@ export async function issueDocument(
         id,
         JSON.stringify({ reason, number }),
       ],
+    );
+    await notifyMember(
+      c,
+      userId,
+      t.title + " 발급 완료",
+      "마이페이지에서 발급 문서를 확인해 주세요.",
+      "/mypage",
+      `document:${id}`,
     );
     return { id };
   });

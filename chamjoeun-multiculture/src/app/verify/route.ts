@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { query, transaction } from "@/lib/db";
+import { transaction } from "@/lib/db";
+import { notifyMember } from "@/lib/delivery";
 import { digest } from "@/lib/auth";
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
@@ -16,6 +17,16 @@ export async function GET(request: NextRequest) {
     await client.query("UPDATE users SET email_verified_at=now() WHERE id=$1", [
       rows[0].user_id,
     ]);
+    const id = rows[0].user_id;
+    await notifyMember(
+      client,
+      id,
+      "가입 완료",
+      "참조은다문화 회원가입이 완료되었습니다.",
+      "/mypage",
+      `signup:${id}`,
+      "signup",
+    );
     return true;
   });
   return NextResponse.redirect(

@@ -1,4 +1,5 @@
 "use server";
+import { notifyMember, queueDelivery } from "@/lib/delivery";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
@@ -132,9 +133,10 @@ export async function answerInquiry(
     .object({ id: z.uuid(), answer: z.string().trim().min(5).max(5000) })
     .safeParse(Object.fromEntries(form));
   if (!p.success) return { error: "5자 이상의 답변을 입력해 주세요." };
+  const emailRequested = form.get("emailReply") === "on";
   await transaction(async (c) => {
     const updated = await c.query(
-      "UPDATE inquiries SET answer=$1,status='answered',answered_by=$2,answered_at=now() WHERE id=$3 RETURNING user_id",
+      "UPDATE inquiries SET answer=$1,status='answered',answered_by=$2,answered_at=now() WHERE id=$3 RETURNING user_id,email",
       [p.data.answer, user.id, p.data.id],
     );
     if (!updated.rows[0]) throw new Error("문의를 찾을 수 없습니다.");
@@ -149,6 +151,14 @@ export async function answerInquiry(
         ],
       );
     }
+    if (emailRequested && z.email().safeParse(updated.rows[0].email).success) {
+      await queueDelivery(c, {
+        userId: updated.rows[0].user_id,
+        recipient: updated.rows[0].email,
+        subject: "참조은다문화 문의 답변",
+        body: p.data.answer,
+      });
+    }
     await c.query(
       "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'문의 답변 기록',$2)",
       [user.id, p.data.id],
@@ -158,8 +168,9 @@ export async function answerInquiry(
   revalidatePath("/mypage/inquiries");
   revalidatePath("/classroom");
   return {
-    success:
-      "답변을 저장했습니다. 회원은 내 문의에서 확인할 수 있습니다. 이메일 안내가 필요한 문의는 별도로 발송해 주세요.",
+    success: emailRequested
+      ? "답변을 저장했습니다. 이메일 예약 결과는 발송 이력에서 확인해 주세요."
+      : "답변을 저장했습니다. 회원은 내 문의에서 확인할 수 있습니다.",
   };
 }
 export async function savePost(
@@ -286,13 +297,22 @@ export async function manualComplete(
     return { error: "수강신청과 5자 이상의 사유를 확인해 주세요." };
   await transaction(async (c) => {
     const r = await c.query(
-      "UPDATE enrollments SET status='completed',completed_at=now() WHERE id=$1 AND status='active' RETURNING id",
+      "UPDATE enrollments SET status='completed',completed_at=now() WHERE id=$1 AND status='active' RETURNING id,user_id",
       [p.data.id],
     );
     if (!r.rows[0]) return;
     await c.query(
       "INSERT INTO audit_logs(actor_id,action,entity_id,detail) VALUES($1,'수동 수료',$2,$3)",
       [user.id, p.data.id, JSON.stringify({ reason: p.data.reason })],
+    );
+    await notifyMember(
+      c,
+      r.rows[0].user_id,
+      "수료 완료",
+      "수료 과정과 발급 문서를 확인해 주세요.",
+      "/classroom",
+      `completion:${p.data.id}`,
+      "completion",
     );
   });
   revalidatePath("/admin/members");

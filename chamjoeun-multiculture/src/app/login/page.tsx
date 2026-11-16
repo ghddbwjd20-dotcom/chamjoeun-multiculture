@@ -131,6 +131,7 @@ export default async function Page({
         </div>
         <div className="login-links">
           <Link href="/forgot-password">비밀번호 재설정</Link>
+          <Link href="/find-account">가입 이메일 찾기</Link>
           <Link href="/forgot-password?mode=verify">인증메일 재발송</Link>
         </div>
         <div className="signup-invitation">
