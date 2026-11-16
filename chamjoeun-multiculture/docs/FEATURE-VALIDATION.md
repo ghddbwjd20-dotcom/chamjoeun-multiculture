@@ -22,3 +22,14 @@
 - **발송 작업자**는 `npm run worker:delivery`로 실행합니다. 외부 발송을 켜기 전에 대기열의 대상과 내용을 확인합니다. **관리자 → 연동 상태**에서 키 입력 여부와 작업자의 최근 실행 시각을 확인할 수 있습니다. 발송 접수는 제공업체 접수이며 실제 수신 여부는 제공업체 내역과 수신 기기에서 확인합니다.
 - **운영 백업**은 PostgreSQL 클라이언트 도구가 설치된 서버에서 `BACKUP_DATABASE_URL`(직결 주소)과 `BACKUP_DIR`(운영 DB와 분리된 저장 공간)을 설정합니다. 서버 스케줄러에서 `npm run db:backup:production`을 매일 1회 실행합니다. Linux cron 예시는 `0 18 * * * cd /srv/chamjoeun-multiculture && npm run db:backup:production`입니다. 서버 시간이 UTC일 때 한국시간 오전 3시에 실행합니다. 검증된 덤프가 저장된 후 UTC 날짜 기준으로 최근 7일 보관을 적용합니다. 운영 전 별도 DB에 복원해 확인합니다.
 - 운영 오픈 전에 정식 도메인, 실제 교육과정·영상, 승인된 증서 양식으로 전체 검수합니다. 모바일·키보드·화면 낭독기 확인과 관리자 온라인 교육 1회는 운영 인수인계에서 진행합니다.
+
+## Vercel에서 웹을 운영할 때 작업자 실행
+
+Linux Docker 서버에서 deploy/workers.env.example을 프로젝트 루트의 .env.workers로 복사하고 실제 값을 설정합니다. Vercel과 같은 외부 PostgreSQL을 사용합니다. 영상 작업 볼륨은 최대 원본 크기의 5배에 2GB를 더한 여유 공간을 확보합니다.
+
+```sh
+docker compose -f deploy/compose.workers.yml --profile video up -d --build
+docker compose -f deploy/compose.workers.yml --profile delivery up -d --build
+```
+
+발송은 공급자 설정을 마친 뒤 .env.workers에서 NOTIFICATION_SENDING_ENABLED=true를 설정해야 실행됩니다. 키와 URL은 Vercel과 작업자 환경에 필요한 항목을 각각 등록합니다. 운영 DB의 마이그레이션을 먼저 적용하고 관리자 연동 상태에서 작업자 실행을 확인합니다.

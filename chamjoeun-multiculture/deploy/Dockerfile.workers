@@ -1,0 +1,19 @@
+FROM node:24-bookworm-slim AS delivery
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --no-audit --no-fund
+COPY scripts/delivery-worker.ts ./scripts/
+COPY src/lib/delivery.ts src/lib/delivery-policy.ts src/lib/delivery-providers.ts ./src/lib/
+ENV NODE_ENV=production
+USER node
+CMD ["node", "scripts/delivery-worker.ts"]
+
+FROM delivery AS video
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+COPY scripts/video-worker.ts ./scripts/
+COPY src/lib/db.ts src/lib/storage.ts ./src/lib/
+RUN mkdir -p /app/.local/video-jobs && chown -R node:node /app/.local
+USER node
+CMD ["node", "scripts/video-worker.ts"]

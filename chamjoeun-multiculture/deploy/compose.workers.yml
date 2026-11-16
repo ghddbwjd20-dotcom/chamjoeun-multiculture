@@ -1,0 +1,24 @@
+services:
+  video-worker:
+    profiles: [video]
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.workers
+      target: video
+    env_file: ${WORKER_ENV_FILE:-../.env.workers}
+    restart: on-failure
+    stop_grace_period: 30m
+    volumes:
+      - video_work:/app/.local/video-jobs
+
+  delivery-worker:
+    profiles: [delivery]
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.workers
+      target: delivery
+    env_file: ${WORKER_ENV_FILE:-../.env.workers}
+    restart: on-failure
+
+volumes:
+  video_work:
