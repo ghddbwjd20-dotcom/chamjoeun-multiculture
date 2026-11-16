@@ -16,15 +16,16 @@ export function CourseForm({ course }: { course?: Course }) {
         />
       </label>
       <label>
-        과정 주소
+        과정 주소 (선택 시 직접 입력)
         <input
           name="slug"
           placeholder="lifelong-basic"
           pattern="[a-z0-9]+(-[a-z0-9]+)*"
-          required
+          required={Boolean(course)}
           maxLength={100}
           defaultValue={course?.slug}
         />
+        {!course && <small>비워 두면 자동으로 만들어집니다.</small>}
       </label>
       <label>
         분야

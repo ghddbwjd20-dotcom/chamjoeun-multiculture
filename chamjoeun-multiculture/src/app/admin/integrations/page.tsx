@@ -53,15 +53,18 @@ export default async function Page() {
         주세요.
       </p>
       <p>외부 알림 발송 {sendingEnabled() ? "켜짐" : "꺼짐"}</p>
-      <dl>
+      <dl className="integration-status-grid">
         {entries.map(([name, configured]) => (
           <div key={name}>
             <dt>{name}</dt>
-            <dd>{configured ? "설정 입력됨" : "설정 대기"}</dd>
+            <dd className={configured ? "is-configured" : ""}>
+              {configured ? "설정 입력됨" : "설정 대기"}
+            </dd>
           </div>
         ))}
       </dl>
       <h3>작업자 마지막 실행</h3>
+      {!workers.length && <p>아직 작업자 실행 기록이 없습니다.</p>}
       <ul>
         {workers.map((worker) => (
           <li key={worker.name}>

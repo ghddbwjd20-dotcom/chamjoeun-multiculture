@@ -1,4 +1,6 @@
 "use server";
+import { randomUUID } from "node:crypto";
+import { redirect } from "next/navigation";
 import { notifyMember, queueDelivery } from "@/lib/delivery";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
@@ -25,7 +27,9 @@ export async function saveCourse(
   form: FormData,
 ): Promise<FormState> {
   const user = await requireAdmin();
-  const p = courseSchema.safeParse(Object.fromEntries(form));
+  const fields = Object.fromEntries(form);
+  if (!fields.slug && !fields.id) fields.slug = `course-${randomUUID()}`;
+  const p = courseSchema.safeParse(fields);
   if (!p.success)
     return {
       error:
@@ -35,9 +39,9 @@ export async function saveCourse(
   const id = form.get("id");
   if (id && !z.uuid().safeParse(id).success)
     return { error: "과정 ID가 올바르지 않습니다." };
+  let entityId = id;
   try {
     await transaction(async (c) => {
-      let entityId = id;
       if (id) {
         const r = await c.query(
           "UPDATE courses SET title=$1,slug=$2,category=$3,summary=$4,description=$5,instructor=$6,price=$7,duration_days=$8,completion_threshold=$9,status=$10 WHERE id=$11 RETURNING id",
@@ -86,8 +90,49 @@ export async function saveCourse(
   }
   revalidatePath("/admin/courses");
   revalidatePath("/courses");
+  if (!id) redirect(`/admin/courses/${entityId}#lessons`);
   return { success: "교육과정을 저장했습니다." };
 }
+export async function deleteDraftCourse(
+  _: FormState,
+  form: FormData,
+): Promise<FormState> {
+  const user = await requireAdmin();
+  const id = form.get("id");
+  if (!z.uuid().safeParse(id).success || form.get("confirm") !== "on") {
+    return { error: "과정 삭제를 확인해 주세요." };
+  }
+  try {
+    const deleted = await transaction(async (client) => {
+      const course = await client.query(
+        "SELECT id FROM courses WHERE id=$1 AND status='draft' FOR UPDATE",
+        [id],
+      );
+      if (!course.rowCount) return false;
+      const result = await client.query(
+        "DELETE FROM courses WHERE id=$1 AND NOT EXISTS (SELECT 1 FROM lessons WHERE course_id=$1) RETURNING id",
+        [id],
+      );
+      if (!result.rowCount) return false;
+      await client.query(
+        "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'작성 중 과정 삭제',$2)",
+        [user.id, id],
+      );
+      return true;
+    });
+    if (!deleted)
+      return { error: "차시가 없는 작성 중 과정만 삭제할 수 있습니다." };
+  } catch (error) {
+    if ((error as { code?: string }).code === "23503")
+      return {
+        error: "수강·결제·발급 기록이 있는 과정은 보관으로 관리해 주세요.",
+      };
+    throw error;
+  }
+  revalidatePath("/admin/courses");
+  redirect("/admin/courses");
+}
+
 export async function addLesson(
   _: FormState,
   form: FormData,
@@ -98,7 +143,6 @@ export async function addLesson(
       course_id: z.uuid(),
       title: z.string().trim().min(2).max(150),
       position: z.coerce.number().int().min(1).max(1000),
-      duration_seconds: z.coerce.number().int().min(1).max(86400),
     })
     .safeParse(Object.fromEntries(form));
   if (!p.success) return { error: "차시 정보를 확인해 주세요." };
@@ -106,8 +150,8 @@ export async function addLesson(
   try {
     await transaction(async (c) => {
       const r = await c.query(
-        "INSERT INTO lessons(course_id,title,position,duration_seconds) VALUES($1,$2,$3,$4) RETURNING id",
-        [d.course_id, d.title, d.position, d.duration_seconds],
+        "INSERT INTO lessons(course_id,title,position,duration_seconds) VALUES($1,$2,$3,0) RETURNING id",
+        [d.course_id, d.title, d.position],
       );
       await c.query(
         "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'차시 생성',$2)",
@@ -121,9 +165,86 @@ export async function addLesson(
   }
   revalidatePath("/admin/courses");
   return {
-    success: "차시를 추가했습니다. 영상은 업로드 연동 후 등록할 수 있습니다.",
+    success: "차시를 추가했습니다. 아래 목록에서 영상을 등록하세요.",
   };
 }
+export async function updateLesson(
+  _: FormState,
+  form: FormData,
+): Promise<FormState> {
+  const user = await requireAdmin();
+  const parsed = z
+    .object({
+      id: z.uuid(),
+      title: z.string().trim().min(2).max(150),
+      position: z.coerce.number().int().min(1).max(1000),
+    })
+    .safeParse(Object.fromEntries(form));
+  if (!parsed.success) return { error: "차시명과 순서를 확인해 주세요." };
+  const { id, title, position } = parsed.data;
+  try {
+    const result = await transaction(async (client) => {
+      const updated = await client.query(
+        "UPDATE lessons SET title=$2, position=$3 WHERE id=$1 RETURNING course_id",
+        [id, title, position],
+      );
+      if (!updated.rowCount) return null;
+      await client.query(
+        "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'차시 수정',$2)",
+        [user.id, id],
+      );
+      return updated.rows[0].course_id;
+    });
+    if (!result) return { error: "차시를 찾을 수 없습니다." };
+    revalidatePath(`/admin/courses/${result}`);
+    revalidatePath("/courses/[slug]", "page");
+    return { success: "차시를 수정했습니다." };
+  } catch (error) {
+    if ((error as { code?: string }).code === "23505")
+      return { error: "이미 사용 중인 차시 순서입니다." };
+    throw error;
+  }
+}
+
+export async function deleteLesson(
+  _: FormState,
+  form: FormData,
+): Promise<FormState> {
+  const user = await requireAdmin();
+  const id = form.get("id");
+  if (!z.uuid().safeParse(id).success || form.get("confirm") !== "on")
+    return { error: "차시 삭제에 동의해 주세요." };
+  try {
+    const courseId = await transaction(async (client) => {
+      const deleted = await client.query(
+        "DELETE FROM lessons WHERE id=$1 AND video_key IS NULL RETURNING course_id",
+        [id],
+      );
+      if (!deleted.rowCount) return null;
+      await client.query(
+        "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'차시 삭제',$2)",
+        [user.id, id],
+      );
+      return deleted.rows[0].course_id;
+    });
+    if (!courseId)
+      return {
+        error:
+          "연결된 영상을 먼저 제거하거나 차시가 남아 있는지 확인해 주세요.",
+      };
+    revalidatePath(`/admin/courses/${courseId}`);
+    revalidatePath("/courses/[slug]", "page");
+    return { success: "차시를 삭제했습니다." };
+  } catch (error) {
+    if ((error as { code?: string }).code === "23503")
+      return {
+        error:
+          "학습 기록 또는 영상 작업 이력이 있는 차시입니다. 기록을 보존하려면 과정을 보관 상태로 바꿔 주세요.",
+      };
+    throw error;
+  }
+}
+
 export async function answerInquiry(
   _: FormState,
   form: FormData,

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { query } from "@/lib/db";
 import { storageConfigured } from "@/lib/storage";
 import { VideoUpload } from "@/components/video-upload";
@@ -22,6 +23,12 @@ export default async function Page() {
           실행하지 않습니다.
         </p>
       )}
+      {!list.length && (
+        <p>
+          차시를 먼저 등록해 주세요.{" "}
+          <Link href="/admin/courses">과정·차시 관리 →</Link>
+        </p>
+      )}
       <div className="stack" style={{ marginTop: 30 }}>
         {list.map((l) => (
           <section className="info-card" key={l.id}>
@@ -34,6 +41,7 @@ export default async function Page() {
             <p>재생시간 {l.duration_seconds}초</p>
             {l.error && <p className="alert error">{l.error}</p>}
             <VideoUpload
+              uploadEnabled={storageConfigured()}
               lessonId={l.id}
               jobId={l.job_id}
               status={l.job_status ?? l.video_status}

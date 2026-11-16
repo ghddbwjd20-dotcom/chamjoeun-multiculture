@@ -16,10 +16,12 @@ export function VideoUpload({
   lessonId,
   jobId,
   status,
+  uploadEnabled = true,
 }: {
   lessonId: string;
   jobId?: string;
   status: string;
+  uploadEnabled?: boolean;
 }) {
   const input = useRef<HTMLInputElement>(null),
     aborted = useRef(false);
@@ -111,7 +113,7 @@ export function VideoUpload({
             ref={input}
             type="file"
             accept="video/mp4,.mp4"
-            disabled={busy}
+            disabled={busy || !uploadEnabled}
             required
           />
         </label>
@@ -125,7 +127,7 @@ export function VideoUpload({
             <span>{progress}% 업로드</span>
           </>
         )}
-        <button className="button outline" disabled={busy}>
+        <button className="button outline" disabled={busy || !uploadEnabled}>
           <Upload size={15} />
           {busy ? "업로드 중…" : "영상 업로드"}
         </button>
