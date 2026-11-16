@@ -7671,3 +7671,31 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .editorial-hero .hero-film > video { transition: none; }
 }
+
+.footer-contact dl {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+}
+.footer-contact dl > div {
+  display: grid;
+  grid-template-columns: 5em minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+}
+.footer-contact dt,
+.footer-contact dd {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.footer-contact dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.footer-contact dd a {
+  color: inherit;
+  font-weight: 600;
+}
+.footer-contact dd a:hover {
+  text-decoration: underline;
+}

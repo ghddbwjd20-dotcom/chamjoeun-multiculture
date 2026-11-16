@@ -2,6 +2,8 @@ import Link from "next/link";
 import { contactSettings } from "@/lib/site-settings";
 export async function Footer() {
   const contact = await contactSettings();
+  const phone = contact.phone.replace(/[^+\d]/g, "");
+  const mobile = contact.mobile?.replace(/[^+\d]/g, "");
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
@@ -10,20 +12,30 @@ export async function Footer() {
           <p>외국인의 안정적인 정착과 교육을 지원하는 전문기관</p>
           <p>{contact.address}</p>
         </div>
-        <div>
-          <span className="eyebrow">CONTACT</span>
-          <a
-            className="footer-phone"
-            href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
-          >
-            {contact.phone}
-          </a>
-          {contact.mobile && (
-            <a href={`tel:${contact.mobile.replace(/[^+\d]/g, "")}`}>
-              휴대전화 {contact.mobile}
-            </a>
-          )}
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <div className="footer-contact">
+          <h2>연락처</h2>
+          <dl>
+            <div>
+              <dt>대표전화</dt>
+              <dd>
+                <a href={`tel:${phone}`}>{contact.phone}</a>
+              </dd>
+            </div>
+            {mobile && mobile !== phone && (
+              <div>
+                <dt>휴대전화</dt>
+                <dd>
+                  <a href={`tel:${mobile}`}>{contact.mobile}</a>
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt>이메일</dt>
+              <dd>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              </dd>
+            </div>
+          </dl>
         </div>
         <div className="footer-links">
           <Link href="/business">주요사업</Link>
