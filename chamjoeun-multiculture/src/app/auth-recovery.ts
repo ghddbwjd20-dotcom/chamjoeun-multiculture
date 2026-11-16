@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { randomBytes } from "node:crypto";
 import { query, transaction } from "@/lib/db";
-import { digest, rateLimit } from "@/lib/auth";
+import { digest, rateLimit, requireAdmin } from "@/lib/auth";
 import { hashPassword } from "@/lib/password";
 import { mailPreview, mailConfigured, sendEmail } from "@/lib/mail";
 import type { FormState } from "@/components/form";
@@ -43,6 +43,7 @@ export async function findAccount(
 async function requestToken(
   form: FormData,
   purpose: "reset" | "verify",
+  preview = mailPreview(),
 ): Promise<FormState> {
   const email = String(form.get("email") ?? "")
     .trim()
@@ -51,7 +52,7 @@ async function requestToken(
     return { error: "이메일을 확인해 주세요." };
   if (!(await rateLimit(`recovery:${email}`, 4)))
     return { error: "요청이 많습니다. 15분 후 다시 시도해 주세요." };
-  if (!mailPreview() && !mailConfigured())
+  if (!preview && !mailConfigured())
     return { error: "이메일 발송을 준비 중입니다. 기관에 문의해 주세요." };
   const [user] = await query(
     "SELECT id,email_verified_at FROM users WHERE email=$1 AND deleted_at IS NULL",
@@ -70,7 +71,7 @@ async function requestToken(
   );
   const path = purpose === "reset" ? "reset-password" : "verify";
   const url = `${process.env.APP_URL}/${path}?token=${token}`;
-  if (mailPreview()) return { ...response, preview: url };
+  if (preview) return { ...response, preview: url };
   try {
     await sendEmail(
       email,
@@ -86,6 +87,35 @@ async function requestToken(
 }
 export async function requestReset(_: FormState, form: FormData) {
   return requestToken(form, "reset");
+}
+export async function sendMemberPasswordReset(
+  _: FormState,
+  form: FormData,
+): Promise<FormState> {
+  const admin = await requireAdmin();
+  const id = z.uuid().safeParse(form.get("id"));
+  if (!id.success || form.get("confirm") !== "on")
+    return { error: "재설정 메일 발송을 확인해 주세요." };
+  const [member] = await query<{ email: string }>(
+    "SELECT email FROM users WHERE id=$1 AND role='member' AND deleted_at IS NULL AND email_verified_at IS NOT NULL",
+    [id.data],
+  );
+  if (!member)
+    return { error: "이메일 인증을 완료한 일반 회원에게 발송할 수 있습니다." };
+  if (!mailConfigured() || !process.env.APP_URL)
+    return { error: "이메일 발송 설정을 먼저 완료해 주세요." };
+  const request = new FormData();
+  request.set("email", member.email);
+  const result = await requestToken(request, "reset", false);
+  if (result.error) return result;
+  await query(
+    "INSERT INTO audit_logs(actor_id,action,entity_id) VALUES($1,'회원 비밀번호 재설정 요청',$2)",
+    [admin.id, id.data],
+  );
+  return {
+    success:
+      "재설정 링크를 등록 이메일로 발송했습니다. 링크는 30분 동안 유효합니다.",
+  };
 }
 export async function resendVerification(_: FormState, form: FormData) {
   return requestToken(form, "verify");

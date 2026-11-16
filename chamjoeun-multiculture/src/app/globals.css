@@ -7732,3 +7732,21 @@ p {
   background: #e4f3e9;
   color: #235c38;
 }
+
+.member-enrollment-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) auto;
+  align-items: end;
+  gap: 14px;
+  padding: 18px;
+  margin-bottom: 24px;
+  border: 1px solid #dae4ec;
+  border-radius: 8px;
+  background: #f7fafc;
+}
+.member-enrollment-filters label { min-width: 0; }
+.member-enrollment-filters :is(input, select, button) { min-height: 46px; }
+.member-enrollment-filters :is(input, select) { width: 100%; }
+@media (max-width: 620px) {
+  .member-enrollment-filters { grid-template-columns: minmax(0, 1fr); }
+}

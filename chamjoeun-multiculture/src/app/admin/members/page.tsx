@@ -1,3 +1,5 @@
+import { sendMemberPasswordReset } from "@/app/auth-recovery";
+import { mailConfigured } from "@/lib/mail";
 import { query } from "@/lib/db";
 import { ActionForm } from "@/components/form";
 import { manualComplete } from "../actions";
@@ -20,7 +22,7 @@ export default async function Page({
   );
   const courses = await query("SELECT id,title FROM courses ORDER BY title,id");
   const members = await query(
-    "SELECT id,name,email,role,created_at FROM users ORDER BY created_at DESC LIMIT 100",
+    "SELECT id,name,email,role,created_at,email_verified_at FROM users WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT 100",
   );
   const list = await query(
     `SELECT e.*,u.name,u.email,c.title,stats.watched,stats.total,a.detail AS completion_detail,
@@ -41,11 +43,18 @@ export default async function Page({
       ORDER BY e.enrolled_at DESC,e.id DESC LIMIT 31 OFFSET $3`,
     [course, `%${search}%`, (page - 1) * 30],
   );
+  const resetAvailable = mailConfigured() && Boolean(process.env.APP_URL);
   const pageHref = (n: number) =>
     `/admin/members?${new URLSearchParams({ course, q: search, page: String(n) })}`;
   return (
     <>
       <h2 className="section-title">회원</h2>
+      {!resetAvailable && (
+        <p className="alert">
+          재설정 메일을 보내려면 이메일 발송 설정이 필요합니다.{" "}
+          <Link href="/admin/integrations">연동 상태 확인 →</Link>
+        </p>
+      )}
       <div className="table-wrap">
         <table>
           <thead>
@@ -54,6 +63,7 @@ export default async function Page({
               <th>이메일</th>
               <th>권한</th>
               <th>가입일</th>
+              <th>계정 관리</th>
             </tr>
           </thead>
           <tbody>
@@ -61,11 +71,36 @@ export default async function Page({
               <tr key={m.id}>
                 <td>{m.name}</td>
                 <td>{m.email}</td>
-                <td>{m.role}</td>
+                <td>{m.role === "admin" ? "관리자" : "일반 회원"}</td>
                 <td>
                   {new Date(m.created_at).toLocaleDateString("ko-KR", {
                     timeZone: "Asia/Seoul",
                   })}
+                </td>
+                <td>
+                  {m.role === "member" && m.email_verified_at ? (
+                    resetAvailable ? (
+                      <details>
+                        <summary>비밀번호 재설정 메일</summary>
+                        <ActionForm
+                          action={sendMemberPasswordReset}
+                          label="링크 발송"
+                        >
+                          <input type="hidden" name="id" value={m.id} />
+                          <label className="checkbox">
+                            <input name="confirm" type="checkbox" required />
+                            등록 이메일로 발송합니다.
+                          </label>
+                        </ActionForm>
+                      </details>
+                    ) : (
+                      <span className="muted">메일 설정 대기</span>
+                    )
+                  ) : (
+                    <span className="muted">
+                      {m.role === "admin" ? "—" : "이메일 미인증"}
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
@@ -75,9 +110,9 @@ export default async function Page({
       <h2 className="section-title" style={{ marginTop: 40 }}>
         과정별 수강생 · 학습 현황
       </h2>
-      <form className="search" method="get">
+      <form className="form member-enrollment-filters" method="get">
         <label>
-          교육과정{" "}
+          교육과정
           <select name="course" defaultValue={course}>
             <option value="">전체 과정</option>
             {courses.map((c) => (
@@ -88,8 +123,13 @@ export default async function Page({
           </select>
         </label>
         <label>
-          회원 이름 또는 이메일{" "}
-          <input name="q" defaultValue={search} maxLength={100} />
+          회원 이름 또는 이메일
+          <input
+            name="q"
+            defaultValue={search}
+            maxLength={100}
+            placeholder="이름 또는 이메일 입력"
+          />
         </label>
         <button className="button outline">조회</button>
       </form>
@@ -139,11 +179,13 @@ export default async function Page({
         ))}
         {!list.length && <p className="muted">수강신청 내역이 없습니다.</p>}
       </div>
-      <nav className="section-links" aria-label="수강생 목록 페이지">
-        {page > 1 && <Link href={pageHref(page - 1)}>이전</Link>}
-        <span>{page}페이지</span>
-        {list.length > 30 && <Link href={pageHref(page + 1)}>다음</Link>}
-      </nav>
+      {(page > 1 || list.length > 30) && (
+        <nav className="section-links" aria-label="수강생 목록 페이지">
+          {page > 1 && <Link href={pageHref(page - 1)}>이전</Link>}
+          <span>{page}페이지</span>
+          {list.length > 30 && <Link href={pageHref(page + 1)}>다음</Link>}
+        </nav>
+      )}
     </>
   );
 }
