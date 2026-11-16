@@ -31,6 +31,48 @@ export default async function Page() {
                 />
               </label>
             ))}
+            <h4>결제 심사용 사업자 정보</h4>
+            <p className="muted">
+              사업자등록증과 동일하게 입력해 주세요. 저장하면 푸터에 표시됩니다.
+            </p>
+            <label>
+              대표자명
+              <input
+                name="representative"
+                maxLength={60}
+                defaultValue={c.representative}
+              />
+            </label>
+            <label>
+              사업자등록번호
+              <input
+                name="businessNumber"
+                maxLength={12}
+                placeholder="000-00-00000"
+                defaultValue={c.businessNumber}
+              />
+            </label>
+            <label>
+              통신판매업 신고번호 (해당 시)
+              <input
+                name="salesRegistration"
+                maxLength={80}
+                defaultValue={c.salesRegistration}
+              />
+            </label>
+            <label>
+              취소·환불 안내
+              <textarea
+                name="refundPolicy"
+                rows={7}
+                maxLength={6000}
+                defaultValue={c.refundPolicy}
+                placeholder="기관에서 확정한 신청 방법, 수강 시작 전후 환불 기준, 처리 절차를 입력해 주세요."
+              />
+            </label>
+            <p className="muted">
+              저장한 환불 안내는 이용약관과 유료 과정 상세에 표시됩니다.
+            </p>
           </ActionForm>
         </section>
         <section className="info-card">

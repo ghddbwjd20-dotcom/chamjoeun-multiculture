@@ -5,6 +5,7 @@ import { query } from "@/lib/db";
 import type { Course } from "@/lib/data";
 import { PageHeading } from "@/components/page-heading";
 import { ActionForm } from "@/components/form";
+import { contactSettings } from "@/lib/site-settings";
 import { enroll } from "../actions";
 export default async function Page({
   params,
@@ -17,6 +18,8 @@ export default async function Page({
     [slug],
   );
   if (!c) notFound();
+  const refundPolicy =
+    c.price > 0 ? (await contactSettings()).refundPolicy : undefined;
   const lessons = await query(
     "SELECT id,title,duration_seconds FROM lessons WHERE course_id=$1 ORDER BY position",
     [c.id],
@@ -75,6 +78,21 @@ export default async function Page({
             진도 {c.completion_threshold}%이며, 반복 시청과 건너뛴 구간은 중복
             인정하지 않습니다.
           </p>
+          {c.price > 0 && (
+            <>
+              <h2>수강 이용 방법</h2>
+              <p>
+                로그인 후 결제하면 나의 강의실에서 수강할 수 있습니다. 수강
+                기간은 결제일부터 {c.duration_days}일입니다.
+              </p>
+              {refundPolicy && (
+                <section>
+                  <h2>취소·환불 안내</h2>
+                  <p style={{ whiteSpace: "pre-wrap" }}>{refundPolicy}</p>
+                </section>
+              )}
+            </>
+          )}
         </div>
         <aside className="info-card">
           <span className="badge">{c.price ? "유료과정" : "무료과정"}</span>

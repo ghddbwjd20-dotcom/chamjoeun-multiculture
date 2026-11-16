@@ -25,6 +25,17 @@ export async function saveContact(
         .optional(),
       address: z.string().min(5).max(200),
       privacyOfficer: z.string().min(2).max(30),
+      representative: z.string().trim().max(60).optional(),
+      businessNumber: z
+        .string()
+        .trim()
+        .regex(/^(?:[0-9]{10}|[0-9]{3}-[0-9]{2}-[0-9]{5})?$/)
+        .transform((value) =>
+          value.replace(/^([0-9]{3})([0-9]{2})([0-9]{5})$/, "$1-$2-$3"),
+        )
+        .optional(),
+      salesRegistration: z.string().trim().max(80).optional(),
+      refundPolicy: z.string().trim().max(6000).optional(),
     })
     .safeParse(Object.fromEntries(form));
   if (!p.success) return { error: "기관 기본정보를 확인해 주세요." };

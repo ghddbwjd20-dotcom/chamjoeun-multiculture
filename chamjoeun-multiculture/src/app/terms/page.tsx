@@ -27,12 +27,14 @@ export default async function Page() {
           기준으로 진도를 계산하며 건너뛴 구간과 반복 시청 구간을 중복 인정하지
           않습니다.
         </p>
-        <h2>4. 결제와 환불</h2>
-        <p>
-          결제·취소·환불 기준과 신청 절차는 유료 서비스 개시 전에 과정별 정책과
-          함께 확정하여 안내합니다. 현재 개발 단계에서는 실제 유료결제를
-          제공하지 않습니다.
-        </p>
+        <section id="refund">
+          <h2>4. 결제와 환불</h2>
+          {contact.refundPolicy ? (
+            <p style={{ whiteSpace: "pre-wrap" }}>{contact.refundPolicy}</p>
+          ) : (
+            <p>결제·취소·환불 기준은 유료 서비스 시작 전에 안내합니다.</p>
+          )}
+        </section>
         <h2>5. 콘텐츠 이용</h2>
         <p>교육 영상과 자료의 무단 복제·배포·판매를 금지합니다.</p>
         <h2>6. 문의</h2>

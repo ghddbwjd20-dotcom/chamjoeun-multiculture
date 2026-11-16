@@ -11,6 +11,13 @@ export async function Footer() {
           <h2>{contact.name}</h2>
           <p>외국인의 안정적인 정착과 교육을 지원하는 전문기관</p>
           <p>{contact.address}</p>
+          {contact.representative && <p>대표자명 {contact.representative}</p>}
+          {contact.businessNumber && (
+            <p>사업자등록번호 {contact.businessNumber}</p>
+          )}
+          {contact.salesRegistration && (
+            <p>통신판매업 신고번호 {contact.salesRegistration}</p>
+          )}
         </div>
         <div className="footer-contact">
           <h2>연락처</h2>

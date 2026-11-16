@@ -7,6 +7,10 @@ export type ContactSettings = {
   email: string;
   address: string;
   privacyOfficer: string;
+  representative?: string;
+  businessNumber?: string;
+  salesRegistration?: string;
+  refundPolicy?: string;
 };
 export const contactSettings = cache(async (): Promise<ContactSettings> => {
   const [s] = await query(
